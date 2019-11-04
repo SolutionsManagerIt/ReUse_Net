@@ -21,7 +21,7 @@ For more details see [code reuse](https://pizza-soft.ru/2019/11/04/codereuse/).
 
 ## Specification
 
-ReUse_Net is a common .NET code framework project, written in C#. It can be compiled using Visual Studio 2010-2019 and is set to use .Net version 4.0 and above.
+[ReUse_Net](https://solutionsmanagerit.github.io/ReUse_Net/) is a common .NET code framework project, written in C#. It can be compiled using Visual Studio 2010-2019 and is set to use .Net version 4.0 and above.
 
 Since it is designed to be really platform/architecture independent and highly portable it will be easy to port it to .NET Standard and Core versions.
 
