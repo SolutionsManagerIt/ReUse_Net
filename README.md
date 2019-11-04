@@ -3,7 +3,7 @@
 
 An example of common [ReUse concept](https://github.com/SolutionsManagerIt/ReUse) with widely used .NET languages family.
 
-Well designed common collaborative code framework with simple main principles : heavy focus on typical code reuse, ultra minimalistic, lightweight and highly efficient, extendable.
+Well designed common collaborative [code framework](https://pizza-soft.ru/2019/11/04/reuse-net/) with simple main principles : heavy focus on typical code reuse, ultra minimalistic, lightweight and highly efficient, extendable.
 
 Since most recent programming languages open source codes are not well designed, we decided to make a Well designed common collaborative code frameworks with simple main principles :
 
