@@ -9,4 +9,4 @@ community_bridge: # Replace with a single Community Bridge project-name e.g., cl
 liberapay: # Replace with a single Liberapay username
 issuehunt: # Replace with a single IssueHunt username
 otechie: # Replace with a single Otechie username
-custom: ['https://pizza-soft.ru/2019/11/04/codereuse/','https://solutionsmanagerit.github.io/ReUse_Net/','https://solutionsmanagerit.github.io/ReUse/','https://github.com/SolutionsManagerIt/ReUse']
+custom: ['https://portal.pizza-soft.ru/index.php/en/contribute-to-reuse','https://pizza-soft.ru/2019/11/04/codereuse/','https://solutionsmanagerit.github.io/ReUse_Net/','https://solutionsmanagerit.github.io/ReUse/','https://github.com/SolutionsManagerIt/ReUse']
