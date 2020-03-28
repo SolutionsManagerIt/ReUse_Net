@@ -1,0 +1,2423 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ReUse_Std</name>
+    </assembly>
+    <members>
+        <member name="T:ReUse_Std.Base.BaseTypes">
+            <summary>
+            Abstract Common Structs and Data Utilities -  Extensions version
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.BaseTypes.o(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean[])">
+            <summary>
+            Checks Or Logic - true if any of values are true
+            </summary>        
+        </member>
+        <member name="M:ReUse_Std.Base.BaseTypes.a(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean[])">
+            <summary>
+            Checks And Logic - true if all values are true
+            </summary> 
+        </member>
+        <member name="M:ReUse_Std.Base.BaseTypes._na(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object[])">
+            <summary>
+            Checks if all values are null
+            </summary>          
+        </member>
+        <member name="M:ReUse_Std.Base.BaseTypes._n(System.Object)">
+            <summary>
+            Checks all Parameters are not null
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.BaseTypes._n(System.Object,System.Object)">
+            <summary>
+            Checks all Parameters are not null
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.BaseTypes._n(System.Object,System.Object,System.Object)">
+            <summary>
+            Checks all Parameters are not null
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.BaseTypes._n(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Checks all Parameters are not null
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.BaseTypes._n(System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Checks all Parameters are not null
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.BaseTypes._n(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Checks all Parameters are not null
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.BaseTypes._n(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Checks all Parameters are not null
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.BaseTypes._n(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object[])">
+            <summary>
+            Checks all Parameters are not null
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.C">
+            <summary>
+            Common Code Schema Utilities  -  Run, Try, Loop, If, Process, For, Each, etc
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.C.R``1(ReUse_Std.Base.Ax,ReUse_Std.Common.f{``0},System.Nullable{ReUse_Std.Base.Cx},``0)">
+            <summary>
+            Run Common Try FuncToRun With Errors And Performance Logging based on CurrContext and optional CustomCodeType.
+            </summary>        
+        </member>
+        <member name="M:ReUse_Std.Base.C.R``1(ReUse_Std.Base.Cx,ReUse_Std.Common.f{``0},System.Nullable{ReUse_Std.Base.Performance._Log},``0)">
+            <summary>
+            Run Common Try FuncToRun With Errors And Performance Logging based on CurrCodeType.
+            Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
+            </summary>        
+        </member>
+        <member name="M:ReUse_Std.Base.C._Rp``1(System.String,ReUse_Std.Common.f{``0},``0,System.String,System.Nullable{ReUse_Std.Base.Cx},System.String,System.Nullable{ReUse_Std.Base.Performance._Log},System.Boolean)">
+            <summary>
+            Run Common Try FuncToRun With Performance only Logging based on CurrCodeType for current MethodName.
+            Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
+            </summary>        
+        </member>
+        <member name="M:ReUse_Std.Base.C._Re``1(System.String,ReUse_Std.Common.f{``0},``0,System.String,System.Nullable{ReUse_Std.Base.Cx},System.String,System.Nullable{ReUse_Std.Base.Performance._Log})">
+            <summary>
+            Run Common Try FuncToRun With Errors only Logging based on CurrCodeType.
+            Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
+            </summary>        
+        </member>
+        <member name="M:ReUse_Std.Base.C._R``1(System.String,ReUse_Std.Common.f{``0},``0,System.String,System.Nullable{ReUse_Std.Base.Cx},System.String,System.String,System.Boolean,System.Boolean,System.Nullable{ReUse_Std.Base.Performance._Log})">
+            <summary>
+            Run Common Try FuncToRun With Errors And Performance Logging based on CurrCodeType.
+            Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
+            </summary>        
+        </member>
+        <member name="M:ReUse_Std.Base.C._R``2(ReUse_Std.Base.Proc{``0,``1},System.Nullable{ReUse_Std.Base.Cx},System.Nullable{ReUse_Std.Base.Performance._Log})">
+            <summary>
+            Run Common Try Code Schema Block for ProcessToRun With Errors And Performance Logging based on CurrCodeType.
+            Schema : Init --> Pre --> Validate --> 
+            try[CustomUseTryCatch or CurrCodeType] 
+            ((Process or ValidFalse or ValidNull) or Fail) with Error OnErrorCatch
+            --> Post --> End.
+            Check meyhods Init and End methods return bool? results and run CheckTrue/CheckFalse/CheckNull methods if available
+            or return default on not true. 
+            Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
+            </summary>        
+        </member>
+        <member name="M:ReUse_Std.Base.C.AppS``1(System.String,ReUse_Std.Common.f{``0},``0,System.Nullable{ReUse_Std.Base.Cx},System.Nullable{ReUse_Std.Base.Cx},System.Nullable{ReUse_Std.Base.Cx})">
+            <summary>
+            Start App method with logs and performance (old format)
+            </summary>        
+        </member>
+        <member name="M:ReUse_Std.Base.C.F``2(ReUse_Std.Base.Proc{``0,``1},System.Nullable{ReUse_Std.Base.Cx})">
+            <summary>
+            Run Common Code Schema without additional  code  
+            Schema : Init --> Pre --> (Process  or Fail) --> Post --> End.
+            Check methods Init and End methods return bool? results and run CheckTrue/CheckFalse/CheckNull methods if available
+            or return default on not true
+            </summary>        
+        </member>
+        <member name="M:ReUse_Std.Base.C.Try``2(ReUse_Std.Base.Proc{``0,``1},System.Nullable{ReUse_Std.Base.Cx})">
+            <summary>
+            Run Common Try Code Schema  with Error Handling
+            Schema : Init --> Pre --> Validate --> 
+            try[CustomUseTryCatch or CurrCodeType] (Process or Fail) with Error OnErrorCatch
+            --> Post --> End.
+            Check methods Init and End methods return bool? results and run CheckTrue/CheckFalse/CheckNull methods if available
+            or return default on not true
+            </summary> 
+        </member>
+        <member name="M:ReUse_Std.Base.C.If``2(ReUse_Std.Base.Proc{``0,``1},System.Nullable{ReUse_Std.Base.Cx})">
+            <summary>
+            Run Common If Code Schema with Validation  
+            Schema : Init --> Pre --> Validate --> 
+            ((Process or ValidFalse or ValidNull) or Fail)
+            --> Post --> End.
+            Check methods Init and End methods return bool? results and run CheckTrue/CheckFalse/CheckNull methods if available
+            or return default on not true
+            </summary>        
+        </member>
+        <member name="M:ReUse_Std.Base.C.TryIf``2(ReUse_Std.Base.Proc{``0,``1},System.Nullable{ReUse_Std.Base.Cx})">
+            <summary>
+            Run Common Try Code Schema Block With Errors And Performance Logging based on CurrCodeType.
+            Schema : Init --> Pre --> Validate --> 
+            try[CustomUseTryCatch or CurrCodeType] 
+            ((Process or ValidFalse or ValidNull) or Fail) with Error OnErrorCatch
+            --> Post --> End.
+            Check methods Init and End methods return bool? results and run CheckTrue/CheckFalse/CheckNull methods if available
+            or return default on not true
+            </summary> 
+        </member>
+        <member name="M:ReUse_Std.Base.C._Mu(ReUse_Std.Base.Mvt)">
+            <summary>
+            Get Memory Usage Text
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.C._Muv(ReUse_Std.Base.Mvt)">
+            <summary>
+            Get Memory Usage value
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base._">
+            <summary>
+            Default Common Applications Props and
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.Base._.D">
+            <summary>
+            Return current DateTime Now
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.Base._.d">
+            <summary>
+            Return current DateTime Utc Now
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.Base._.g">
+            <summary>
+            Return New Guid
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.Base._.s">
+            <summary>
+            Return new List of strings
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base._.C">
+            <summary>
+            Base default Application Execution Context (with default logs from static old format code)
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base._._Ge(System.Boolean,System.Boolean)">
+            <summary>
+            Get Common Context with errors and performance with CollectPerfProcessDetails
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base._._G(ReUse_Std.Base.Cx)">
+            <summary>
+            Get Common Context with CommonCodeType
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.C_Type">
+            <summary>
+            Code Type Utils
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.C_Type._Tn(System.Boolean,System.Boolean,System.Boolean,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String)">
+            <summary>
+            Create new CodeType for App with current code UseTryCatch setting
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.C_Type._Te(System.Boolean,System.Boolean,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String)">
+            <summary>
+            Create new CodeType for Error with current code UseTryCatch setting
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.C_Type._Teo(System.Boolean,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String)">
+            <summary>
+            Create new CodeType for Error Only with current code UseTryCatch setting
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.C_Type._Tp(System.Boolean,System.Boolean,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String)">
+            <summary>
+            Create new CodeType for Perf with current code UseTryCatch setting
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.C_Type._Tpc(System.Boolean,System.Boolean,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String)">
+            <summary>
+            Create new CodeType for Common Perf with current code UseTryCatch setting
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.C_Type._Tpd(System.Boolean,System.Boolean,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String)">
+            <summary>
+            Create new CodeType for Perf with Details with current code UseTryCatch setting
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.C_Type._Tt(System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Boolean,System.String,System.String,System.Nullable{System.Int32})">
+            <summary>
+            Create new CodeType for Tests with current code UseTryCatch setting
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.C_Common">
+            <summary>
+            CodeCommon Utils
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.C_Common._Ccl(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{ReUse_Std.Base.Ab})">
+            <summary>
+            Create new CodeCommon details with Logs for current ParametersData setting
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.C_Common._Cc(System.Boolean,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{ReUse_Std.Base.Ab})">
+            <summary>
+            Create new CodeCommon details for common code for current LogError setting
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.C_Common._Cc(System.Nullable{System.Int32},System.String)">
+            <summary>
+            Create new CodeArrayBlock details for Logs for current ArrayBlockSize setting
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.C_Common._Cct(System.Boolean,System.String,System.String,System.Nullable{ReUse_Std.Base.Ab},System.Nullable{System.Int32},System.String,System.String,System.Nullable{System.Int32})">
+            <summary>
+            Create new CodeCommon details for Tests for current LogError setting
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.C_Common._S(ReUse_Std.Base.Cm,System.String,System.String)">
+            <summary>
+            Sets logs destinations for current CurrCode - LogSQL_ConnString, LogXML_DirPath
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.C_Entry">
+            <summary>
+            CodeEntry Utils
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.C_Entry._Ce(System.String,System.String,System.String,System.String)">
+            <summary>
+            Create new CodeEntryData for current ClassName
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.C_Func">
+            <summary>
+            Code Func Lambda expressions Utils
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.C_Func.Eval``2(ReUse_Std.Base.Proc{``0,``1},ReUse_Std.Common.f{``0,System.Nullable{ReUse_Std.Base.Cx},System.Nullable{System.Boolean}},System.Nullable{ReUse_Std.Base.Cx},``1,System.Boolean)">
+            <summary>
+            Evaluate common bool? return from CheckToEvaluate with context CheckFalse/CheckNull/CheckTrue methods details
+            Returns true if any method return true, else false
+            </summary>        
+            <returns>Returns true if any method return true, else false</returns>
+        </member>
+        <member name="M:ReUse_Std.Base.C_Func.Eval``2(ReUse_Std.Base.Proc{``0,``1},ReUse_Std.Common.f{``0,``1,System.Nullable{ReUse_Std.Base.Cx},System.Nullable{System.Boolean}},``1,System.Nullable{ReUse_Std.Base.Cx},System.Boolean)">
+            <summary>
+            Evaluate common bool? return from CheckToEvaluate with context CheckFalse/CheckNull/CheckTrue methods details
+            Returns true if any method return true, else false
+            </summary>        
+            <returns>Returns true if any method return true, else false</returns>
+        </member>
+        <member name="M:ReUse_Std.Base.C_Func.Add``2(ReUse_Std.Common.f{``0,System.Nullable{ReUse_Std.Base.Cx},``1},ReUse_Std.Common.f{``0,System.Nullable{ReUse_Std.Base.Cx},``1},System.Nullable{ReUse_Std.Base.Cx},System.Boolean)">
+            <summary>
+            Create new Func and add AddOn method with Original with AddAfterOriginal order
+            </summary>        
+        </member>
+        <member name="M:ReUse_Std.Base.C_Func.Add``2(ReUse_Std.Common.f{``0,``1,System.Nullable{ReUse_Std.Base.Cx},``1},ReUse_Std.Common.f{``0,``1,System.Nullable{ReUse_Std.Base.Cx},``1},System.Nullable{ReUse_Std.Base.Cx},System.Boolean)">
+            <summary>
+            Create new Func and add AddOn method with Original with AddAfterOriginal order
+            </summary>        
+        </member>
+        <member name="M:ReUse_Std.Base.C_Func.Eval``2(``0,ReUse_Std.Common.f{``0,System.Nullable{ReUse_Std.Base.Cx},``1},System.Nullable{ReUse_Std.Base.Cx},ReUse_Std.Common.f{``0,System.Nullable{ReUse_Std.Base.Cx},``1},ReUse_Std.Common.f{``0,``1,System.Exception,System.Nullable{ReUse_Std.Base.Cx},``1})">
+            <summary>
+            Create new custom process with specified methods
+            </summary>        
+        </member>
+        <member name="T:ReUse_Std.Base.Ax">
+            <summary>
+            Global Applications Common Execution Context
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Ax.T">
+            <summary>
+            Base default app Code Type
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Ax.L">
+            <summary>
+            Application logging
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Ax.#ctor(System.Boolean,System.Boolean)">
+            <summary>
+            Get Common Context with errors and performance with process details
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Cx">
+            <summary>
+            Code Type Execution Context
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Cx.T">
+            <summary>
+            Use Try Catch
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Cx.P">
+            <summary>
+            Get Performance Process Data
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Cx.Cr">
+            <summary>
+            Error Is Critical
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Cx.R">
+            <summary>
+            Re Throw On Error
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Cx.Cp">
+            <summary>
+            Code Common Performance
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Cx.Ce">
+            <summary>
+            Code Common Error Data
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Cx.Ca">
+            <summary>
+            Code Common Asp
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Cx.Ctr">
+            <summary>
+            Code Common Threads
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Cx.Ct">
+            <summary>
+            Code Common Test
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Cx.C">
+            <summary>
+            Code Entry
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Cm">
+            <summary>
+            Code Common details  - ParametersData, Details, ArrayItemSize, LogIndex etc
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Cm.L">
+            <summary>
+            Log 
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Cm.P">
+            <summary>
+            Parameters Data
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Cm.D">
+            <summary>
+            Details
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Cm.As">
+            <summary>
+            Array Size
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Cm.Li">
+            <summary>
+            Log Index
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Cm.B">
+            <summary>
+            Array Block Details 
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Cm.Lq">
+            <summary>
+            Log SQL Conn String
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Cm.Lx">
+            <summary>
+            Log XML Dir Path
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Ed">
+            <summary>
+            Common Code Entry Data -  class/method details with comments
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Ed.C">
+            <summary>
+            Class Name
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Ed.M">
+            <summary>
+            Method Name
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Ed.Me">
+            <summary>
+            Custom Error Message
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Ed.Mi">
+            <summary>
+            Custom Info Message
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Ed.Cp">
+            <summary>
+            Performance Comments
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Ed.Ct">
+            <summary>
+            Testing Comments
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Ed.Ctr">
+            <summary>
+            Threading Comments
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Ab">
+            <summary>
+            Code Array Block Details for block / buffer / paged methods
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Ab.S">
+            <summary>
+            Array Block Size
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Ab.M">
+            <summary>
+            Custom Array Block Message
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Proc`2">
+            <summary>
+            Common Process Data Functions
+            </summary>    
+        </member>
+        <member name="F:ReUse_Std.Base.Proc`2.Params">
+            <summary>
+            Params To Start Process
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Proc`2.Init">
+            <summary>
+            Check Params on Start
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Proc`2.Pre">
+            <summary>
+            Pre Process
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Proc`2.Validate">
+            <summary>
+            Validate Process Type For Params
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Proc`2.Process">
+            <summary>
+            Process Params on Validate True (or Validate Null)
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Proc`2.ValidFalse">
+            <summary>
+            Process Params on Validate False 
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Proc`2.ValidNull">
+            <summary>
+            Process Params on Validate Null
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Proc`2.Fail">
+            <summary>
+            Run On Main Process Is Null
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Proc`2.Post">
+            <summary>
+            Post Process
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Proc`2.End">
+            <summary>
+            Check Result
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Proc`2.Error">
+            <summary>
+            Custom Use Try Catch Error Handler
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Proc`2.CheckNull">
+            <summary>
+            Run On Check Is Null
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Proc`2.CheckTrue">
+            <summary>
+            Run On Check Is True
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Proc`2.CheckFalse">
+            <summary>
+            Run On Check Is False
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Proc`2.Default">
+            <summary>
+            Return Default On Error
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Proc`2.CustomUseTryCatch">
+            <summary>
+            Custom Use Try Catch 
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Base.Proc`2.ReThrowOnError">
+            <summary>
+            Re Throw Error On Error Catch
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Mvt">
+            <summary>
+            Memory value Type - Kb, Mb, Gb
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance._Log">
+            <summary>
+            Simple non static logger with messages limit and threaded save
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance._Log.#ctor(ReUse_Std.Base.Performance.SessionLog,System.String,System.String)">
+            <summary>
+            Start logger with parameters from CurrLogSession
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance._Log._E(System.String,System.String,System.String,System.Exception,System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Create New Error Log Entry
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance._Log._E(System.String,System.String,System.String,System.Exception,System.Nullable{ReUse_Std.Base.Cx})">
+            <summary>
+            Create New Error Log Entry
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance._Log._E(System.String,System.Exception,System.Nullable{ReUse_Std.Base.Cx})">
+            <summary>
+            Create New Error Log Entry
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance._Log._I(System.Nullable{ReUse_Std.Base.Ed},System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Create New Info Log Entry
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance._Log._I(System.Nullable{ReUse_Std.Base.Cx},System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Create New Info Log Entry
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance._Log._I(System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Create New Info Log Entry
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance._Log._P(System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Create New Performance Log Entry
+            </summary>
+            <param name="ParametersData">Method Parameters Data</param>
+            <param name="Details">Details</param>
+            <param name="GetProcessData">Get Process Data (memory, processor usage)</param>
+            <param name="ArrayItemSize">Array Items No (for method parameters)</param>
+            <returns>Performance Log Entry Record</returns>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance._Log._P(System.Nullable{ReUse_Std.Base.Cx})">
+            <summary>
+            Create New Performance Log Entry
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance._Log._P(System.Nullable{ReUse_Std.Base.Performance.PerformanceLog},System.String,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Add Created Performance Log Record To Storage
+            </summary>
+            <param name="Log">Performance Record</param>
+            <param name="ClassName">Class Name</param>
+            <param name="MethodName">Method Name</param>
+            <param name="Comments">Comments (optional)</param>
+            <param name="GetProcessData">Get Process Data (memory, processor usage)</param>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance._Log._P(System.Nullable{ReUse_Std.Base.Performance.PerformanceLog},System.String,System.String,System.String,System.Nullable{ReUse_Std.Base.Cx})">
+            <summary>
+            Add Created Performance Log Record To Storage
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance._Log._P(System.Nullable{ReUse_Std.Base.Performance.PerformanceLog},System.String,System.Nullable{ReUse_Std.Base.Cx})">
+            <summary>
+            Add Created Performance Log Record To Storage
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance._Log.NewPerfLogEntry(System.String,System.String,System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Create New Log Entry
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance._Log.Save(System.Boolean)">
+            <summary>
+            Save All Logs to SQL storage in separate thread
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance.Log_Utilities">
+            <summary>
+            Common Logs Utilities
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Utilities._Ls(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            Get new Common SessionLog for current CollectPerfLogs to Log Init with error logs enabled
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Utilities.S(ReUse_Std.Base.Performance.SessionLog,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            Set Common ASP additional settings for  current CurrentSessionLog with error logs enabled
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Utilities.L(ReUse_Std.Base.Performance.SessionLog,System.String,System.String)">
+            <summary>
+            Get new logger with parameters from current CurrLogSession
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance.Log_Storage_Utilities">
+            <summary>
+            Common Logs Storage Utilities
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Storage_Utilities.I(ReUse_Std.Base.Performance.LogsStorage,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Init new Logs Storage for logger
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Storage_Utilities.S(ReUse_Std.Base.Performance.LogsStorage,System.String,System.String,ReUse_Std.Base.Performance.SessionLog,System.Nullable{ReUse_Std.Base.Cx})">
+            <summary>
+            Save Current Logs Storage Data to SQL
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Storage_Utilities.A(ReUse_Std.Base.Performance.SessionLog,System.Data.DataTable)">
+            <summary>
+            Add current SessionLog to TableToAdd
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Storage_Utilities.A(ReUse_Std.Base.Performance.EntryData,System.Data.DataTable,System.Guid)">
+            <summary>
+            Add current EntryData to TableToAdd
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Storage_Utilities.A(ReUse_Std.Base.Performance.ErrorLog,System.Data.DataTable,System.Guid,System.Guid)">
+            <summary>
+            Add current ErrorLog to TableToAdd
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Storage_Utilities.A(ReUse_Std.Base.Performance.EnvironmentDetails,System.Data.DataTable,System.Guid)">
+            <summary>
+            Add current EnvironmentDetails to TableToAdd
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Storage_Utilities.A(ReUse_Std.Base.Performance.InfoLog,System.Data.DataTable,System.Guid,System.Guid)">
+            <summary>
+            Add current InfoLog to TableToAdd
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Storage_Utilities.A(ReUse_Std.Base.Performance.PerformanceLog,System.Data.DataTable,System.Guid,System.Guid)">
+            <summary>
+            Add current PerformanceLog to TableToAdd
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Storage_Utilities.A(ReUse_Std.Base.Performance.ProcessLog,System.Data.DataTable,System.Guid)">
+            <summary>
+            Add current ProcessLog to TableToAdd
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Storage_Utilities.A(ReUse_Std.Base.Performance.ProcessDetails,System.Data.DataTable,System.Guid,System.Guid)">
+            <summary>
+            Add current ProcessDetails to TableToAdd
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Storage_Utilities.A(ReUse_Std.Base.Performance.WindowsIdentityLog,System.Data.DataTable,System.Guid)">
+            <summary>
+            Add current WindowsIdentityLog to TableToAdd
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Storage_Utilities.A(ReUse_Std.Base.Performance.HttpRequestLog,System.Data.DataTable,System.Guid)">
+            <summary>
+            Add current HttpRequestLog to TableToAdd
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Storage_Utilities.A(ReUse_Std.Base.Performance.HttpSessionLog,System.Data.DataTable,System.Guid)">
+            <summary>
+            Add current HttpSessionLog to TableToAdd
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Storage_Utilities.A(ReUse_Std.Base.Performance.HttpContextLog,System.Data.DataTable,System.Guid)">
+            <summary>
+            Add current HttpContextLog to TableToAdd
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Storage_Utilities.A(ReUse_Std.Base.Performance.WebPageLog,System.Data.DataTable,System.Guid)">
+            <summary>
+            Add current WebPageLog to TableToAdd
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Storage_Utilities.A(ReUse_Std.Base.Performance.WebProfileLog,System.Data.DataTable,System.Guid)">
+            <summary>
+            Add current WebProfileLog to TableToAdd
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Performance.Log_Storage_Utilities.A(ReUse_Std.Base.Performance.HttpBrowserCapabilitiesLog,System.Data.DataTable,System.Guid)">
+            <summary>
+            Add current HttpBrowserCapabilitiesLog to TableToAdd
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance.LogsStorage">
+            <summary>
+            Simple Logs Storage Data
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance.SessionLog">
+            <summary>
+            Simple Session Log Data
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance.EntryData">
+            <summary>
+            Simple Code Entry Data
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance.ErrorLog">
+            <summary>
+            Simple Error Log Data
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance.EnvironmentDetails">
+            <summary>
+            Simple Environment Details Data
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance.InfoLog">
+            <summary>
+            Simple Info Log Data
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance.PerformanceLog">
+            <summary>
+            Simple Performance Log Data
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance.ProcessLog">
+            <summary>
+            Simple Process Log Data
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance.ProcessDetails">
+            <summary>
+            Simple Performance Log Data
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance.WindowsIdentityLog">
+            <summary>
+            Simple Windows Identity Log Data
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance.HttpRequestLog">
+            <summary>
+            Simple HttpRequest Log Data
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance.HttpSessionLog">
+            <summary>
+            Simple HttpSession Log Data
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance.HttpContextLog">
+            <summary>
+            Simple HttpContext Log Data
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance.WebPageLog">
+            <summary>
+            Simple Web Page Log Data
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance.WebProfileLog">
+            <summary>
+            Simple User WebProfile Log Data
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Base.Performance.HttpBrowserCapabilitiesLog">
+            <summary>
+            Simple Http Browser Capabilities Log Data
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.Collections_Extensions">
+            <summary>
+            Common Collections Extensions
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Collections_Extensions.C``1(System.Collections.Generic.IEnumerable{``0},System.Boolean,System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Perform common Check for List content :  List_To_Check is not null and have items; 
+            List_Contains_One_Not_Null_Item (have not null items); 
+            Contains_Any_Value_From (have any item from this list); 
+            Contains_All_Values_From (have all items from this list).
+            </summary>        
+            <returns>All specified checks ok</returns>
+        </member>
+        <member name="M:ReUse_Std.Common.Collections_Extensions.C``1(System.Collections.Generic.IEnumerable{``0},``0)">
+            <summary>
+            Perform common Check for List content :  List_To_Check is not null and have List_Contains_Item; 
+            </summary>        
+            <returns>All specified checks ok</returns>
+        </member>
+        <member name="M:ReUse_Std.Common.Collections_Extensions.G``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0},System.Boolean,System.Boolean,System.Collections.Generic.IEnumerable{``0},System.Nullable{System.Int32})">
+            <summary>
+            Perform common Get for ICollection data
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Collections_Extensions.G``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Boolean,System.Boolean,System.Collections.Generic.IEnumerable{``0},System.Nullable{System.Int32})">
+            <summary>
+            Perform common Get for IEnumerable data
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Collections_Extensions.Gc``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0}[])">
+            <summary>
+            Perform common Concat for IEnumerable data
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Collections_Extensions.G``2(System.Collections.Generic.IEnumerable{``0},ReUse_Std.Common.f{System.Collections.Generic.KeyValuePair{System.Int32,``0},System.Nullable{ReUse_Std.Base.Cx},``1},System.Nullable{ReUse_Std.Base.Cx},System.Collections.Generic.IEnumerable{``1})">
+            <summary>
+            Create common ForEach Loop to process List from IList
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Collections_Extensions.G``3(System.Collections.Generic.IEnumerable{``0},ReUse_Std.Common.f{``0,System.Nullable{ReUse_Std.Base.Cx},``1},ReUse_Std.Common.f{``0,``1,System.Nullable{ReUse_Std.Base.Cx},``2},System.Nullable{ReUse_Std.Base.Cx},System.Collections.Generic.IEnumerable{``2})">
+            <summary>
+            Create common ForEach Loop to process List from IList
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Collections_Extensions.G``1(System.Collections.Generic.ICollection{``0},System.Int32,``0)">
+            <summary>
+            Try get Curr ICollection Item with ItemNo (of return DefaultValueOnError)
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Collections_Extensions._P``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32)">
+            <summary>
+            Return a page (of size PageSize) no PageNo from DataToPage
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Collections_Extensions._Pq``1(System.Linq.IQueryable{``0},System.Int32,System.Int32)">
+            <summary>
+            Return a page (of size PageSize) no PageNo from IQueryable DataToPage
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Collections_Extensions._Ps``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>
+            Return all pages (of size PageSize) of data from DataToPage
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Collections_Extensions.C``2(System.Collections.Generic.IDictionary{``0,``1},System.Boolean,System.Boolean)">
+            <summary>
+            Dictionary Check
+            </summary>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <param name="Dictionary_To_Check"></param>
+            <param name="Keys_Contains_One_Not_Null_Item"></param>
+            <param name="Values_Contains_One_Not_Null_Item"></param>
+            <returns></returns>     
+        </member>
+        <member name="M:ReUse_Std.Common.Collections_Extensions.C``2(System.Collections.Generic.IDictionary{``0,``1},``0)">
+            <summary>
+            Dictionary Check Keys_Contains
+            </summary>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <param name="Dictionary_To_Check"></param>
+            <param name="Keys_Contains"></param>
+            <returns></returns>     
+        </member>
+        <member name="M:ReUse_Std.Common.Collections_Extensions.Gc``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``1}[])">
+            <summary>
+            Perform common Concat for IDictionary data
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.Casts">
+            <summary>
+            Common Casts Utilities
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._T``1(System.Object,``0)">
+            <summary>
+            Try cast CurrObject to specified Type (of return DefaultValueOnError)
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._Pc(System.String,System.String)">
+            <summary>
+            Parse current Data Row To Columns with ColumnsDelimiter (CSV)
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._Pt``1(System.Collections.Generic.IEnumerable{System.String},``0@,ReUse_Std.Common.f{System.Int32,System.String,``0},System.Int32,``0)">
+            <summary>
+            Parse String To Custom type with chaining
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._Pt``2(System.Collections.Generic.IDictionary{``0,System.String},``1@,ReUse_Std.Common.f{``0,System.String,``1},``0,``1)">
+            <summary>
+            Parse String To Custom type with chaining from IDictionary
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._Pt``1(System.String,``0@,ReUse_Std.Common.f{System.String,``0},``0)">
+            <summary>
+            Parse String To Custom type
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P(System.String,System.Nullable{System.Int32}@,System.Nullable{System.Int32})">
+            <summary>
+            Parse String To Int
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P(System.String,System.Nullable{System.Single}@,System.Nullable{System.Single})">
+            <summary>
+            Parse String To float
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P(System.String,System.Nullable{System.Double}@,System.Nullable{System.Double})">
+            <summary>
+            Parse String To double
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P(System.String,System.Nullable{System.Boolean}@,System.Nullable{System.Boolean})">
+            <summary>
+            Parse String To bool
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P(System.String,System.Nullable{System.DateTime}@,System.Nullable{System.DateTime})">
+            <summary>
+            Parse String To DateTime
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P(System.String,System.Nullable{System.Int64}@,System.Nullable{System.Int64})">
+            <summary>
+            Parse String To long
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P(System.String,System.Nullable{System.Guid}@,System.Nullable{System.Guid})">
+            <summary>
+            Parse String To Guid
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P(System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Int32}@,System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Parse String To Int? with chainings from IEnumerable
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P(System.Collections.Generic.IEnumerable{System.String},System.Int32@,System.Int32,System.Int32)">
+            <summary>
+            Parse String To Int with chainings from IEnumerable
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P(System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Single}@,System.Int32,System.Nullable{System.Single})">
+            <summary>
+            Parse String To float with chainings from IEnumerable
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P(System.Collections.Generic.IEnumerable{System.String},System.Single@,System.Int32,System.Single)">
+            <summary>
+            Parse String To float with chainings from IEnumerable
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P(System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Double}@,System.Int32,System.Nullable{System.Double})">
+            <summary>
+            Parse String To double with chainings from IEnumerable
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P(System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Boolean}@,System.Int32,System.Nullable{System.Boolean})">
+            <summary>
+            Parse String To bool with chainings from IEnumerable
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P(System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.DateTime}@,System.Int32,System.Nullable{System.DateTime})">
+            <summary>
+            Parse String To DateTime with chainings from IEnumerable
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P(System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Int64}@,System.Int32,System.Nullable{System.Int64})">
+            <summary>
+            Parse String To long with chainings from IEnumerable
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P(System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Guid}@,System.Int32,System.Nullable{System.Guid})">
+            <summary>
+            Parse String To Guid with chainings from IEnumerable
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P``1(System.Collections.Generic.IDictionary{``0,System.String},System.Nullable{System.Int32}@,``0,System.Nullable{System.Int32})">
+            <summary>
+            Parse String To Int with chainings from IDictionary
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P``1(System.Collections.Generic.IDictionary{``0,System.String},System.Int32@,``0,System.Int32)">
+            <summary>
+            Parse String To Int with chainings from IDictionary
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P``1(System.Collections.Generic.IDictionary{``0,System.String},System.Nullable{System.Single}@,``0,System.Nullable{System.Single})">
+            <summary>
+            Parse String To float with chainings from IDictionary
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P``1(System.Collections.Generic.IDictionary{``0,System.String},System.Single@,``0,System.Single)">
+            <summary>
+            Parse String To float with chainings from IDictionary
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P``1(System.Collections.Generic.IDictionary{``0,System.String},System.Nullable{System.Double}@,``0,System.Nullable{System.Double})">
+            <summary>
+            Parse String To double with chainings from IDictionary
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P``1(System.Collections.Generic.IDictionary{``0,System.String},System.Nullable{System.Boolean}@,``0,System.Nullable{System.Boolean})">
+            <summary>
+            Parse String To bool with chainings from IDictionary
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P``1(System.Collections.Generic.IDictionary{``0,System.String},System.Boolean@,``0,System.Boolean)">
+            <summary>
+            Parse String To bool with chainings from IDictionary
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P``1(System.Collections.Generic.IDictionary{``0,System.String},System.Nullable{System.DateTime}@,``0,System.Nullable{System.DateTime})">
+            <summary>
+            Parse String To DateTime with chainings from IDictionary
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P``1(System.Collections.Generic.IDictionary{``0,System.String},System.Nullable{System.Int64}@,``0,System.Nullable{System.Int64})">
+            <summary>
+            Parse String To long with chainings from IDictionary
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Casts._P``1(System.Collections.Generic.IDictionary{``0,System.String},System.Nullable{System.Guid}@,``0,System.Nullable{System.Guid})">
+            <summary>
+            Parse String To Guid with chainings from IDictionary
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common._c`1">
+            <summary>
+            Common cast string to common types functions
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common._c`1.I">
+            <summary>
+            Common cast string to nullable int
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common._c`1.Iv">
+            <summary>
+            Common cast string to int
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common._c`1.F">
+            <summary>
+            Common cast string to nullable float
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common._c`1.Fv">
+            <summary>
+            Common cast string to float
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common._c`1.D">
+            <summary>
+            Common cast string to double
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common._c`1.B">
+            <summary>
+            Common cast string to nullable bool
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common._c`1.Bv">
+            <summary>
+            Common cast string to bool
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common._c`1.Dt">
+            <summary>
+            Common cast string to DateTime
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common._c`1.L">
+            <summary>
+            Common cast string to long
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common._c`1.G">
+            <summary>
+            Common cast string to long
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.BaseTypeCastsUtilities">
+            <summary>
+            Base Type Casts Utilities for code generation
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.F``1(``0,System.String)">
+            <summary>
+            Format current Value to string with CustomFormat
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Ti(System.String,System.Int32,System.Boolean,System.Nullable{System.Globalization.NumberStyles})">
+            <summary>
+            Cast current string Value to int with DefaultValue, UseHex and optional CustomNumberStyle
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Ts(System.String,System.Int16,System.Boolean,System.Nullable{System.Globalization.NumberStyles})">
+            <summary>
+            Cast current string Value to short with DefaultValue, UseHex and optional CustomNumberStyle
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Tl(System.String,System.Int64,System.Boolean,System.Nullable{System.Globalization.NumberStyles})">
+            <summary>
+            Cast current string Value to long with DefaultValue, UseHex and optional CustomNumberStyle
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Tbt(System.String,System.SByte,System.Boolean,System.Nullable{System.Globalization.NumberStyles})">
+            <summary>
+            Cast current string Value to signed sbyte with DefaultValue, UseHex and optional CustomNumberStyle
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Tiu(System.String,System.UInt32,System.Boolean,System.Nullable{System.Globalization.NumberStyles})">
+            <summary>
+            Cast current string Value to unsigned uint with DefaultValue, UseHex and optional CustomNumberStyle
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Tsu(System.String,System.UInt16,System.Boolean,System.Nullable{System.Globalization.NumberStyles})">
+            <summary>
+            Cast current string Value to unsigned ushort with DefaultValue, UseHex and optional CustomNumberStyle
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Tlu(System.String,System.UInt64,System.Boolean,System.Nullable{System.Globalization.NumberStyles})">
+            <summary>
+            Cast current string Value to unsigned ulong with DefaultValue, UseHex and optional CustomNumberStyle
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Tbtu(System.String,System.Byte,System.Boolean,System.Nullable{System.Globalization.NumberStyles})">
+            <summary>
+            Cast current string Value to unsigned byte with DefaultValue, UseHex and optional CustomNumberStyle
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Tf(System.String,System.Single,System.Nullable{System.Globalization.NumberStyles})">
+            <summary>
+            Cast current string Value to float with DefaultValue and optional CustomNumberStyle
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Tdc(System.String,System.Decimal,System.Nullable{System.Globalization.NumberStyles})">
+            <summary>
+            Cast current string Value to decimal with DefaultValue and optional CustomNumberStyle
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Tdb(System.String,System.Double,System.Nullable{System.Globalization.NumberStyles})">
+            <summary>
+            Cast current string Value to double with DefaultValue and optional CustomNumberStyle
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Tc(System.String,System.Char)">
+            <summary>
+            Cast current string Value to char with DefaultValue, UseHex and optional CustomNumberStyle
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Tb(System.String,System.Boolean)">
+            <summary>
+            Cast current string Value to bool with DefaultValue
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Tg(System.String,System.Guid)">
+            <summary>
+            Cast current string Value to Guid with DefaultValue
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Te``1(System.String,``0)">
+            <summary>
+            Cast current string Value to Enum with DefaultValue
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Td(System.String,System.DateTime,System.Nullable{System.Globalization.DateTimeStyles})">
+            <summary>
+            Cast current string Value to DateTime with DefaultValue and optional CustomDateTimeStyle
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Td(System.String,System.String,System.DateTime,System.Nullable{System.Globalization.DateTimeStyles})">
+            <summary>
+            Cast current string Value to DateTime with CustomFormat, DefaultValue and optional CustomDateTimeStyle
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Td(System.String,System.Collections.Generic.IEnumerable{System.String},System.DateTime,System.Nullable{System.Globalization.DateTimeStyles})">
+            <summary>
+            Cast current string Value to DateTime with CustomFormats, DefaultValue and optional CustomDateTimeStyle
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Tt(System.String,System.TimeSpan)">
+            <summary>
+            Cast current string Value to TimeSpan with DefaultValue
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Tt(System.String,System.String,System.TimeSpan,System.Nullable{System.Globalization.TimeSpanStyles})">
+            <summary>
+            Cast current string Value to TimeSpan with CustomFormat, DefaultValue and optional CustomTimeSpanStyle
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseTypeCastsUtilities.Tt(System.String,System.Collections.Generic.IEnumerable{System.String},System.TimeSpan,System.Nullable{System.Globalization.TimeSpanStyles})">
+            <summary>
+            Cast current string Value to TimeSpan with CustomFormats, DefaultValue and optional CustomTimeSpanStyle
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.BaseStructs_Utilities">
+            <summary>
+            Common Base Structs Utilities
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseStructs_Utilities._s``2(``0,``1)">
+            <summary>
+            Get Common struct type with 2 fields
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseStructs_Utilities._s``3(``0,``1,``2)">
+            <summary>
+            Get Common struct type with 3 fields
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseStructs_Utilities._s``4(``0,``1,``2,``3)">
+            <summary>
+            Get Common struct type with 4 fields
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseStructs_Utilities._s``5(``0,``1,``2,``3,``4)">
+            <summary>
+            Get Common struct type with 5 fields
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseStructs_Utilities._s``6(``0,``1,``2,``3,``4,``5)">
+            <summary>
+            Get Common struct type with 6 fields
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseStructs_Utilities._s``7(``0,``1,``2,``3,``4,``5,``6)">
+            <summary>
+            Get Common struct type with 7 fields
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseStructs_Utilities._s``8(``0,``1,``2,``3,``4,``5,``6,``7)">
+            <summary>
+            Get Common struct type with 8 fields
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseStructs_Utilities._s``9(``0,``1,``2,``3,``4,``5,``6,``7,``8)">
+            <summary>
+            Get Common struct type with 9 fields
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseStructs_Utilities._c``2(``0,``1)">
+            <summary>
+            Get Common class type with 2 fields
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseStructs_Utilities._c``3(``0,``1,``2)">
+            <summary>
+            Get Common class type with 3 fields
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseStructs_Utilities._c``4(``0,``1,``2,``3)">
+            <summary>
+            Get Common class type with 4 fields
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseStructs_Utilities._c``5(``0,``1,``2,``3,``4)">
+            <summary>
+            Get Common class type with 5 fields
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseStructs_Utilities._c``6(``0,``1,``2,``3,``4,``5)">
+            <summary>
+            Get Common class type with 6 fields
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseStructs_Utilities._c``7(``0,``1,``2,``3,``4,``5,``6)">
+            <summary>
+            Get Common class type with 7 fields
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseStructs_Utilities._c``8(``0,``1,``2,``3,``4,``5,``6,``7)">
+            <summary>
+            Get Common class type with 8 fields
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.BaseStructs_Utilities._c``9(``0,``1,``2,``3,``4,``5,``6,``7,``8)">
+            <summary>
+            Get Common class type with 9 fields
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.v">
+            <summary>
+            Common void function delegate with no parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.v`1">
+            <summary>
+            Common void function delegate with 1 parameter
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.v`2">
+            <summary>
+            Common void function delegate with 2 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.v`3">
+            <summary>
+            Common void function delegate with 3 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.f`1">
+            <summary>
+            Common function delegate with no parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.f`2">
+            <summary>
+            Common function delegate with 1 parameter
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.f`3">
+            <summary>
+            Common function delegate with 2 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.f`4">
+            <summary>
+            Common function delegate with 3 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.f`5">
+            <summary>
+            Common function delegate with 4 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.f`6">
+            <summary>
+            Common function delegate with 5 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.f`7">
+            <summary>
+            Common function delegate with 6 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.f`8">
+            <summary>
+            Common function delegate with 7 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.f`9">
+            <summary>
+            Common function delegate with 8 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.f`10">
+            <summary>
+            Common function delegate with 9 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fr`1">
+            <summary>
+            Common void ref function delegate with 1 parameter
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.frv`2">
+            <summary>
+            Common void ref function delegate with 2 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fr`2">
+            <summary>
+            Common ref function delegate with 1 parameter
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fr`3">
+            <summary>
+            Common ref function delegate with 2 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fr`4">
+            <summary>
+            Common ref function delegate with 3 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fr`5">
+            <summary>
+            Common ref function delegate with 4 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fr`6">
+            <summary>
+            Common ref function delegate with 5 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fr`7">
+            <summary>
+            Common ref function delegate with 6 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fr`8">
+            <summary>
+            Common ref function delegate with 7 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fr`9">
+            <summary>
+            Common ref function delegate with 8 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fr`10">
+            <summary>
+            Common ref function delegate with 9 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fo`2">
+            <summary>
+            Common out function delegate with 1 parameter
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fo`3">
+            <summary>
+            Common out function delegate with 2 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fo`4">
+            <summary>
+            Common out function delegate with 3 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fo`5">
+            <summary>
+            Common out function delegate with 4 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fo`6">
+            <summary>
+            Common out function delegate with 5 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fo`7">
+            <summary>
+            Common out function delegate with 6 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fo`8">
+            <summary>
+            Common out function delegate with 7 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fo`9">
+            <summary>
+            Common out function delegate with 8 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fo`10">
+            <summary>
+            Common out function delegate with 9 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.fc`5">
+            <summary>
+            Common out function delegate with 4 parameters
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.s`2">
+            <summary>
+            Common struct type with 2 fields
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`2._1">
+            <summary>
+            field no 1
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`2._2">
+            <summary>
+            field no 2
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.s`3">
+            <summary>
+            Common struct type with 3 fields
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`3._1">
+            <summary>
+            field no 1
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`3._2">
+            <summary>
+            field no 2
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`3._3">
+            <summary>
+            field no 3
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.s`4">
+            <summary>
+            Common struct type with 4 fields
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`4._1">
+            <summary>
+            field no 1
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`4._2">
+            <summary>
+            field no 2
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`4._3">
+            <summary>
+            field no 3
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`4._4">
+            <summary>
+            field no 4
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.s`5">
+            <summary>
+            Common struct type with 5 fields
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`5._1">
+            <summary>
+            field no 1
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`5._2">
+            <summary>
+            field no 2
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`5._3">
+            <summary>
+            field no 3
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`5._4">
+            <summary>
+            field no 4
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`5._5">
+            <summary>
+            field no 5
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.s`6">
+            <summary>
+            Common struct type with 6 fields
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`6._1">
+            <summary>
+            field no 1
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`6._2">
+            <summary>
+            field no 2
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`6._3">
+            <summary>
+            field no 3
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`6._4">
+            <summary>
+            field no 4
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`6._5">
+            <summary>
+            field no 5
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`6._6">
+            <summary>
+            field no 6
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.s`7">
+            <summary>
+            Common struct type with 7 fields
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`7._1">
+            <summary>
+            field no 1
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`7._2">
+            <summary>
+            field no 2
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`7._3">
+            <summary>
+            field no 3
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`7._4">
+            <summary>
+            field no 4
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`7._5">
+            <summary>
+            field no 5
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`7._6">
+            <summary>
+            field no 6
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`7._7">
+            <summary>
+            field no 7
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.s`8">
+            <summary>
+            Common struct type with 8 fields
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`8._1">
+            <summary>
+            field no 1
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`8._2">
+            <summary>
+            field no 2
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`8._3">
+            <summary>
+            field no 3
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`8._4">
+            <summary>
+            field no 4
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`8._5">
+            <summary>
+            field no 5
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`8._6">
+            <summary>
+            field no 6
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`8._7">
+            <summary>
+            field no 7
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`8._8">
+            <summary>
+            field no 8
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.s`9">
+            <summary>
+            Common struct type with 9 fields
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`9._1">
+            <summary>
+            field no 1
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`9._2">
+            <summary>
+            field no 2
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`9._3">
+            <summary>
+            field no 3
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`9._4">
+            <summary>
+            field no 4
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`9._5">
+            <summary>
+            field no 5
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`9._6">
+            <summary>
+            field no 6
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`9._7">
+            <summary>
+            field no 7
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`9._8">
+            <summary>
+            field no 8
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.s`9._9">
+            <summary>
+            field no 9
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.c`2">
+            <summary>
+            Common class type with 2 fields
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`2._1">
+            <summary>
+            field no 1
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`2._2">
+            <summary>
+            field no 2
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.c`3">
+            <summary>
+            Common class type with 3 fields
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`3._1">
+            <summary>
+            field no 1
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`3._2">
+            <summary>
+            field no 2
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`3._3">
+            <summary>
+            field no 3
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.c`4">
+            <summary>
+            Common class type with 4 fields
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`4._1">
+            <summary>
+            field no 1
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`4._2">
+            <summary>
+            field no 2
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`4._3">
+            <summary>
+            field no 3
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`4._4">
+            <summary>
+            field no 4
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.c`5">
+            <summary>
+            Common class type with 5 fields
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`5._1">
+            <summary>
+            field no 1
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`5._2">
+            <summary>
+            field no 2
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`5._3">
+            <summary>
+            field no 3
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`5._4">
+            <summary>
+            field no 4
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`5._5">
+            <summary>
+            field no 5
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.c`6">
+            <summary>
+            Common class type with 6 fields
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`6._1">
+            <summary>
+            field no 1
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`6._2">
+            <summary>
+            field no 2
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`6._3">
+            <summary>
+            field no 3
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`6._4">
+            <summary>
+            field no 4
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`6._5">
+            <summary>
+            field no 5
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`6._6">
+            <summary>
+            field no 6
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.c`7">
+            <summary>
+            Common class type with 7 fields
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`7._1">
+            <summary>
+            field no 1
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`7._2">
+            <summary>
+            field no 2
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`7._3">
+            <summary>
+            field no 3
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`7._4">
+            <summary>
+            field no 4
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`7._5">
+            <summary>
+            field no 5
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`7._6">
+            <summary>
+            field no 6
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`7._7">
+            <summary>
+            field no 7
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.c`8">
+            <summary>
+            Common class type with 8 fields
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`8._1">
+            <summary>
+            field no 1
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`8._2">
+            <summary>
+            field no 2
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`8._3">
+            <summary>
+            field no 3
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`8._4">
+            <summary>
+            field no 4
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`8._5">
+            <summary>
+            field no 5
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`8._6">
+            <summary>
+            field no 6
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`8._7">
+            <summary>
+            field no 7
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`8._8">
+            <summary>
+            field no 8
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.c`9">
+            <summary>
+            Common class type with 9 fields
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`9._1">
+            <summary>
+            field no 1
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`9._2">
+            <summary>
+            field no 2
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`9._3">
+            <summary>
+            field no 3
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`9._4">
+            <summary>
+            field no 4
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`9._5">
+            <summary>
+            field no 5
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`9._6">
+            <summary>
+            field no 6
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`9._7">
+            <summary>
+            field no 7
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`9._8">
+            <summary>
+            field no 8
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.c`9._9">
+            <summary>
+            field no 9
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.Processing_Utilities">
+            <summary>
+            Common data processing struct
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Processing_Utilities._g``2(``0,ReUse_Std.Common.f{``0,``1},ReUse_Std.Common.fr{``0},ReUse_Std.Common.f{``0,System.Boolean},``1,System.Boolean)">
+            <summary>
+            Process Get Common Data From current CurrRootElem with MethodToProcess with optional MethodToPreProcess (or CurrRootElem), MethodToCheckOnInit and StopIfNull (to check for nulls)
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Processing_Utilities._gc``1(``0,ReUse_Std.Common.v{``0},ReUse_Std.Common.fr{``0},ReUse_Std.Common.f{``0,System.Boolean},System.Boolean)">
+            <summary>
+            Process Get with chaining (return CurrRootElem) Common Data From current CurrRootElem with MethodToProcess with optional MethodToPreProcess (or CurrRootElem), MethodToCheckOnInit and StopIfNull (to check for nulls)
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Processing_Utilities._g``3(``0,ReUse_Std.Common.f{``0,System.Collections.Generic.IEnumerable{``1}},ReUse_Std.Common.f{``1,``2},ReUse_Std.Common.fr{``0},ReUse_Std.Common.f{``0,System.Boolean},``2,System.Collections.Generic.IEnumerable{``2},System.Boolean)">
+            <summary>
+            Process Get List of Common Data From current CurrRootElem with MethodToProcess with optional MethodToPreProcess (or CurrRootElem), MethodToCheckOnInit and StopIfNull (to check for nulls)
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Processing_Utilities._gc``2(``0,ReUse_Std.Common.f{``0,System.Collections.Generic.IEnumerable{``1}},ReUse_Std.Common.v{``1},ReUse_Std.Common.fr{``0},ReUse_Std.Common.f{``0,System.Boolean},System.Boolean)">
+            <summary>
+            Process Get List of Common Data with chaining (return CurrRootElem) From current CurrRootElem with MethodToProcess with optional MethodToPreProcess (or CurrRootElem), MethodToCheckOnInit and StopIfNull (to check for nulls)
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Processing_Utilities._s``2(``0,ReUse_Std.Common.fr{``0,``1},ReUse_Std.Common.fr{``0},ReUse_Std.Common.f{``0,System.Boolean},``1,System.Boolean)">
+            <summary>
+            Process Set Common Data From current CurrRootElem with MethodToProcess with optional MethodToPreProcess (or CurrRootElem), MethodToCheckOnInit and StopIfNull (to check for nulls)
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Processing_Utilities._sc``1(``0,ReUse_Std.Common.v{``0},ReUse_Std.Common.fr{``0},ReUse_Std.Common.f{``0,System.Boolean},System.Boolean)">
+            <summary>
+            Process Set with chaining (return CurrRootElem) Common Data From current CurrRootElem with MethodToProcess with optional MethodToPreProcess (or CurrRootElem), MethodToCheckOnInit and StopIfNull (to check for nulls)
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Processing_Utilities._s``3(``0,ReUse_Std.Common.f{``0,System.Collections.Generic.IEnumerable{``1}},ReUse_Std.Common.f{``1,``2},ReUse_Std.Common.fr{``0},ReUse_Std.Common.f{``0,System.Boolean},``2,System.Collections.Generic.IEnumerable{``2},System.Boolean)">
+            <summary>
+            Process Set List of Common Data From current CurrRootElem with MethodToProcess with optional MethodToPreProcess (or CurrRootElem), MethodToCheckOnInit and StopIfNull (to check for nulls)
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Processing_Utilities._sc``2(``0,ReUse_Std.Common.f{``0,System.Collections.Generic.IEnumerable{``1}},ReUse_Std.Common.v{``1},ReUse_Std.Common.fr{``0},ReUse_Std.Common.f{``0,System.Boolean},System.Boolean)">
+            <summary>
+            Process Set List of Common Data with chaining (return CurrRootElem) From current CurrRootElem with MethodToProcess with optional MethodToPreProcess (or CurrRootElem), MethodToCheckOnInit and StopIfNull (to check for nulls)
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.N">
+            <summary>
+            Fast Create New Structs Data Utilities
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.A``1(System.Collections.Generic.List{``0},System.Collections.Generic.IEnumerable{``0},``0[])">
+            <summary>
+            Add Items to CurrentList (with chaining, return CurrentList) from current ListToAdd and MoreItems if necessary
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.A``1(System.Collections.Generic.List{``0},``0,``0,``0,``0,``0,``0,``0[])">
+            <summary>
+            Add Items to CurrentList (with chaining, return CurrentList) with current Items No 0-5 and MoreItems if necessary
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.A``1(System.Collections.Generic.List{``0},``0,``0,``0,``0,``0)">
+            <summary>
+            Add Items to CurrentList (with chaining, return CurrentList) with current Items No 0-4
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.A``1(System.Collections.Generic.List{``0},``0,``0,``0,``0)">
+            <summary>
+            Add Items to CurrentList (with chaining, return CurrentList) with current Items No 0-3
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.A``1(System.Collections.Generic.List{``0},``0,``0,``0)">
+            <summary>
+            Add Items to CurrentList (with chaining, return CurrentList) with current Items No 0-2
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.A``1(System.Collections.Generic.List{``0},``0,``0)">
+            <summary>
+            Add Items to CurrentList (with chaining, return CurrentList) with current Items No 0-1
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.A``1(System.Collections.Generic.List{``0},``0)">
+            <summary>
+            Add Items to CurrentList (with chaining, return CurrentList) with current Items No 0
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._L``1(``0,``0,``0,``0,``0,``0,``0[])">
+            <summary>
+            Create List with current Items No 0-5 and MoreItems if necessary
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._L``1(``0,``0,``0,``0,``0,``0)">
+            <summary>
+            Create List with current Items No 0-5
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._L``1(``0,``0,``0,``0,``0)">
+            <summary>
+            Create List with current Items No 0-4
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._L``1(``0,``0,``0,``0)">
+            <summary>
+            Create List with current Items No 0-3
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._L``1(``0,``0,``0)">
+            <summary>
+            Create List with current Items No 0-2
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._L``1(``0,``0)">
+            <summary>
+            Create List with current Items No 0-1
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._L``1(``0)">
+            <summary>
+            Create List with current ItemNo_0
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._Ls``1(``0)">
+            <summary>
+            Create Empty List with SampleItem Type
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._L``1">
+            <summary>
+            Create Empty List with Type
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.L``1(System.Collections.Generic.IEnumerable{``0},``0[])">
+            <summary>
+            Create new List with ListToAdd and MoreItems to add
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._I``1(``0,``0,``0,``0,``0,``0,``0[])">
+            <summary>
+            Create IEnumerable with current Items No 0-5 and MoreItems if necessary
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._I``1(``0,``0,``0,``0,``0,``0)">
+            <summary>
+            Create IEnumerable with current Items No 0-5
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._I``1(``0,``0,``0,``0,``0)">
+            <summary>
+            Create IEnumerable with current Items No 0-4
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._I``1(``0,``0,``0,``0)">
+            <summary>
+            Create IEnumerable with current Items No 0-3
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._I``1(``0,``0,``0)">
+            <summary>
+            Create IEnumerable with current Items No 0-2
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._I``1(``0,``0)">
+            <summary>
+            Create IEnumerable with current Items No 0-1
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._I``1(``0)">
+            <summary>
+            Create IEnumerable with current ItemNo_0
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._Is``1(``0)">
+            <summary>
+            Create Empty IEnumerable with SampleItem Type
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._I``1">
+            <summary>
+            Create Empty IEnumerable with Type
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._As``1(``0,System.Int32)">
+            <summary>
+            Create Empty Array with SampleItem Type and ItemsNo
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._A``1(System.Int32)">
+            <summary>
+            Create Empty Array with  ItemsNo
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._A``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Create Array From current ImportDataFrom IEnumerable
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._A``1(``0,``0,``0,``0[])">
+            <summary>
+            Create Array with current Items No 0-2  and more ItemsNo3_AndMore if necessary
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._A``1(``0,``0,``0)">
+            <summary>
+            Create Array with current Items No 0-2
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._A``1(``0,``0)">
+            <summary>
+            Create Array with current Items No 0-1
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._A``1(``0)">
+            <summary>
+            Create Array with current ItemNo_0
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.A``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)">
+            <summary>
+            Add to CurrentDictionary one item with current Key and Value with chaining
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.U``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)">
+            <summary>
+            Add or Update (if Key exists) to CurrentDictionary one item with current Key and Value with chaining
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.U``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``1},System.Boolean)">
+            <summary>
+            Update values in CurrentDictionary with same Key and Value from UpdateFrom with chaining and optionally AddAdditionalValues
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.Uk``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``0})">
+            <summary>
+            Update keys in CurrentDictionary from UpdateKeysFrom with chaining
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.Ak``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``0})">
+            <summary>
+            Add keys from values in CurrentDictionary from AddKeysFrom with chaining
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.Ap(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Add ValuePrefix to values in CurrentDictionary with chaining (for mapping parameters)
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.Gv(System.Collections.Generic.IDictionary{System.String,System.String},System.String,System.String,System.String)">
+            <summary>
+            Get Value by KeyValue in CurrentDictionary with chaining (for mapping parameters), ValuePrefix and DefaultValue
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._Ks``2(``0)">
+            <summary>
+            Create Empty KeyValuePair with current SampleKeyItem Type
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._K``2">
+            <summary>
+            Create Empty KeyValuePair with current Types
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._Kn``2">
+            <summary>
+            Create Empty Nullable KeyValuePair? with current Types
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._Kns``2(``0)">
+            <summary>
+            Create Empty Nullable KeyValuePair? with current SampleKeyItem Type
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._K``2(``0,``1)">
+            <summary>
+            Create KeyValuePair with current Key and Value
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._Kn``2(``0,``1)">
+            <summary>
+            Create Nullable KeyValuePair with current Key and Value
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.Id``2">
+            <summary>
+            Create new  IDictionary
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.D``2">
+            <summary>
+            Create Empty Dictionary with current Key and Value Types
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._Ds``2(``0)">
+            <summary>
+            Create Empty Dictionary with current SampleKeyItem and Value Types
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._D``2(``0,``1)">
+            <summary>
+            Create New Dictionary with one item with current Key and Value
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._D``2(``0,``0,``1,``1)">
+            <summary>
+            Create New Dictionary with two items with current Keys and Values
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._D``2(``0,``0,``1,``1,System.Collections.Generic.KeyValuePair{``0,``1},System.Nullable{System.Collections.Generic.KeyValuePair{``0,``1}},System.Collections.Generic.KeyValuePair{``0,``1}[])">
+            <summary>
+            Create New Dictionary with two items with current Keys and Values
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._Df``2(``0,``0,ReUse_Std.Common.f{``0,``1},ReUse_Std.Common.f{``0,``1},System.Collections.Generic.KeyValuePair{``0,ReUse_Std.Common.f{``0,``1}},System.Nullable{System.Collections.Generic.KeyValuePair{``0,ReUse_Std.Common.f{``0,``1}}},System.Collections.Generic.KeyValuePair{``0,ReUse_Std.Common.f{``0,``1}}[])">
+            <summary>
+            Create New Dictionary with two items with current Keys and Func Method Values
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N._Df``2(``0,ReUse_Std.Common.f{``0,``1})">
+            <summary>
+            Create New Dictionary with two items with current Keys and Func Method Values
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.T">
+            <summary>
+            Create New DataTable
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.Dt(System.Nullable{System.DateTime},System.Boolean)">
+            <summary>
+            Create new DateTime
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.N.G(System.Nullable{System.Guid},System.Boolean)">
+            <summary>
+            Create new Guid
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common._D`1">
+            <summary>
+            Common Disposable class with custom OnDisposeMethods
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common._D`1._T">
+            <summary>
+            UseTryCatch OnDisposeMethods
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common._D`1._Dm">
+            <summary>
+            custom OnDisposeMethods
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common._D`1.#ctor(ReUse_Std.Common.f{`0},System.Boolean)">
+            <summary>
+            Init Disposable class with custom UseTryCatch OnDisposeMethods
+            </summary>
+        </member>
+    </members>
+</doc>
