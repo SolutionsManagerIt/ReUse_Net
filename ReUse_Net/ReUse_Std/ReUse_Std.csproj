@@ -19,11 +19,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="AppData\Feats\" />
+    <Folder Include="AppDataModels\Feats\" />
     <Folder Include="Blocks\" />
     <Folder Include="Features\" />
     <Folder Include="Language\Utilities\" />
-    <Folder Include="Platform\" />
   </ItemGroup>
 
   <ItemGroup>

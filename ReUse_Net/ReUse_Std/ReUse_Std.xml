@@ -2419,5 +2419,193 @@
             Init Disposable class with custom UseTryCatch OnDisposeMethods
             </summary>
         </member>
+        <member name="T:ReUse_Std.Platform.DataStorageUtilities">
+            <summary>
+            Common App Data Models Utilities
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Platform.DataStorageUtilities.N``1(``0)">
+            <summary>
+            Create the database for CurrContext if it doesn't exist
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Platform.DataStorageUtilities.D``1(``0)">
+            <summary>
+            Drop the database for CurrContext if it exists
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Platform.DataStorageUtilities.Q``1(``0)">
+            <summary>
+            Generates a script to create all tables for the current model in CurrContext
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Platform.DataStorageUtilities.U``1(``0,ReUse_Std.Common.v{``0})">
+            <summary>
+            Update data in CurrContext using custom MethodToUpdateData. 
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Platform.DataStorageUtilities.R``1(``0,ReUse_Std.Common.v{``0})">
+            <summary>
+            Read data in CurrContext using custom MethodToReadData. 
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Platform.DataStorageUtilities.Ua``1(``0,ReUse_Std.Common.v{``0})">
+            <summary>
+            Update data Async in CurrContext using custom MethodToUpdateData. 
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Platform.DataStorageUtilities.Ra``2(``0,ReUse_Std.Common.f{``0,System.Threading.Tasks.Task{``1}})">
+            <summary>
+            Read data Async in CurrContext using custom MethodToReadData. 
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Platform.DataStorageUtilities.I``1(``0,System.Object)">
+            <summary>
+            Insert entity to CurrContext. 
+            If it is known whether or not an insert or update is needed, then either Add or Update can be used appropriately
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Platform.DataStorageUtilities.U``1(``0,System.Object)">
+            <summary>
+            Update entity to CurrContext. 
+            If it is known whether or not an insert or update is needed, then either Add or Update can be used appropriately
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Platform.DataStorageUtilities.Iu``1(``0,System.Object)">
+            <summary>
+            Insert Or Update entity to CurrContext. 
+            The Update method normally marks the entity for update, not insert. However, if the entity has a auto-generated key, and no key value has been set, then the entity is instead automatically marked for insert.
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Platform.DataStorageUtilities.C(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder,ReUse_Std.Platform.Dcs)">
+            <summary>
+            Set the DbContextOptions with ConnectionSettings
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Platform._m">
+            <summary>
+            Common app data models storage settings
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Platform._m.dq">
+            <summary>
+            Default app connection string for sql server connections
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Platform._m.dl">
+            <summary>
+            Default app connection string for sql Lite connections
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Platform._m.t">
+            <summary>
+            testing connection string
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Platform.DCx`1">
+            <summary>
+            Common App Data Context with Entity First support
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.Platform.DCx`1.d1">
+            <summary>
+            Data storage container for type # 1
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Platform.DCx`1.s">
+            <summary>
+            Connection settings
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Platform.DCx`1.#ctor(System.String,ReUse_Std.Platform.Dp)">
+            <summary>
+            Create new App Data Context for specified ConnectionString and ProviderType
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Platform.DCx`2">
+            <summary>
+            Common App Data Context for 2 data types with Entity First support
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.Platform.DCx`2.d1">
+            <summary>
+            Data storage container for type # 1
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.Platform.DCx`2.d2">
+            <summary>
+            Data storage container for type # 2
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Platform.DCx`2.s">
+            <summary>
+            Connection settings
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Platform.DCx`2.#ctor(System.String,ReUse_Std.Platform.Dp)">
+            <summary>
+            Create new App Data Context for specified ConnectionString and ProviderType
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Platform.DCx`3">
+            <summary>
+            Common App Data Context for 3 data types with Entity First support
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.Platform.DCx`3.d1">
+            <summary>
+            Data storage container for type # 1
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.Platform.DCx`3.d2">
+            <summary>
+            Data storage container for type # 2
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.Platform.DCx`3.d3">
+            <summary>
+            Data storage container for type # 3
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Platform.DCx`3.s">
+            <summary>
+            Connection settings
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Platform.DCx`3.#ctor(System.String,ReUse_Std.Platform.Dp)">
+            <summary>
+            Create new App Data Context for specified ConnectionString and ProviderType
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Platform.Dcs">
+            <summary>
+            Common App Data Context Connection settings with Entity First support
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Platform.Dcs.C">
+            <summary>
+            Connection string
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Platform.Dcs.P">
+            <summary>
+            Provider Type
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Platform.Dp">
+            <summary>
+            App data provider types
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Platform.Dp.Q">
+            <summary>
+            Use Sql Server provider
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Platform.Dp.L">
+            <summary>
+            Use Sqlite provider
+            </summary>
+        </member>
     </members>
 </doc>
