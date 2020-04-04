@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using ReUse_Std.Common;
 using ReUse_Std.Base;
-using ReUse_Std.AppData;
+//using ReUse_Std.AppData;
 
 namespace ReUse_Std.AppDataModels.Common
 {
@@ -111,53 +109,18 @@ namespace ReUse_Std.AppDataModels.Common
         /// Serialized Objects data
         /// </summary>
         public byte[] D { get; set; }
-    }
-
-    /// <summary>
-    /// Common App user item with title and description
-    /// </summary>
-    [Serializable]
-    public class Ci
-    {
         /// <summary>
-        /// Current item with title and description guid
+        /// Serialized Data Guid
         /// </summary>
-        public Guid CiId { get; set; }
+        public Guid? G { get; set; }
         /// <summary>
-        /// Title
+        /// Serialized Object Guid
         /// </summary>
-        public string T { get; set; }
+        public Guid? O { get; set; }
         /// <summary>
-        /// Tool Tip Text
+        /// Serialized Data string
         /// </summary>
-        public string Tt { get; set; }
-        /// <summary>
-        /// Description
-        /// </summary>
-        public string D { get; set; }
-    }
-
-    /// <summary>
-    /// Common App date item with details on added updated
-    /// </summary>
-    public class Di
-    {
-        /// <summary>
-        /// Updated At
-        /// </summary>
-        public DateTime? Ut { get; set; }
-        /// <summary>
-        /// Added At
-        /// </summary>
-        public DateTime? At { get; set; }
-        /// <summary>
-        /// Updated By
-        /// </summary>
-        public string Ub { get; set; }
-        /// <summary>
-        /// Added By
-        /// </summary>
-        public string Ab { get; set; }
+        public string S { get; set; }
     }
 
     #region Samples

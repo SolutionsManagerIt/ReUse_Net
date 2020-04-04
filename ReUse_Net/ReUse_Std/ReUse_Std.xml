@@ -4,6 +4,386 @@
         <name>ReUse_Std</name>
     </assembly>
     <members>
+        <member name="T:ReUse_Std.AppDataModels.Common.App">
+            <summary>
+            Common App / feature settings storage
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.App.AppId">
+            <summary>
+            Current App guid
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.App.E">
+            <summary>
+            App encoding schema content storage
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.App.Q">
+            <summary>
+            App SQL connections storage
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.App.B">
+            <summary>
+            App serialized (text/xml/binary) content storage
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.App.L">
+            <summary>
+            App Logging SQL connections storage
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.AppDataModels.Common.Sq">
+            <summary>
+            Common SQL connection Data Settings storage
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Sq.SqId">
+            <summary>
+            Current connection guid
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Sq.S">
+            <summary>
+            Current Sql Server Name (or use localhost if empty)
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Sq.D">
+            <summary>
+            Current Sql DataBase name
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Sq.L">
+            <summary>
+            Current Sql User Login (or use integrated security if empty)
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Sq.P">
+            <summary>
+            Current Sql User Password
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Sq.T">
+            <summary>
+            Current Sql connection Timeout (or default if not positive)
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Sq.F">
+            <summary>
+            Local File Dir to Open from File
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Sq.Dr">
+            <summary>
+            Use App Directory to Open from File
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Sq.Tr">
+            <summary>
+            Use Trusted Connection to Open from File
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Sq.Ui">
+            <summary>
+            Use User Instance to Open from File
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.AppDataModels.Common.Bn">
+            <summary>
+            Common App serialized (text/xml/binary) content settings storage
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Bn.BnId">
+            <summary>
+            Current serialized content guid
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Bn.D">
+            <summary>
+            Serialized Objects data
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Bn.G">
+            <summary>
+            Serialized Data Guid
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Bn.O">
+            <summary>
+            Serialized Object Guid
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Bn.S">
+            <summary>
+            Serialized Data string
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.AppDataModels.Common.Ci">
+            <summary>
+            Common App user item with title and description
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Ci.CiId">
+            <summary>
+            Current item with title and description guid
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Ci.T">
+            <summary>
+            Title
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Ci.Tt">
+            <summary>
+            Tool Tip Text
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Ci.D">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.AppDataModels.Common.Di">
+            <summary>
+            Common App date item with details on added updated
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Di.DiId">
+            <summary>
+            Current date item with details on added updated guid
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Di.Ut">
+            <summary>
+            Updated At
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Di.At">
+            <summary>
+            Added At
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Di.Ub">
+            <summary>
+            Updated By
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Di.Ab">
+            <summary>
+            Added By
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.AppDataModels.Common.Vi">
+            <summary>
+            Common App visibility item with details
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vi.ViId">
+            <summary>
+            Current visibility item with details on added updated guid
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vi.G">
+            <summary>
+            Use Global
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vi.U">
+            <summary>
+            Visible User
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vi.P">
+            <summary>
+            Visible PC 
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vi.A">
+            <summary>
+            Visible App
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.AppDataModels.Common.Vd">
+            <summary>
+            Common App values data storage
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vd.VdId">
+            <summary>
+            Current values data guid
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vd.I">
+            <summary>
+            Int values
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vd.L">
+            <summary>
+            float values
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vd.A">
+            <summary>
+            additional types values
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vd.S">
+            <summary>
+            string value
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vd.B">
+            <summary>
+            bool value
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.AppDataModels.Common.Vdn">
+            <summary>
+            Common App values data int number type storage
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vdn.VdnId">
+            <summary>
+            Current values int data number type guid
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vdn.I">
+            <summary>
+            Int value
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vdn.L">
+            <summary>
+            long int value
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vdn.S">
+            <summary>
+            short int value
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vdn.B">
+            <summary>
+            byte int value
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.AppDataModels.Common.Vdf">
+            <summary>
+            Common App values data float number type storage
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vdf.VdfId">
+            <summary>
+            Current values data float number type guid
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vdf.I">
+            <summary>
+            decimal value
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vdf.F">
+            <summary>
+            float value
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vdf.D">
+            <summary>
+            double value
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.AppDataModels.Common.Vda">
+            <summary>
+            Common App values data additional types (datetime, guid) storage
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vda.VddId">
+            <summary>
+            Current values int data number type guid
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vda.D">
+            <summary>
+            DateTime value
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vda.T">
+            <summary>
+            TimeSpan value
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vda.Tl">
+            <summary>
+            TimeSpan ticks value
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.Vda.G">
+            <summary>
+            Guid value
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.AppDataModels.Common.En">
+            <summary>
+            Common App encoding schema settings storage
+            </summary>
+        </member>
+        <member name="P:ReUse_Std.AppDataModels.Common.En.EnId">
+            <summary>
+            Current encoded content guid
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.AppDataModels.Common.Ets">
+            <summary>
+            Symmetric cryptography Secret-key encryption algorithms 
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.AppDataModels.Common.Ets.A">
+            <summary>
+            Aes Managed 
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.AppDataModels.Common.Ets.D">
+            <summary>
+            DES Crypto Service Provider
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.AppDataModels.Common.Ets.H">
+            <summary>
+            HMACSHA1
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.AppDataModels.Common.Ets.Rc">
+            <summary>
+            RC2 Crypto Service Provider
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.AppDataModels.Common.Ets.Rj">
+            <summary>
+            Rijndael Managed
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.AppDataModels.Common.Ets.Td">
+            <summary>
+            Triple DES Crypto Service Provider
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.AppDataModels.Common.Etp">
+            <summary>
+            Asymmetric cryptography Public-key encryption algorithms 
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.AppDataModels.Common.Etp.D">
+            <summary>
+            DSA Crypto Service Provider 
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.AppDataModels.Common.Etp.R">
+            <summary>
+            RSA Crypto Service Provider
+            </summary>
+        </member>
         <member name="T:ReUse_Std.Base.BaseTypes">
             <summary>
             Abstract Common Structs and Data Utilities -  Extensions version

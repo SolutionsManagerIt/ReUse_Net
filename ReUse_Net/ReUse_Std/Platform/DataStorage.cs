@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ReUse_Std.Common;
 using ReUse_Std.Base;
-using ReUse_Std.AppData;
+//using ReUse_Std.AppData;
 
 namespace ReUse_Std.Platform
 {
@@ -171,8 +171,7 @@ namespace ReUse_Std.Platform
         /// Default app connection string for sql Lite connections
         /// </summary>
         public static string dl = @"Data Source=TestStorageUWPLite.db";
-
-
+        
         /// <summary>
         /// testing connection string
         /// </summary>
