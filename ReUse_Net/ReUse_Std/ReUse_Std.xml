@@ -1243,6 +1243,115 @@
             Simple Http Browser Capabilities Log Data
             </summary>
         </member>
+        <member name="T:ReUse_Std.Base.Texts.CommonText_Extensions">
+            <summary>
+            Text and string utilties
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Texts.CommonText_Extensions.C(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Perform Common String Check
+            </summary>      
+        </member>
+        <member name="M:ReUse_Std.Base.Texts.CommonText_Extensions.Cs(System.String,System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Perform Common String Compare
+            </summary> 
+        </member>
+        <member name="M:ReUse_Std.Base.Texts.CommonText_Extensions.Cl(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Perform Common String Length Check
+            </summary> 
+        </member>
+        <member name="M:ReUse_Std.Base.Texts.CommonText_Extensions.Cc(System.String,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Perform Common String Contains Check
+            </summary> 
+        </member>
+        <member name="M:ReUse_Std.Base.Texts.CommonText_Extensions.Ct(System.Collections.Generic.IEnumerable{System.String},System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Perform Common String IEnumerable Check
+            </summary> 
+        </member>
+        <member name="M:ReUse_Std.Base.Texts.CommonText_Extensions.Cc(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Boolean,System.Boolean)">
+            <summary>
+            Perform Common String IEnumerable Contains Check
+            </summary> 
+        </member>
+        <member name="M:ReUse_Std.Base.Texts.CommonText_Extensions.Gt(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Int32})">
+            <summary>
+            Get data from DataList with Distinct Trim NotWhiteSpace TakeOnly filters except values from ExceptList
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Texts.CommonText_Extensions.S(System.String,System.Boolean,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Get data from string with Replace Trim ToCaseUpper 
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Texts.CommonText_Extensions.Gc(System.Collections.Generic.IEnumerable{System.String},System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Concatenate ConcatList to String with Delimiter
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Base.Texts.CommonText_Extensions.Gv(System.Collections.Generic.IEnumerable{System.String},System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.String)">
+            <summary>
+            Get common values string From values and parameters list ParametersValuesList
+            with specified Delimiter between records and ResultPrefix and ResultSuffix
+            Sample  -  ( Val_1, Val_2, Val_3, .... Val_N_1, Val_N )
+            </summary>        
+            <returns>Result String or DefaultValueOnError</returns>
+        </member>
+        <member name="M:ReUse_Std.Base.Texts.CommonText_Extensions.Fs(System.String,System.Object[])">
+            <summary>
+            Format current String_Format with FormatValues
+            </summary>
+            <param name="String_Format"></param>
+            <param name="FormatValues"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ReUse_Std.Base.Texts.CommonText_Extensions.Fsc(System.String,System.Object[])">
+            <summary>
+            Format current String_Format with FormatValues using custom template formatter {0}
+            </summary>
+            <param name="String_Format"></param>
+            <param name="FormatValues"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ReUse_Std.Base.Texts.CommonText_Extensions.Fsf(System.String,System.String,System.Object[])">
+            <summary>
+            Format current String_Format with FormatValues using custom template formatter
+            </summary>
+            <param name="String_Format"></param>
+            <param name="FormatValues"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ReUse_Std.Base.Texts.CommonText_Extensions.P(System.String,System.Char[],System.Boolean)">
+            <summary>
+            Split CurrStringsData with Delimiters using Options
+            </summary>
+            <param name="CurrStringsData"></param>
+            <param name="Delimiters"></param>
+            <param name="Options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ReUse_Std.Base.Texts.CommonText_Extensions.P(System.String,System.String[],System.Boolean)">
+            <summary>
+            Split CurrStringsData with Delimiters using Options
+            </summary>
+            <param name="CurrStringsData"></param>
+            <param name="Delimiters"></param>
+            <param name="Options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ReUse_Std.Base.Texts.CommonText_Extensions.P(System.String,System.String,System.Boolean)">
+            <summary>
+            Split CurrStringsData with Delimiter using Options
+            </summary>
+            <param name="CurrStringsData"></param>
+            <param name="Delimiters"></param>
+            <param name="Options"></param>
+            <returns></returns>
+        </member>
         <member name="T:ReUse_Std.Common.Collections_Extensions">
             <summary>
             Common Collections Extensions
@@ -2489,6 +2598,116 @@
             Process Set List of Common Data with chaining (return CurrRootElem) From current CurrRootElem with MethodToProcess with optional MethodToPreProcess (or CurrRootElem), MethodToCheckOnInit and StopIfNull (to check for nulls)
             </summary>
         </member>
+        <member name="T:ReUse_Std.Common.Linq_Extensions">
+            <summary>
+            Common Linq Queries Extensions
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Linq_Extensions.W``1(System.Collections.Generic.IEnumerable{``0},ReUse_Std.Common.f{``0,System.Boolean},ReUse_Std.Common.f{``0,System.Nullable{System.Double}},System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            Perform common Linq Where Query with WhereCondition and optional OrderByCondition, Distinct, TakeNRecords
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Linq_Extensions.w``1(System.Collections.Generic.IEnumerable{``0},ReUse_Std.Common.f{``0,System.Boolean},ReUse_Std.Common.f{``0,System.Nullable{System.Double}},System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            Perform common Linq Where Query (to array) with WhereCondition and optional OrderByCondition, Distinct, TakeNRecords
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Linq_Extensions.A``1(System.Collections.Generic.IEnumerable{``0},ReUse_Std.Common.f{``0,System.Boolean})">
+            <summary>
+            Perform common Linq Any Query with AnyWhereCondition
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Linq_Extensions.S``2(System.Collections.Generic.IEnumerable{``0},ReUse_Std.Common.f{``0,``1},ReUse_Std.Common.f{``0,System.Boolean},ReUse_Std.Common.f{``0,System.Nullable{System.Double}},System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            Perform common Linq Select Where Query with SelectCondition and optional WhereCondition, OrderByCondition, Distinct, TakeNRecords
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Linq_Extensions.S``2(System.Collections.Generic.IEnumerable{``0},ReUse_Std.Common.f{``0,System.Int32,``1},ReUse_Std.Common.f{``0,System.Boolean},ReUse_Std.Common.f{``0,System.Nullable{System.Double}},System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            Perform common Linq Select Where Query with SelectCondition and optional WhereCondition, OrderByCondition, Distinct, TakeNRecords
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Linq_Extensions.s``2(System.Collections.Generic.IEnumerable{``0},ReUse_Std.Common.f{``0,``1},ReUse_Std.Common.f{``0,System.Boolean},ReUse_Std.Common.f{``0,System.Nullable{System.Double}},System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            Perform common Linq Select Where Query (to array) with SelectCondition and optional WhereCondition, OrderByCondition, Distinct, TakeNRecords
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Linq_Extensions.s``2(System.Collections.Generic.IEnumerable{``0},ReUse_Std.Common.f{``0,System.Int32,``1},ReUse_Std.Common.f{``0,System.Boolean},ReUse_Std.Common.f{``0,System.Nullable{System.Double}},System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            Perform common Linq Select Where Query (to array) with SelectCondition and optional WhereCondition, OrderByCondition, Distinct, TakeNRecords
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Linq_Extensions.G``2(System.Collections.Generic.IEnumerable{``0},ReUse_Std.Common.f{``0,``1},ReUse_Std.Common.f{``0,System.Boolean},ReUse_Std.Common.f{``0,System.Nullable{System.Double}},System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            Perform common Linq GroupBy Where Query with GroupByCondition and optional WhereCondition, OrderByCondition, Distinct, TakeNRecords
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Linq_Extensions.g``2(System.Collections.Generic.IEnumerable{``0},ReUse_Std.Common.f{``0,``1},ReUse_Std.Common.f{``0,System.Boolean},ReUse_Std.Common.f{``0,System.Nullable{System.Double}},System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            Perform common Linq GroupBy Where Query (to array) with GroupByCondition and optional WhereCondition, OrderByCondition, Distinct, TakeNRecords
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Linq_Extensions.D``1(System.Collections.Generic.IEnumerable{``0},ReUse_Std.Common.f{``0,``0,System.Boolean},ReUse_Std.Common.f{``0,System.Boolean},ReUse_Std.Common.f{``0,System.Nullable{System.Double}},System.Nullable{System.Int32})">
+            <summary>
+            Perform common Linq Distinct Query with WhereCondition and optional OrderByCondition, Distinct, TakeNRecords
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Linq_Extensions.d``1(System.Collections.Generic.IEnumerable{``0},ReUse_Std.Common.f{``0,``0,System.Boolean},ReUse_Std.Common.f{``0,System.Boolean},ReUse_Std.Common.f{``0,System.Nullable{System.Double}},System.Nullable{System.Int32})">
+            <summary>
+            Perform common Linq Distinct Query (to array) with WhereCondition and optional OrderByCondition, Distinct, TakeNRecords
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Linq_Extensions.O``1(System.Collections.Generic.IEnumerable{``0},ReUse_Std.Common.f{``0,System.Nullable{System.Int32}},System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            Perform common Linq OrderBy Query with WhereCondition and optional OrderByCondition, Distinct, TakeNRecords
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Linq_Extensions.o``1(System.Collections.Generic.IEnumerable{``0},ReUse_Std.Common.f{``0,System.Nullable{System.Int32}},System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            Perform common Linq OrderBy Query (to array) with WhereCondition and optional OrderByCondition, Distinct, TakeNRecords
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Linq_Extensions.O``1(System.Collections.Generic.IEnumerable{``0},ReUse_Std.Common.f{``0,System.Nullable{System.Double}},System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            Perform common Linq OrderBy Query with WhereCondition and optional OrderByCondition, Distinct, TakeNRecords
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Common.Linq_Extensions.o``1(System.Collections.Generic.IEnumerable{``0},ReUse_Std.Common.f{``0,System.Nullable{System.Double}},System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            Perform common Linq OrderBy Query (to array) with WhereCondition and optional OrderByCondition, Distinct, TakeNRecords
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.Eq`1">
+            <summary>
+            Common Equality Comparer with CustomMethodToCompare and CustomMethodToGetHashCode
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.Eq`1.cm">
+            <summary>
+            Custom Method To Compare
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.Eq`1.gh">
+            <summary>
+            Custom Method To Get Hash Code
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Common.Eq`2">
+            <summary>
+            Common Equality Comparer for object keys with CustomMethodToGetKeys and CustomMethodToGetHashCode
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.Eq`2.ck">
+            <summary>
+            Custom Method To Get Keys
+            </summary>
+        </member>
+        <member name="F:ReUse_Std.Common.Eq`2.gh">
+            <summary>
+            Custom Method To Get Hash Code
+            </summary>
+        </member>
         <member name="T:ReUse_Std.Common.N">
             <summary>
             Fast Create New Structs Data Utilities
@@ -2798,6 +3017,131 @@
             <summary>
             Init Disposable class with custom UseTryCatch OnDisposeMethods
             </summary>
+        </member>
+        <member name="T:ReUse_Std.Utilities.External.Files.F_Extensions">
+            <summary>
+            File Utils
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Files.F_Extensions._FC(System.String)">
+            <summary>
+            Check If curr FileWithPath Exists
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Files.F_Extensions._FC(System.Collections.Generic.IEnumerable{System.String},System.Boolean)">
+            <summary>
+            Check If curr FilesWithPath Exists (any or CheckAllExists)
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Files.F_Extensions._FGp(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Get all FilePaths from current that exists
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Files.F_Extensions._FGb(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IDictionary{System.String,System.Byte[]})">
+            <summary>
+            Get all byte data from current FilesWithPath
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Files.F_Extensions._FGb(System.String,System.Byte[])">
+            <summary>
+            Get byte data from current FileWithPath
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Files.F_Extensions._FGs(System.Collections.Generic.IEnumerable{System.String},System.Text.Encoding,System.Collections.Generic.IDictionary{System.String,System.Collections.Generic.IEnumerable{System.String}})">
+            <summary>
+            Get all List of string from current FilesWithPath
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Files.F_Extensions._FGs(System.String,System.Text.Encoding,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Get List of string from current FileWithPath
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Files.F_Extensions._FG(System.String,System.Text.Encoding,System.String)">
+            <summary>
+            Get All Text from current FileWithPath
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Files.F_Extensions._FS(System.Byte[],System.String,System.Boolean)">
+            <summary>
+            Write All current Bytes Values to FileWithPath
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Files.F_Extensions._FS(System.Collections.Generic.IEnumerable{System.String},System.String,System.Text.Encoding,System.Boolean,System.Boolean)">
+            <summary>
+            Write or Append All current string Values to FileWithPath
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Files.F_Extensions._FS(System.String,System.String,System.Text.Encoding,System.Boolean,System.Boolean)">
+            <summary>
+            Write or Append current string Value to FileWithPath
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Files.F_Extensions._Ft(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Copy or Move current FileWithPathSource to FileWithPathDestination
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Files.F_Extensions.V``1(System.String,ReUse_Std.Common.f{System.Collections.Generic.List{System.String},System.Collections.Generic.IEnumerable{``0}},System.Text.Encoding,System.Boolean,System.Boolean,System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Process CSV or string Data from FilePath (with AddCurrentDirectory) using MethodToProcessDocument with optional SaveDocumentAfterProcess (to optional SaveFilePath and SaveAddCurrentDirectory)
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Files.F_Extensions._FGs``1(System.String,ReUse_Std.Common.f{System.String,``0},System.Text.Encoding,System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Get List of Data from current FileWithPath using MethodToProcessData
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Files.F_Extensions._FGc``1(System.String,ReUse_Std.Common.f{System.Collections.Generic.IEnumerable{System.String},``0},System.String,System.Text.Encoding,System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Get List of Data from current FileWithPath (CSV like format with delimiters) using MethodToProcessData and optional CustomDelimiter
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Files.F_Extensions._FS``1(System.Collections.Generic.IEnumerable{``0},System.String,ReUse_Std.Common.f{``0,System.String},System.String,System.Boolean,System.Boolean,System.Text.Encoding)">
+            <summary>
+            Write or Append All current Values (as list of strings) to FileWithPath with MethodToProcessData
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Files.F_Extensions._FS``1(System.Collections.Generic.IEnumerable{``0},System.String,ReUse_Std.Common.f{``0,System.Collections.Generic.IEnumerable{System.String}},System.Collections.Generic.IEnumerable{System.String},System.String,System.Boolean,System.Boolean,System.Text.Encoding)">
+            <summary>
+            Write or Append All current Values (CSV like format with delimiters) to FileWithPath with MethodToProcessData
+            </summary>
+        </member>
+        <member name="T:ReUse_Std.Utilities.External.Serialize.SerializeUtilities">
+            <summary>
+            Common Objects Serialize Utilities
+            </summary>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Serialize.SerializeUtilities._Fs``1(System.String,``0)">
+            <summary>
+            Serialize and Save Value with all properties to current specified CurrFilePath. Value type need to have [Serializable] attribute
+            </summary>
+            <param name="CurrFilePath">File Path to save Value object into.</param>
+            <remarks><para>The Value object is saved using .NET serialization (binary formatter is used).</para></remarks>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Serialize.SerializeUtilities._S``1(System.IO.Stream,``0)">
+            <summary>
+            Serialize and Save Value with all properties to current specified CurrStream. Value type need to have [Serializable] attribute
+            </summary>
+            <param name="CurrStream">Stream to save Value object into.</param>
+            <remarks><para>The Value object is saved using .NET serialization (binary formatter is used).</para></remarks>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Serialize.SerializeUtilities._Fd``1(System.String,``0)">
+            <summary>
+            Deserialize and Load Data object with all properties from current specified CurrFilePath. Data object type need to have [Serializable] attribute
+            </summary>
+            <param name="CurrFilePath">File Path to load Data object from.</param>
+            <returns>Returns instance of Data object with all properties initialized from file.</returns>
+            <remarks><para>Data object is loaded from file using .NET serialization (binary formater is used).</para></remarks>
+        </member>
+        <member name="M:ReUse_Std.Utilities.External.Serialize.SerializeUtilities._L``1(System.IO.Stream,``0)">
+            <summary>
+            Deserialize and Load Data object with all properties from current specified CurrStream. Data object type need to have [Serializable] attribute
+            </summary>
+            <param name="CurrStream">Stream to load Data object from.</param>
+            <returns>Returns instance of object with all properties initialized from file.</returns>
+            <remarks><para>Data object is loaded from file using .NET serialization (binary formater is used).</para></remarks>
         </member>
         <member name="T:ReUse_Std.Platform.DataStorageUtilities">
             <summary>
