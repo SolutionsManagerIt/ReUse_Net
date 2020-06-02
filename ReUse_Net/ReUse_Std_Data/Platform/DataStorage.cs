@@ -8,7 +8,7 @@ using ReUse_Std.Common;
 using ReUse_Std.Base;
 //using ReUse_Std.AppData;
 
-namespace ReUse_Std.Platform
+namespace ReUse_Std_Data.Platform
 {
     /// <summary>
     /// Common App Data Models Utilities

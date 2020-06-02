@@ -8,6 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ReUse_Core\ReUse_Core.csproj" />
     <ProjectReference Include="..\ReUse_Std\ReUse_Std.csproj" />
+    <ProjectReference Include="..\ReUse_Std_Data\ReUse_Std_Data.csproj" />
   </ItemGroup>
 
 </Project>

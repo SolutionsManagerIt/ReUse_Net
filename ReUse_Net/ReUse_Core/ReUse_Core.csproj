@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>H:\Lab\Git\ReUse_Net\ReUse_Net\ReUse_Core\ReUse_Core.xml</DocumentationFile>
+  </PropertyGroup>
+
 </Project>
