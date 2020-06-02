@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ReUse</RootNamespace>
     <AssemblyName>ReUse</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -51,13 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\BaseTypes.cs" />
-    <Compile Include="Base\CommonCode.cs" />
-    <Compile Include="Base\Performance\AppLogging.cs" />
-    <Compile Include="Common\BaseTypes\Collections.cs" />
-    <Compile Include="Common\Casts.cs" />
-    <Compile Include="Common\Generics\BaseStructs.cs" />
-    <Compile Include="Common\New.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -65,7 +58,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Additional\" />
+    <Folder Include="Base\" />
+    <Folder Include="Common\" />
     <Folder Include="Utilities\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ReUse_Std\ReUse_Std.csproj">
+      <Project>{4648a08a-dec9-4fb5-8925-1e00eb343272}</Project>
+      <Name>ReUse_Std</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
