@@ -19,7 +19,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="AppDataModels\Feats\" />
     <Folder Include="Blocks\" />
     <Folder Include="Features\" />
     <Folder Include="Platform\" />

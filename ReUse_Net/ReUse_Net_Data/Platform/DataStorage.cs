@@ -167,17 +167,17 @@ namespace ReUse_Net_Data.Platform
         /// <summary>
         /// Default app connection string for sql server connections
         /// </summary>
-        public static string dq = @"Server=localhost;Database=TestStorageUWP;Integrated Security=False;User id=TestUserSQL;password=asdasd123123;";
+        public static string dq = @"Server=localhost;Database=Testing_DB_Common;Integrated Security=True;";
 
         /// <summary>
-        /// Default app connection string for sql Lite connections
+        /// Default app connection string for file sql connections
         /// </summary>
-        public static string dl = @"Data Source=TestStorageUWPLite.db";
+        public static string dl = @"data source=(LocalDB)\MSSQLLocalDB;attachdbfilename=|DataDirectory|\AppStorage\AppStorageTesting.mdf;integrated security=True;connect timeout=30;MultipleActiveResultSets=True;App=EntityFramework";
         
         /// <summary>
         /// testing connection string
         /// </summary>
-        public static string t = @"Server=localhost;Database=TestStorageUWP;Integrated Security=False;User id=TestUserSQL;password=asdasd123123;";
+        public static string t = @"Server=localhost;Database=Testing_DB_Common;Integrated Security=True;";
     }
 
     #region App Data Contexts
@@ -243,7 +243,7 @@ namespace ReUse_Net_Data.Platform
         /// <summary>
         /// Create new App Data Context for specified ConnectionTitleString
         /// </summary>
-        public DCx(string ConnectionTitleString) : base(ConnectionTitleString)
+        public DCx(string ConnectionTitleString = null) : base(ConnectionTitleString)
         {
 
         }

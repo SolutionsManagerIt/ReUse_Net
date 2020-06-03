@@ -83,4 +83,32 @@ namespace ReUse_Std.AppDataModels.Common
         /// </summary>
         public bool? A { get; set; }
     }
+
+    /// <summary>
+    /// Common App navigation item with details
+    /// </summary>
+    [Serializable]
+    public class Ni
+    {
+        /// <summary>
+        /// Current navigation item with details on added updated guid
+        /// </summary>
+        public Guid NiId { get; set; }
+        /// <summary>
+        /// Parent item Guid 
+        /// </summary>
+        public Guid? P { get; set; }
+        /// <summary>
+        /// Array Guid
+        /// </summary>
+        public Guid? A { get; set; }
+        /// <summary>
+        /// Session Guid 
+        /// </summary>
+        public Guid? S { get; set; }
+        /// <summary>
+        /// App Guid
+        /// </summary>
+        public Guid? G { get; set; }
+    }
 }
