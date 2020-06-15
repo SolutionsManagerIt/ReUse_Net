@@ -123,13 +123,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Language\Base\BaseTypes.cs" />
-    <Compile Include="Language\Base\CommonCode.cs" />
-    <Compile Include="Language\Base\Performance\AppLogging.cs" />
-    <Compile Include="Language\Common\BaseTypes\Collections.cs" />
-    <Compile Include="Language\Common\Casts.cs" />
-    <Compile Include="Language\Common\Generics\BaseStructs.cs" />
-    <Compile Include="Language\Common\New.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\ReUse_UWP.rd.xml" />
   </ItemGroup>
@@ -141,7 +134,6 @@
   <ItemGroup>
     <Folder Include="Blocks\" />
     <Folder Include="Features\" />
-    <Folder Include="Language\Utilities\" />
     <Folder Include="Platform\" />
   </ItemGroup>
   <ItemGroup>

@@ -26,6 +26,10 @@ namespace ReUse_Std.AppDataModels.Common
         /// Description
         /// </summary>
         public string D { get; set; }
+        /// <summary>
+        /// Mark as deleted 
+        /// </summary>
+        public bool? Dl { get; set; }
     }
 
     /// <summary>
@@ -110,5 +114,13 @@ namespace ReUse_Std.AppDataModels.Common
         /// App Guid
         /// </summary>
         public Guid? G { get; set; }
+        /// <summary>
+        /// Control Guid
+        /// </summary>
+        public Guid? C { get; set; }
+        /// <summary>
+        /// Control No
+        /// </summary>
+        public int? Cn { get; set; }
     }
 }
