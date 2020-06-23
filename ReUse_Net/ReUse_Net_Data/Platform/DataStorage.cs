@@ -9,6 +9,7 @@ using System.Data.Entity;
 using ReUse_Std.Common;
 using ReUse_Std.Base;
 //using ReUse_Std.AppData;
+using System.Data.Entity.Migrations;
 
 namespace ReUse_Net_Data.Platform
 {
@@ -138,6 +139,46 @@ namespace ReUse_Net_Data.Platform
         //    CurrContext.SaveChanges();
         //}
         #endregion
+
+        #endregion
+
+        #region common cases
+
+        /// <summary>
+        /// Get common data storage
+        /// </summary>
+        public static IEnumerable<T> Gd<T>(this string ConnectionName, f<T, bool> MethodToSelect, bool EnsureStructure = true) where T : class
+        {
+            var cs = new DCx<T>(ConnectionName);
+            if (EnsureStructure)
+                cs.N();
+
+            IEnumerable<T> res = null;
+
+            cs.R(c =>
+            {
+                if(MethodToSelect != null)
+                    res = c.d1.w(a => MethodToSelect(a));
+                else
+                    res = c.d1.ToArray();
+            });
+            return res;
+        }
+
+        /// <summary>
+        /// AddOrUpdate common data storage
+        /// </summary>
+        public static bool Ua<T>(this T[] ElementToUpdate, string ConnectionName) where T : class
+        {
+            var cs = new DCx<T>(ConnectionName);
+            var e = ElementToUpdate;
+
+            cs.U(c =>
+            {
+                c.d1.AddOrUpdate(e);
+            });
+            return true;
+        }
 
         #endregion
 
