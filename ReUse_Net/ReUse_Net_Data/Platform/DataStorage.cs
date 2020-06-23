@@ -195,7 +195,12 @@ namespace ReUse_Net_Data.Platform
         /// Create new App Data Context for specified ConnectionTitleString
         /// </summary>
         public DCx(string ConnectionTitleString = null) : base(ConnectionTitleString)
+        {            
+        }
+
+        public void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("datetime2"));
         }
     }
 
@@ -220,6 +225,10 @@ namespace ReUse_Net_Data.Platform
         {
         }
 
+        public void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("datetime2"));
+        }
     }
 
     /// <summary>
@@ -246,6 +255,10 @@ namespace ReUse_Net_Data.Platform
         public DCx(string ConnectionTitleString = null) : base(ConnectionTitleString)
         {
 
+        }
+        public void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("datetime2"));
         }
     }
     #endregion
