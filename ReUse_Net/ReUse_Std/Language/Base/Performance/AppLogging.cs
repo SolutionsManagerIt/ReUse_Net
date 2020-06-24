@@ -53,20 +53,25 @@ namespace ReUse_Std.Base.Performance
         /// Curr Session
         /// </summary>
         private Sld S;
+        /// <summary>
+        /// Method To Save Logs
+        /// </summary>
+        private f<Lst, bool> Sm;
         #endregion
 
         /// <summary>
         /// Start logger with parameters from CurrLogSession
         /// </summary>
-        public Lg(Sld CurrSession = null, string ServerName = null, string DataBaseName = null)
+        public Lg(f<Lst, bool> SaveLogsMethod, Sld CurrSession = null, string ServerName = null, string DataBaseName = null)
         {
-            this.S = CurrSession;
-            this.Ns = ServerName;
-            this.Nd = DataBaseName;
-            this.Pr = null;
-            this.L = new Lst();
-            this.Ls = new List<Lst>();
-            this.Rn = 0;
+            S = CurrSession;
+            Ns = ServerName;
+            Nd = DataBaseName;
+            Pr = null;
+            Sm = SaveLogsMethod;
+            L = new Lst();
+            Ls = new List<Lst>();
+            Rn = 0;
         }
 
         #region Error and Info Log Entry
@@ -174,7 +179,7 @@ namespace ReUse_Std.Base.Performance
         /// <returns>Performance Log Entry Record</returns>
         public Prf P(string ParametersData = null, string Details = null, bool? GetProcessData = null, int? ArrayItemSize = null, int? PerformanceIndex = null)
         {
-            return Pn(ParametersData, Details, GetProcessData ?? S.CollectPerfDetails, ArrayItemSize, PerformanceIndex);
+            return Pn(ParametersData, Details, GetProcessData ?? S.Cpd, ArrayItemSize, PerformanceIndex);
         }
 
         /// <summary>
@@ -183,7 +188,7 @@ namespace ReUse_Std.Base.Performance
         public Prf P(Cx CurrCodeType = null)
         {
             if (CurrCodeType != null && CurrCodeType.Cp.L)
-                return Pn(CurrCodeType.Cp.P, CurrCodeType.Cp.D, CurrCodeType.P ?? S.CollectPerfDetails, CurrCodeType.Cp.As, CurrCodeType.Cp.Li);
+                return Pn(CurrCodeType.Cp.P, CurrCodeType.Cp.D, CurrCodeType.P ?? S.Cpd, CurrCodeType.Cp.As, CurrCodeType.Cp.Li);
             return null;
         }
 
@@ -248,39 +253,37 @@ namespace ReUse_Std.Base.Performance
         /// </summary>
         private void Ae(string ClassName = null, string MethodName = null, string Comments = null, Exception CurrExc = null, bool? IsCritical = null, string ParametersData = null, string ErrorDetails = null, int? ArrayItemSize = null, int? LogIndex = null)
         {
-            if (!S.CollectLogs)
+            if (!S.Cl)
                 return;
 
-            var EntryGuid = CreateNewCodeEntry(ClassName, MethodName);
-            if (!L.ErrorLogs.ContainsKey(EntryGuid))
-                L.ErrorLogs.Add(EntryGuid, new List<Err>());
+            var EntryGuid = Ce(ClassName, MethodName);
 
-            var Result = new Err();
+            var r = new Err();
 
-            Result.DateFound = DateTime.Now;
-            Result.ArrayItemSize = ArrayItemSize;
-            Result.LogIndex = LogIndex;
+            r.As = ArrayItemSize;
+            r.I = LogIndex;
 
-            Result.ParametersData = ParametersData;
-            Result.Comments = Comments;
-            Result.ErrorDetails = ErrorDetails;
-            Result.IsCritical = IsCritical;
+            r.P = ParametersData;
+            r.C = Comments;
+            r.Ed = ErrorDetails;
+            r.Cr = IsCritical;
+            r.E = EntryGuid;
 
             if (CurrExc != null)
             {
-                Result.ErrorSource = CurrExc.Source;
-                Result.ErrorMessage = CurrExc.Message;
-                if (S.CollectErrorDetails)
+                r.Esr = CurrExc.Source;
+                r.Em = CurrExc.Message;
+                if (S.Ced)
                 {
-                    Result.ErrorStackTrace = CurrExc.StackTrace;
-                    Result.ErrorToString = CurrExc.ToString();
-                    Result.ErrorTargetSite = CurrExc.TargetSite.ToString();
+                    r.Et = CurrExc.StackTrace;
+                    r.Es = CurrExc.ToString();
+                    r.Ets = CurrExc.TargetSite.ToString();
                 }
             }
-            L.ErrorLogs[EntryGuid].Add(Result);
+            L.E.Add(r);
             Rn++;
 
-            if (S.MaxLogsLimit != null && S.MaxLogsLimit.Value > 1 && Rn > S.MaxLogsLimit.Value)
+            if (S.M != null && S.M.Value > 1 && Rn > S.M.Value)
                 Save();
         }
 
@@ -289,25 +292,23 @@ namespace ReUse_Std.Base.Performance
         /// </summary>
         private void Ai(string ClassName = null, string MethodName = null, string Comments = null, string ParametersData = null, int? ArrayItemSize = null, int? LogIndex = null)
         {
-            if (!S.CollectLogs)
+            if (!S.Cl)
                 return;
 
-            var EntryGuid = CreateNewCodeEntry(ClassName, MethodName);
-            if (!L.InfoLogs.ContainsKey(EntryGuid))
-                L.InfoLogs.Add(EntryGuid, new List<Inf>());
+            var EntryGuid = Ce(ClassName, MethodName);
 
-            var Result = new Inf();
+            var r = new Inf();
 
-            Result.DateFound = DateTime.Now;
-            Result.ArrayItemSize = ArrayItemSize;
-            Result.LogIndex = LogIndex;
-            Result.ParametersData = ParametersData;
-            Result.Comments = Comments;
+            r.E = EntryGuid;
+            r.As = ArrayItemSize;
+            r.I = LogIndex;
+            r.P = ParametersData;
+            r.C = Comments;
 
-            L.InfoLogs[EntryGuid].Add(Result);
+            L.I.Add(r);
             Rn++;
 
-            if (S.MaxLogsLimit != null && S.MaxLogsLimit.Value > 1 && Rn > S.MaxLogsLimit.Value)
+            if (S.M != null && S.M.Value > 1 && Rn > S.M.Value)
                 Save();
         }
 
@@ -320,20 +321,19 @@ namespace ReUse_Std.Base.Performance
         /// </summary>
         private Prf Pn(string ParametersData = null, string Details = null, bool GetProcessData = true, int? ArrayItemSize = null, int? PerformanceIndex = null)
         {
-            if (!S.CollectPerfLogs)
+            if (!S.Cp)
                 return null;
 
             Prf Result = new Prf();
 
-            Result.Start = DateTime.Now;
-            Result.ArrayItemSize = ArrayItemSize;
-            Result.PerformanceIndex = PerformanceIndex;
+            Result.As = ArrayItemSize;
+            Result.I = PerformanceIndex;
 
-            if (GetProcessData)
-                Result.DetailsStart = GetCurrentProcessPerformanceDetails();
+            if (S.Cpr && GetProcessData)
+                Result.Is = Prd();
 
-            Result.ParametersData = ParametersData;
-            Result.Details = Details;
+            Result.P = ParametersData;
+            Result.D = Details;
 
             return Result;
         }
@@ -343,29 +343,28 @@ namespace ReUse_Std.Base.Performance
         /// </summary>
         private void Pa(Prf CurrLog, string ClassName = null, string MethodName = null, string Comments = null, bool GetProcessData = true)
         {
-            if (!S.CollectPerfLogs || CurrLog == null)
+            if (!S.Cp || CurrLog == null)
                 return;
 
             var Log = CurrLog;
 
-            if (GetProcessData)
-                Log.DetailsEnd = GetCurrentProcessPerformanceDetails();
+            if (S.Cpr && GetProcessData)
+                Log.Ie = Prd();
 
-            Log.Comments = Comments;
-            var End = DateTime.Now;
+            Log.C = Comments;
+            var End = _.d;
 
-            Log.End = End;
-            Log.TicksCount = (End - Log.Start).Ticks;
-            Log.TotalMilliseconds = (End - Log.Start).TotalMilliseconds;
+            Log.De = End;
+            Log.T = (End - Log.Ds).Ticks;
+            Log.M = (End - Log.Ds).TotalMilliseconds;
 
-            var EntryGuid = CreateNewCodeEntry(ClassName, MethodName);
-            if (!L.PerformanceLogs.ContainsKey(EntryGuid))
-                L.PerformanceLogs.Add(EntryGuid, new List<Prf>());
+            var EntryGuid = Ce(ClassName, MethodName);
 
-            L.PerformanceLogs[EntryGuid].Add(Log);
+            Log.E = EntryGuid;
+            L.P.Add(Log);
             Rn++;
 
-            if (S.MaxLogsLimit != null && S.MaxLogsLimit.Value > 1 && Rn > S.MaxLogsLimit.Value)
+            if (S.M != null && S.M.Value > 1 && Rn > S.M.Value)
                 Save();
         }
 
@@ -376,49 +375,50 @@ namespace ReUse_Std.Base.Performance
         /// <summary>
         /// Get Current Process Common Details
         /// </summary>
-        private void GetCurrentProcessCommonDetails()
+        private void Prc()
         {
-            if (!S.CollectPerfLogs)
+            if (!S.Cpr)
                 return;
 
             Prc Result = new Prc();
-            Result.DateFound = _.D;
 
             if (Pr != null)
             {
                 Pr.Refresh();
-                Result.ProcessId = Pr.Id;
-                Result.SessionId = Pr.SessionId;
-                Result.StartTime = Pr.StartTime;
+                Result.Ip = Pr.Id;
+                Result.Is = Pr.SessionId;
+                Result.S = Pr.StartTime;
             }
-            L.ProcessLogs.Add(Result);
+            L.Pr.Add(Result);
         }
 
         /// <summary>
         /// Get Current Process Performance Details
         /// </summary>
-        private Guid GetCurrentProcessPerformanceDetails()
+        private Guid? Prd()
         {
+            if (!S.Cprd)
+                return null;
+
             Prd Result = new Prd();
-            var NewUID = Guid.NewGuid();
 
             if (Pr != null)
             {
                 try
                 {
                     Pr.Refresh();
-                    Result.HandleCount = Pr.HandleCount;
-                    Result.NonpagedSystemMemorySize64 = Pr.NonpagedSystemMemorySize64;
-                    Result.PagedMemorySize64 = Pr.PagedMemorySize64;
-                    Result.PagedSystemMemorySize64 = Pr.PagedSystemMemorySize64;
-                    Result.PeakPagedMemorySize64 = Pr.PeakPagedMemorySize64;
-                    Result.PeakVirtualMemorySize64 = Pr.PeakVirtualMemorySize64;
-                    Result.PeakWorkingSet64 = Pr.PeakWorkingSet64;
-                    Result.PrivateMemorySize64 = Pr.PrivateMemorySize64;
-                    Result.PrivilegedProcessorTime = Pr.PrivilegedProcessorTime;
-                    Result.ThreadsCount = Pr.Threads.Count;
-                    Result.VirtualMemorySize64 = Pr.VirtualMemorySize64;
-                    Result.WorkingSet64 = Pr.WorkingSet64;
+                    Result.Ch = Pr.HandleCount;
+                    Result.Sx = Pr.NonpagedSystemMemorySize64;
+                    Result.Mx = Pr.PagedMemorySize64;
+                    Result.Sp = Pr.PagedSystemMemorySize64;
+                    Result.Px = Pr.PeakPagedMemorySize64;
+                    Result.Vp = Pr.PeakVirtualMemorySize64;
+                    Result.Wp = Pr.PeakWorkingSet64;
+                    Result.Mp = Pr.PrivateMemorySize64;
+                    Result.Tp = Pr.PrivilegedProcessorTime;
+                    Result.Ct = Pr.Threads.Count;
+                    Result.V = Pr.VirtualMemorySize64;
+                    Result.W = Pr.WorkingSet64;
                 }
                 catch (Exception exc)
                 {
@@ -426,27 +426,27 @@ namespace ReUse_Std.Base.Performance
                 }
             }
 
-            L.ProcessDetailsData.Add(NewUID, Result);
-            return NewUID;
+            L.Pd.Add(Result);
+            return Result.PrdId;
         }
 
         /// <summary>
         /// Create New Code Entry
         /// </summary>
-        private Guid CreateNewCodeEntry(string ClassTitle = null, string MethodTitle = null)
+        private Guid Ce(string ClassTitle = null, string MethodTitle = null)
         {
             var NewUID = _.g;
-            var ClassData = L.Entries.w(e => e.Class == ClassTitle);
+            var ClassData = L.C.w(e => e.C == ClassTitle);
             if (ClassData.C())
             {
-                var MethodsData = ClassData.f().Methods.w(e => e.Method == MethodTitle);
+                var MethodsData = ClassData.f().M.w(e => e.M == MethodTitle);
                 if (MethodsData.C())
-                    return MethodsData.f().MethodGuid;
+                    return MethodsData.f().G;
                 else
-                    ClassData.f().Methods.Add(new Cme() { MethodGuid = NewUID, Method = MethodTitle });
+                    ClassData.f().M.Add(new Cme() { G = NewUID, M = MethodTitle });
             }
             else
-                L.Entries.Add(new Cde() { Class = ClassTitle, Methods = new Cme() { MethodGuid = NewUID, Method = MethodTitle }.L() });
+                L.C.Add(new Cde() { C = ClassTitle, M = new Cme() { G = NewUID, M = MethodTitle }.L() });
 
             return NewUID;
         }
@@ -454,36 +454,35 @@ namespace ReUse_Std.Base.Performance
         /// <summary>
         /// Get Environment Details
         /// </summary>
-        private void GetEnvironmentDetails()
+        private void En()
         {
             Env Result = new Env();
-            Result.CurrentTime = _.D;
 
-            Result.Is64BitOperatingSystem = Environment.Is64BitOperatingSystem;
-            Result.Is64BitProcess = Environment.Is64BitProcess;
-            Result.MachineName = Environment.MachineName;
-            Result.NewLine = Environment.NewLine;
-            Result.ProcessorCount = Environment.ProcessorCount;
-            Result.SystemPageSize = Environment.SystemPageSize;
-            Result.TickCount = Environment.TickCount;
+            Result.Xo = Environment.Is64BitOperatingSystem;
+            Result.Xp = Environment.Is64BitProcess;
+            Result.M = Environment.MachineName;
+            Result.N = Environment.NewLine;
+            Result.Pc = Environment.ProcessorCount;
+            Result.Sp = Environment.SystemPageSize;
+            Result.Ct = Environment.TickCount;
 
-            if (S.CollectUsers)
+            if (S.Cu)
             {
-                Result.UserDomainName = Environment.UserDomainName;
-                Result.UserInteractive = Environment.UserInteractive;
-                Result.UserName = Environment.UserName;
+                Result.Ud = Environment.UserDomainName;
+                Result.Ui = Environment.UserInteractive;
+                Result.Un = Environment.UserName;
             }
 
-            Result.WorkingSet = Environment.WorkingSet;
+            Result.W = Environment.WorkingSet;
 
-            if (S.CollectOSData && Environment.OSVersion != null)
+            if (S.Co && Environment.OSVersion != null)
             {
-                Result.OSVersion_Platform = Environment.OSVersion.Platform.ToString();
-                Result.OSVersion_ServicePack = Environment.OSVersion.ServicePack;
-                Result.OSVersion_VersionString = Environment.OSVersion.VersionString;
+                Result.Op = Environment.OSVersion.Platform.ToString();
+                Result.Os = Environment.OSVersion.ServicePack;
+                Result.Ov = Environment.OSVersion.VersionString;
             }
 
-            L.Environments.Add(Result);
+            L.En.Add(Result);
         }
 
         #endregion
@@ -887,29 +886,25 @@ namespace ReUse_Std.Base.Performance
         /// <summary>
         /// Save All Logs to SQL storage in separate thread
         /// </summary>
-        public bool Save(bool StartNewLogsAfterSave = true)
+        public Guid[] Save(bool StartNewLogsAfterSave = true)
         {
             var Copy = L;
             Ls.Add(Copy);
 
-            var Curr = this;
-
-            f<bool, Cx, bool> Save = (t, c) =>
+            var q = Ls.s(e =>
             {
-                Copy.S(Curr.Ns, Curr.Nd, Curr.S, c);
-                Copy.I();
-                return true;
-            };
+                bool r = false;
+                if (Sm != null)
+                    r = Sm(e);
+                if (r)
+                    e.I();
+                return r._c(e.LstId);
+            });
 
-            //Save._Z();
-
-            if (!StartNewLogsAfterSave)
-                return true;
-
-            L = new Lst().I();
-
-            //CurrentLogs.I();
-            return true;
+            if (StartNewLogsAfterSave)
+                L = new Lst().I();
+            
+            return q.s(e => e._2, e => !e._1);
         }
     }
 
@@ -925,15 +920,15 @@ namespace ReUse_Std.Base.Performance
         {
             var r = new Sld();
 
-            r.Session_UID = _.g;
-            r.AssemblyName = Assembly.GetExecutingAssembly().ToString();
+            r.I = _.g;
+            r.A = Assembly.GetExecutingAssembly().ToString();
 
-            r.CollectPerfLogs = CollectPerfLogs;
-            r.CollectErrorDetails = CollectErrorDetails;
-            r.CollectPerfDetails = CollectPerfDetails;
-            r.CollectUsers = CollectUsers;
-            r.CollectOSData = CollectOSData;
-            r.MaxLogsLimit = MaxLogsLimit;
+            r.Cp = CollectPerfLogs;
+            r.Ced = CollectErrorDetails;
+            r.Cpd = CollectPerfDetails;
+            r.Cu = CollectUsers;
+            r.Co = CollectOSData;
+            r.M = MaxLogsLimit;
 
             return r;
         }
@@ -945,14 +940,14 @@ namespace ReUse_Std.Base.Performance
         {
             var r = CurrentSessionLog;
 
-            r.Session_UID = _.g;
-            r.AssemblyName = Assembly.GetExecutingAssembly().ToString();
+            r.I = _.g;
+            r.A = Assembly.GetExecutingAssembly().ToString();
 
-            r.CollectErrorDetails = CollectErrorDetails;
-            r.CollectPerfDetails = CollectPerfDetails;
-            r.CollectUsers = CollectUsers;
-            r.CollectOSData = CollectOSData;
-            r.MaxLogsLimit = MaxLogsLimit;
+            r.Ced = CollectErrorDetails;
+            r.Cpd = CollectPerfDetails;
+            r.Cu = CollectUsers;
+            r.Co = CollectOSData;
+            r.M = MaxLogsLimit;
 
             return CurrentSessionLog;
         }
@@ -960,13 +955,10 @@ namespace ReUse_Std.Base.Performance
         /// <summary>
         /// Get new logger with parameters from current CurrLogSession
         /// </summary>
-        public static Lg L(this Sld CurrSession, string ServerName = null, string DataBaseName = null)
+        public static Lg N(this Sld CurrSession, f<Lst, bool> SaveLogsMethod, string ServerName = null, string DataBaseName = null)
         {
-            return new Lg(CurrSession, ServerName, DataBaseName);
+            return new Lg(SaveLogsMethod, CurrSession, ServerName, DataBaseName);
         }
-
-        
-
     }
 
     /// <summary>
@@ -976,101 +968,146 @@ namespace ReUse_Std.Base.Performance
     {
         #region Logs storage
 
+        //Sld S
+
+        /// <summary>
+        /// Init new Logs Storage for logger using CollectDetailsSettings
+        /// </summary>
+        public static Lst I(this Lst CurrLogsStorage, Sld CollectDetailsSettings)
+        {
+            var s = CollectDetailsSettings;
+            //return CurrLogsStorage.I(s.Cp, s.Cpd, s.Cu, s.Chr, s.Chs);
+
+            var r = CurrLogsStorage;
+
+            r.C = new List<Cde>();
+            r.E = new List<Err>();
+            r.I = new List<Inf>();
+            r.En = new List<Env>();
+            if (s.Cp)
+                r.P = new List<Prf>();
+            if (s.Cpd)
+            {
+                r.Pr = new List<Prc>();
+                r.Pd = new List<Prd>();
+
+            }
+
+            if (s.Chr)
+                r.Hr = new List<Hrq>();
+            if (s.Chs)
+                r.Hs = new List<Hsl>();
+            if (s.Chc)
+                r.Hc = new List<Hcx>();
+            if (s.Cwp)
+                r.Wp = new List<Wpl>();
+            if (s.Cwr)
+                r.Wpr = new List<Wpr>();
+            if (s.Chc)
+                r.Hb = new List<Hbc>();
+
+            if (s.Cu)
+                r.Wi = new List<Wil>();
+
+            return CurrLogsStorage;
+        }
+
+
         /// <summary>
         /// Init new Logs Storage for logger
         /// </summary>
         public static Lst I(this Lst CurrLogsStorage, bool CollectPerfLogs = true, bool CollectProcessDetails = true, bool CollectUsers = true, bool CollectHttpWeb = true, bool CollectBrowsers = true)
         {
-            //var r = new LogsStorage();
+            var r = CurrLogsStorage;
 
-            CurrLogsStorage.Entries = new List<AppDataModels.Logging.Cde>();
-            CurrLogsStorage.ErrorLogs = new Dictionary<Guid, List<Err>>();
-            CurrLogsStorage.InfoLogs = new Dictionary<Guid, List<Inf>>();
-            CurrLogsStorage.Environments = new List<Env>();
+            r.C = new List<Cde>();
+            r.E = new List<Err>();
+            r.I = new List<Inf>();
+            r.En = new List<Env>();
             if (CollectPerfLogs)
-                CurrLogsStorage.PerformanceLogs = new Dictionary<Guid, List<Prf>>();
+                r.P = new List<Prf>();
             if (CollectProcessDetails)
             {
-                CurrLogsStorage.ProcessLogs = new List<Prc>();
-                CurrLogsStorage.ProcessDetailsData = new Dictionary<Guid, Prd>();
+                r.Pr = new List<Prc>();
+                r.Pd = new List<Prd>();
 
             }
             if (CollectHttpWeb)
             {
-                CurrLogsStorage.HttpRequests = new List<Hrq>();
-                CurrLogsStorage.HttpSessions = new List<Hsl>();
-                CurrLogsStorage.HttpContexts = new List<Hcx>();
-                CurrLogsStorage.WebPages = new List<Wpl>();
+                r.Hr = new List<Hrq>();
+                r.Hs = new List<Hsl>();
+                r.Hc = new List<Hcx>();
+                r.Wp = new List<Wpl>();
                 if (CollectUsers)
-                    CurrLogsStorage.WebProfiles = new List<Wpr>();
+                    r.Wpr = new List<Wpr>();
                 if (CollectBrowsers)
-                    CurrLogsStorage.HttpBrowsers = new List<Hbc>();
+                    r.Hb = new List<Hbc>();
             }
             if (CollectUsers)
-                CurrLogsStorage.WindowsIdentities = new List<Wil>();
+                r.Wi = new List<Wil>();
 
             return CurrLogsStorage;
         }
 
-        /// <summary>
-        /// Save Current Logs Storage Data to SQL
-        /// </summary>
-        public static Lst S(this Lst CurrLogsStorage, string ServerName, string DataBaseName, Sld CurrSession, Cx CurrCode = null)
-        {
-            var TablesToGet = "SessionLog".I("EntryData", "ErrorLog", "EnvironmentDetails"
-                , "InfoLog", "PerformanceLog", "ProcessLog", "ProcessDetails", "HttpRequestLog",
-                "HttpSessionLog", "HttpContextLog", "WebPageLog", "WebProfileLog", "HttpBrowsersLog", "WindowsIdentityLog");
+        ///// <summary>
+        ///// Save Current Logs Storage Data to SQL
+        ///// </summary>
+        //public static Lst S(this Lst CurrLogsStorage, string ServerName, string DataBaseName, Sld CurrSession, Cx CurrCode = null)
+        //{
+        //    var TablesToGet = "SessionLog".I("EntryData", "ErrorLog", "EnvironmentDetails"
+        //        , "InfoLog", "PerformanceLog", "ProcessLog", "ProcessDetails", "HttpRequestLog",
+        //        "HttpSessionLog", "HttpContextLog", "WebPageLog", "WebProfileLog", "HttpBrowsersLog", "WindowsIdentityLog");
 
-            //var Curr = this;
+        //    //var Curr = this;
 
-            "Save"._R(() =>
-            {
-                //var Conn = (ServerName ?? "localhost")._Qc(DataBaseName ?? "LogsNewFormat");
-                //var CurrLogs = Conn._Gb(TablesToGet);
+        //    "Save".R(() =>
+        //    {
+        //        //var Conn = (ServerName ?? "localhost")._Qc(DataBaseName ?? "LogsNewFormat");
+        //        //var CurrLogs = Conn._Gb(TablesToGet);
 
-                //if (CurrLogs == null || CurrLogs.Count() != TablesToGet.Count())
-                //    return false;
+        //        //if (CurrLogs == null || CurrLogs.Count() != TablesToGet.Count())
+        //        //    return false;
 
-                //CurrSession.A(CurrLogs["SessionLog"]);
+        //        //CurrSession.A(CurrLogs["SessionLog"]);
 
-                //foreach (var i in CurrLogsStorage.Entries)
-                //    i.A(CurrLogs["EntryData"], CurrSession.Session_UID);
-                //foreach (var d in CurrLogsStorage.ErrorLogs)
-                //    foreach (var i in d.Value)
-                //        i.A(CurrLogs["ErrorLog"], CurrSession.Session_UID, d.Key);
-                //foreach (var d in CurrLogsStorage.InfoLogs)
-                //    foreach (var i in d.Value)
-                //        i.A(CurrLogs["InfoLog"], CurrSession.Session_UID, d.Key);
-                //foreach (var d in CurrLogsStorage.PerformanceLogs)
-                //    foreach (var i in d.Value)
-                //        i.A(CurrLogs["PerformanceLog"], CurrSession.Session_UID, d.Key);
-                //foreach (var i in CurrLogsStorage.ProcessDetailsData)
-                //    i.Value.A(CurrLogs["ProcessDetails"], CurrSession.Session_UID, i.Key);
-                //foreach (var i in CurrLogsStorage.Environments)
-                //    i.A(CurrLogs["EnvironmentDetails"], CurrSession.Session_UID);
-                //foreach (var i in CurrLogsStorage.ProcessLogs)
-                //    i.A(CurrLogs["ProcessLog"], CurrSession.Session_UID);
-                //foreach (var i in CurrLogsStorage.HttpRequests)
-                //    i.A(CurrLogs["HttpRequestLog"], CurrSession.Session_UID);
-                //foreach (var i in CurrLogsStorage.HttpSessions)
-                //    i.A(CurrLogs["HttpSessionLog"], CurrSession.Session_UID);
-                //foreach (var i in CurrLogsStorage.HttpContexts)
-                //    i.A(CurrLogs["HttpContextLog"], CurrSession.Session_UID);
-                //foreach (var i in CurrLogsStorage.WebPages)
-                //    i.A(CurrLogs["WebPageLog"], CurrSession.Session_UID);
-                //foreach (var i in CurrLogsStorage.WebProfiles)
-                //    i.A(CurrLogs["WebProfileLog"], CurrSession.Session_UID);
-                //foreach (var i in CurrLogsStorage.HttpBrowsers)
-                //    i.A(CurrLogs["HttpBrowsersLog"], CurrSession.Session_UID);
-                //foreach (var i in CurrLogsStorage.WindowsIdentities)
-                //    i.A(CurrLogs["WindowsIdentityLog"], CurrSession.Session_UID);
+        //        //foreach (var i in CurrLogsStorage.Entries)
+        //        //    i.A(CurrLogs["EntryData"], CurrSession.Session_UID);
+        //        //foreach (var d in CurrLogsStorage.ErrorLogs)
+        //        //    foreach (var i in d.Value)
+        //        //        i.A(CurrLogs["ErrorLog"], CurrSession.Session_UID, d.Key);
+        //        //foreach (var d in CurrLogsStorage.InfoLogs)
+        //        //    foreach (var i in d.Value)
+        //        //        i.A(CurrLogs["InfoLog"], CurrSession.Session_UID, d.Key);
+        //        //foreach (var d in CurrLogsStorage.PerformanceLogs)
+        //        //    foreach (var i in d.Value)
+        //        //        i.A(CurrLogs["PerformanceLog"], CurrSession.Session_UID, d.Key);
+        //        //foreach (var i in CurrLogsStorage.ProcessDetailsData)
+        //        //    i.Value.A(CurrLogs["ProcessDetails"], CurrSession.Session_UID, i.Key);
+        //        //foreach (var i in CurrLogsStorage.Environments)
+        //        //    i.A(CurrLogs["EnvironmentDetails"], CurrSession.Session_UID);
+        //        //foreach (var i in CurrLogsStorage.ProcessLogs)
+        //        //    i.A(CurrLogs["ProcessLog"], CurrSession.Session_UID);
+        //        //foreach (var i in CurrLogsStorage.HttpRequests)
+        //        //    i.A(CurrLogs["HttpRequestLog"], CurrSession.Session_UID);
+        //        //foreach (var i in CurrLogsStorage.HttpSessions)
+        //        //    i.A(CurrLogs["HttpSessionLog"], CurrSession.Session_UID);
+        //        //foreach (var i in CurrLogsStorage.HttpContexts)
+        //        //    i.A(CurrLogs["HttpContextLog"], CurrSession.Session_UID);
+        //        //foreach (var i in CurrLogsStorage.WebPages)
+        //        //    i.A(CurrLogs["WebPageLog"], CurrSession.Session_UID);
+        //        //foreach (var i in CurrLogsStorage.WebProfiles)
+        //        //    i.A(CurrLogs["WebProfileLog"], CurrSession.Session_UID);
+        //        //foreach (var i in CurrLogsStorage.HttpBrowsers)
+        //        //    i.A(CurrLogs["HttpBrowsersLog"], CurrSession.Session_UID);
+        //        //foreach (var i in CurrLogsStorage.WindowsIdentities)
+        //        //    i.A(CurrLogs["WindowsIdentityLog"], CurrSession.Session_UID);
 
-                //Conn._Cp(CurrLogs);
+        //        //Conn._Cp(CurrLogs);
 
-                return true;
-            }, false, "LogsStorage", CurrCode);
-            return CurrLogsStorage;
-        }
+        //        return true;
+        //    }, false, "LogsStorage", CurrCode);
+        //    return CurrLogsStorage;
+        //}
 
 
 

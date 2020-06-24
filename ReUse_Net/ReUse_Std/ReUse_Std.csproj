@@ -19,15 +19,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Blocks\**" />
     <Compile Remove="Features\**" />
-    <EmbeddedResource Remove="Blocks\**" />
     <EmbeddedResource Remove="Features\**" />
-    <None Remove="Blocks\**" />
     <None Remove="Features\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Blocks\" />
     <Folder Include="Platform\" />
   </ItemGroup>
 

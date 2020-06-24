@@ -18,61 +18,66 @@ namespace ReUse_Std.AppDataModels.Logging
     public class Lst
     {
         /// <summary>
+        /// Current item key guid
+        /// </summary>
+        public Guid LstId { get; set; } = _.g;
+
+        /// <summary>
         /// Entries
         /// </summary>
-        public List<Cde> Entries;
+        public List<Cde> C;
         /// <summary>
         /// Error Logs
         /// </summary>
-        public IDictionary<Guid, List<Err>> ErrorLogs;
+        public List<Err> E;
         /// <summary>
         /// Info Logs
         /// </summary>
-        public IDictionary<Guid, List<Inf>> InfoLogs;
+        public List<Inf> I;
         /// <summary>
         /// Environment Details
         /// </summary>
-        public List<Env> Environments;
+        public List<Env> En;
         /// <summary>
         /// Performance Logs
         /// </summary>
-        public IDictionary<Guid, List<Prf>> PerformanceLogs;
+        public List<Prf> P;
         /// <summary>
         /// Process Logs
         /// </summary>
-        public List<Prc> ProcessLogs;
+        public List<Prc> Pr;
         /// <summary>
         /// Process Details Data
         /// </summary>
-        public IDictionary<Guid, Prd> ProcessDetailsData;
+        public List<Prd> Pd;
         /// <summary>
         /// Http Requests
         /// </summary>
-        public List<Hrq> HttpRequests;
+        public List<Hrq> Hr;
         /// <summary>
         /// Http Sessions
         /// </summary>
-        public List<Hsl> HttpSessions;
+        public List<Hsl> Hs;
         /// <summary>
         /// Http Contexts
         /// </summary>
-        public List<Hcx> HttpContexts;
+        public List<Hcx> Hc;
         /// <summary>
         /// Web Pages
         /// </summary>
-        public List<Wpl> WebPages;
+        public List<Wpl> Wp;
         /// <summary>
         /// Web Profiles
         /// </summary>
-        public List<Wpr> WebProfiles;
+        public List<Wpr> Wpr;
         /// <summary>
         /// Http Browsers
         /// </summary>
-        public List<Hbc> HttpBrowsers;
+        public List<Hbc> Hb;
         /// <summary>
         /// Windows Identities
         /// </summary>
-        public List<Wil> WindowsIdentities;
+        public List<Wil> Wi;
 
     }
 
@@ -84,69 +89,90 @@ namespace ReUse_Std.AppDataModels.Logging
         /// <summary>
         /// Current item key guid
         /// </summary>
-        public Guid LsId { get; set; } = _.g;
+        public Guid SldId { get; set; } = _.g;
 
         /// <summary>
-        /// 
+        /// Session_UID
         /// </summary>
-        public Guid Session_UID { get; set; }
+        public Guid I { get; set; }
         /// <summary>
-        /// 
+        /// SolutionTitle
         /// </summary>
-        public string SolutionTitle { get; set; }
+        public string T { get; set; }
         /// <summary>
-        /// 
+        /// AssemblyName
         /// </summary>
-        public string AssemblyName { get; set; }
+        public string A { get; set; }
 
         /// <summary>
-        /// 
+        /// CollectLogs
         /// </summary>
-        public bool CollectLogs { get; set; }
+        public bool Cl { get; set; }
         /// <summary>
-        /// 
+        /// CollectPerfLogs
         /// </summary>
-        public bool CollectPerfLogs { get; set; }
+        public bool Cp { get; set; }
         /// <summary>
-        /// 
+        /// CollectPerfDetails
         /// </summary>
-        public bool CollectPerfDetails { get; set; }
+        public bool Cpd { get; set; }
+
         /// <summary>
-        /// 
+        /// CollectProcessLogs
         /// </summary>
-        public bool CollectUsers { get; set; }
+        public bool Cpr { get; set; }
         /// <summary>
-        /// 
+        /// CollectProcessDetails
         /// </summary>
-        public bool CollectOSData { get; set; }
+        public bool Cprd { get; set; }
         /// <summary>
-        /// 
+        /// CollectUsers
         /// </summary>
-        public bool CollectErrorDetails { get; set; }
+        public bool Cu { get; set; }
         /// <summary>
-        /// 
+        /// CollectOSData
         /// </summary>
-        public bool CollectHttpRequests { get; set; }
+        public bool Co { get; set; }
         /// <summary>
-        /// 
+        /// CollectErrorDetails
         /// </summary>
-        public bool CollectHttpSessions { get; set; }
+        public bool Ced { get; set; }
         /// <summary>
-        /// 
+        /// CollectHttpRequests
         /// </summary>
-        public bool CollectHttpContexts { get; set; }
+        public bool Chr { get; set; }
         /// <summary>
-        /// 
+        /// CollectHttpSessions
         /// </summary>
-        public bool CollectWebPages { get; set; }
+        public bool Chs { get; set; }
         /// <summary>
-        /// 
+        /// CollectHttpContexts
         /// </summary>
-        public bool CollectWebProfiles { get; set; }
+        public bool Chc { get; set; }
         /// <summary>
-        /// 
+        /// CollectWebPages
         /// </summary>
-        public int? MaxLogsLimit { get; set; }
+        public bool Cwp { get; set; }
+        /// <summary>
+        /// CollectWebProfiles
+        /// </summary>
+        public bool Cwr { get; set; }
+        /// <summary>
+        /// Collect Browser Details
+        /// </summary>
+        public bool Cb { get; set; }
+        /// <summary>
+        /// MaxLogsLimit
+        /// </summary>
+        public int? M { get; set; }
+        /// <summary>
+        /// DateTime Now
+        /// </summary>
+        public DateTime D { get; set; } = _.D;
+        /// <summary>
+        /// DateTime UtcNow
+        /// </summary>
+        public DateTime Du { get; set; } = _.d;
     }
 
     /// <summary>
@@ -154,8 +180,19 @@ namespace ReUse_Std.AppDataModels.Logging
     /// </summary>
     public class Cde
     {
-        public string Class;
-        public List<Cme> Methods;
+        /// <summary>
+        /// Current item key guid
+        /// </summary>
+        public Guid CdeId { get; set; } = _.g;
+
+        /// <summary>
+        /// Class name
+        /// </summary>
+        public string C { get; set; }
+        /// <summary>
+        /// Class Methods list
+        /// </summary>
+        public List<Cme> M { get; set; }
 
     }
 
@@ -164,8 +201,18 @@ namespace ReUse_Std.AppDataModels.Logging
     /// </summary>
     public class Cme
     {
-        public Guid MethodGuid;
-        public string Method;
+        /// <summary>
+        /// Current item key guid
+        /// </summary>
+        public Guid CmeId { get; set; } = _.g;
+        /// <summary>
+        /// MethodGuid
+        /// </summary>
+        public Guid G { get; set; }
+        /// <summary>
+        /// Method
+        /// </summary>
+        public string M { get; set; }
 
     }
 
@@ -174,18 +221,63 @@ namespace ReUse_Std.AppDataModels.Logging
     /// </summary>
     public class Err
     {
-        public DateTime DateFound;
-        public int? ArrayItemSize;
-        public int? LogIndex;
-        public bool? IsCritical;
-        public string ParametersData;
-        public string Comments;
-        public string ErrorDetails;
-        public string ErrorStackTrace;
-        public string ErrorToString;
-        public string ErrorSource;
-        public string ErrorTargetSite;
-        public string ErrorMessage;
+        /// <summary>
+        /// Current item key guid
+        /// </summary>
+        public Guid ErrId { get; set; } = _.g;
+
+        /// <summary>
+        /// Code Entry guid
+        /// </summary>
+        public Guid? E { get; set; }
+        /// <summary>
+        /// DateFound
+        /// </summary>
+        public DateTime D { get; set; } = _.d;
+        /// <summary>
+        /// ArrayItemSize
+        /// </summary>
+        public int? As { get; set; }
+        /// <summary>
+        /// LogIndex
+        /// </summary>
+        public int? I { get; set; }
+        /// <summary>
+        /// IsCritical
+        /// </summary>
+        public bool? Cr { get; set; }
+        /// <summary>
+        /// ParametersData
+        /// </summary>
+        public string P { get; set; }
+        /// <summary>
+        /// Comments
+        /// </summary>
+        public string C { get; set; }
+        /// <summary>
+        /// ErrorDetails
+        /// </summary>
+        public string Ed { get; set; }
+        /// <summary>
+        /// ErrorStackTrace
+        /// </summary>
+        public string Et { get; set; }
+        /// <summary>
+        /// ErrorToString
+        /// </summary>
+        public string Es { get; set; }
+        /// <summary>
+        /// ErrorSource
+        /// </summary>
+        public string Esr { get; set; }
+        /// <summary>
+        /// ErrorTargetSite
+        /// </summary>
+        public string Ets { get; set; }
+        /// <summary>
+        /// ErrorMessage
+        /// </summary>
+        public string Em { get; set; }
 
     }
 
@@ -194,21 +286,74 @@ namespace ReUse_Std.AppDataModels.Logging
     /// </summary>
     public class Env
     {
-        public DateTime CurrentTime;
-        public bool Is64BitOperatingSystem;
-        public bool Is64BitProcess;
-        public bool UserInteractive;
-        public int ProcessorCount;
-        public int SystemPageSize;
-        public int TickCount;
-        public long WorkingSet;
-        public string MachineName;
-        public string NewLine;
-        public string UserDomainName;
-        public string UserName;
-        public string OSVersion_Platform;
-        public string OSVersion_ServicePack;
-        public string OSVersion_VersionString;
+        /// <summary>
+        /// Current item key guid
+        /// </summary>
+        public Guid EnvId { get; set; } = _.g;
+        /// <summary>
+        /// Code Entry guid
+        /// </summary>
+        public Guid? E { get; set; }
+        /// <summary>
+        /// CurrentTime
+        /// </summary>
+        public DateTime D { get; set; } = _.d;
+        /// <summary>
+        /// Is64BitOperatingSystem
+        /// </summary>
+        public bool Xo { get; set; }
+        /// <summary>
+        /// Is64BitProcess
+        /// </summary>
+        public bool Xp { get; set; }
+        /// <summary>
+        /// UserInteractive
+        /// </summary>
+        public bool Ui { get; set; }
+        /// <summary>
+        /// ProcessorCount
+        /// </summary>
+        public int Pc { get; set; }
+        /// <summary>
+        /// SystemPageSize
+        /// </summary>
+        public int Sp { get; set; }
+        /// <summary>
+        /// TickCount
+        /// </summary>
+        public int Ct { get; set; }
+        /// <summary>
+        /// WorkingSet
+        /// </summary>
+        public long W { get; set; }
+        /// <summary>
+        /// MachineName
+        /// </summary>
+        public string M { get; set; }
+        /// <summary>
+        /// NewLine
+        /// </summary>
+        public string N { get; set; }
+        /// <summary>
+        /// UserDomainName
+        /// </summary>
+        public string Ud { get; set; }
+        /// <summary>
+        /// UserName
+        /// </summary>
+        public string Un { get; set; }
+        /// <summary>
+        /// OSVersion_Platform
+        /// </summary>
+        public string Op { get; set; }
+        /// <summary>
+        /// OSVersion_ServicePack
+        /// </summary>
+        public string Os { get; set; }
+        /// <summary>
+        /// OSVersion_VersionString
+        /// </summary>
+        public string Ov { get; set; }
 
     }
 
@@ -217,11 +362,34 @@ namespace ReUse_Std.AppDataModels.Logging
     /// </summary>
     public class Inf
     {
-        public DateTime DateFound;
-        public int? ArrayItemSize;
-        public int? LogIndex;
-        public string ParametersData;
-        public string Comments;
+        /// <summary>
+        /// Current item key guid
+        /// </summary>
+        public Guid InfId { get; set; } = _.g;
+        /// <summary>
+        /// Code Entry guid
+        /// </summary>
+        public Guid? E { get; set; }
+        /// <summary>
+        /// DateFound
+        /// </summary>
+        public DateTime Df { get; set; } = _.d;
+        /// <summary>
+        /// ArrayItemSize
+        /// </summary>
+        public int? As { get; set; }
+        /// <summary>
+        /// LogIndex
+        /// </summary>
+        public int? I { get; set; }
+        /// <summary>
+        /// ParametersData
+        /// </summary>
+        public string P { get; set; }
+        /// <summary>
+        /// Comments
+        /// </summary>
+        public string C { get; set; }
 
     }
 
@@ -230,17 +398,58 @@ namespace ReUse_Std.AppDataModels.Logging
     /// </summary>
     public class Prf
     {
-        public DateTime Start;
-        public DateTime? End;
-        public int? ArrayItemSize;
-        public int? PerformanceIndex;
-        public string ParametersData;
-        public string Details;
-        public string Comments;
-        public Guid? DetailsStart;
-        public Guid? DetailsEnd;
-        public long? TicksCount;
-        public double? TotalMilliseconds;
+        /// <summary>
+        /// Current item key guid
+        /// </summary>
+        public Guid PrfId { get; set; } = _.g;
+        /// <summary>
+        /// Code Entry guid
+        /// </summary>
+        public Guid? E { get; set; }
+        /// <summary>
+        /// Start
+        /// </summary>
+        public DateTime Ds { get; set; } = _.d;
+        /// <summary>
+        /// End
+        /// </summary>
+        public DateTime? De { get; set; }
+        /// <summary>
+        /// ArrayItemSize
+        /// </summary>
+        public int? As { get; set; }
+        /// <summary>
+        /// PerformanceIndex
+        /// </summary>
+        public int? I { get; set; }
+        /// <summary>
+        /// ParametersData
+        /// </summary>
+        public string P { get; set; }
+        /// <summary>
+        /// Details
+        /// </summary>
+        public string D { get; set; }
+        /// <summary>
+        /// Comments
+        /// </summary>
+        public string C { get; set; }
+        /// <summary>
+        /// DetailsStart
+        /// </summary>
+        public Guid? Is { get; set; }
+        /// <summary>
+        /// DetailsEnd
+        /// </summary>
+        public Guid? Ie { get; set; }
+        /// <summary>
+        /// TicksCount
+        /// </summary>
+        public long? T { get; set; }
+        /// <summary>
+        /// TotalMilliseconds
+        /// </summary>
+        public double? M { get; set; }
 
     }
 
@@ -249,10 +458,30 @@ namespace ReUse_Std.AppDataModels.Logging
     /// </summary>
     public class Prc
     {
-        public DateTime DateFound;
-        public int? ProcessId;
-        public int? SessionId;
-        public DateTime? StartTime;
+        /// <summary>
+        /// Current item key guid
+        /// </summary>
+        public Guid PrcId { get; set; } = _.g;
+        /// <summary>
+        /// Code Entry guid
+        /// </summary>
+        public Guid? E { get; set; }
+        /// <summary>
+        /// DateFound
+        /// </summary>
+        public DateTime D { get; set; } = _.d;
+        /// <summary>
+        /// ProcessId
+        /// </summary>
+        public int? Ip { get; set; }
+        /// <summary>
+        /// SessionId
+        /// </summary>
+        public int? Is { get; set; }
+        /// <summary>
+        /// StartTime
+        /// </summary>
+        public DateTime? S { get; set; }
 
     }
 
@@ -261,19 +490,66 @@ namespace ReUse_Std.AppDataModels.Logging
     /// </summary>
     public class Prd
     {
-        public DateTime DateFound;
-        public int? ThreadsCount;
-        public int? HandleCount;
-        public long? NonpagedSystemMemorySize64;
-        public long? PagedMemorySize64;
-        public long? PagedSystemMemorySize64;
-        public long? PeakPagedMemorySize64;
-        public long? PeakVirtualMemorySize64;
-        public long? PeakWorkingSet64;
-        public long? PrivateMemorySize64;
-        public long? VirtualMemorySize64;
-        public long? WorkingSet64;
-        public TimeSpan? PrivilegedProcessorTime;
+        /// <summary>
+        /// Current item key guid
+        /// </summary>
+        public Guid PrdId { get; set; } = _.g;
+        /// <summary>
+        /// Code Entry guid
+        /// </summary>
+        public Guid? E { get; set; }
+        /// <summary>
+        /// DateFound
+        /// </summary>
+        public DateTime D { get; set; } = _.d;
+        /// <summary>
+        /// ThreadsCount
+        /// </summary>
+        public int? Ct { get; set; }
+        /// <summary>
+        /// HandleCount
+        /// </summary>
+        public int? Ch { get; set; }
+        /// <summary>
+        /// NonpagedSystemMemorySize64
+        /// </summary>
+        public long? Sx { get; set; }
+        /// <summary>
+        /// PagedMemorySize64
+        /// </summary>
+        public long? Mx { get; set; }
+        /// <summary>
+        /// PagedSystemMemorySize64
+        /// </summary>
+        public long? Sp { get; set; }
+        /// <summary>
+        /// PeakPagedMemorySize64
+        /// </summary>
+        public long? Px { get; set; }
+        /// <summary>
+        /// PeakVirtualMemorySize64
+        /// </summary>
+        public long? Vp { get; set; }
+        /// <summary>
+        /// PeakWorkingSet64
+        /// </summary>
+        public long? Wp { get; set; }
+        /// <summary>
+        /// PrivateMemorySize64
+        /// </summary>
+        public long? Mp { get; set; }
+        /// <summary>
+        /// VirtualMemorySize64
+        /// </summary>
+        public long? V { get; set; }
+        /// <summary>
+        /// WorkingSet64
+        /// </summary>
+        public long? W { get; set; }
+        /// <summary>
+        /// PrivilegedProcessorTime
+        /// </summary>
+        public TimeSpan? Tp { get; set; }
 
     }
 
@@ -282,14 +558,46 @@ namespace ReUse_Std.AppDataModels.Logging
     /// </summary>
     public class Wil
     {
-        public DateTime DateFound;
-        public string AuthenticationType;
-        public string Name;
-        public int? ImpersonationLevel;
-        public bool? IsAnonymous;
-        public bool? IsAuthenticated;
-        public bool? IsGuest;
-        public bool? IsSystem;
+        /// <summary>
+        /// Current item key guid
+        /// </summary>
+        public Guid WilId { get; set; } = _.g;
+        /// <summary>
+        /// Code Entry guid
+        /// </summary>
+        public Guid? E { get; set; }
+        /// <summary>
+        /// DateFound
+        /// </summary>
+        public DateTime D { get; set; } = _.d;
+        /// <summary>
+        /// AuthenticationType
+        /// </summary>
+        public string T { get; set; }
+        /// <summary>
+        /// Name
+        /// </summary>
+        public string N { get; set; }
+        /// <summary>
+        /// ImpersonationLevel
+        /// </summary>
+        public int? L { get; set; }
+        /// <summary>
+        /// IsAnonymous
+        /// </summary>
+        public bool? A { get; set; }
+        /// <summary>
+        /// IsAuthenticated
+        /// </summary>
+        public bool? U { get; set; }
+        /// <summary>
+        /// IsGuest
+        /// </summary>
+        public bool? G { get; set; }
+        /// <summary>
+        /// IsSystem
+        /// </summary>
+        public bool? S { get; set; }
 
     }
 
@@ -302,23 +610,82 @@ namespace ReUse_Std.AppDataModels.Logging
     /// </summary>
     public class Hrq
     {
-        public DateTime DateFound;
-        public string AnonymousID;
-        public string ApplicationPath;
-        public int? ContentLength;
-        public string ContentEncoding;
-        public string ContentType;
-        public string HttpMethod;
-        public bool? IsAuthenticated;
-        public bool? IsLocal;
-        public bool? IsSecureConnection;
-        public string RawUrl;
-        public string RequestType;
-        public int? TotalBytes;
-        public string UrlReferrer;
-        public string UserAgent;
-        public string UserHostAddress;
-        public string UserHostName;
+        /// <summary>
+        /// Current item key guid
+        /// </summary>
+        public Guid HrqId { get; set; } = _.g;
+        /// <summary>
+        /// Code Entry guid
+        /// </summary>
+        public Guid? E { get; set; }
+        /// <summary>
+        /// DateFound
+        /// </summary>
+        public DateTime DateFound { get; set; } = _.d;
+        /// <summary>
+        /// AnonymousID
+        /// </summary>
+        public string AnonymousID { get; set; }
+        /// <summary>
+        /// ApplicationPath
+        /// </summary>
+        public string ApplicationPath { get; set; }
+        /// <summary>
+        /// ContentLength
+        /// </summary>
+        public int? ContentLength { get; set; }
+        /// <summary>
+        /// ContentEncoding
+        /// </summary>
+        public string ContentEncoding { get; set; }
+        /// <summary>
+        /// ContentType
+        /// </summary>
+        public string ContentType { get; set; }
+        /// <summary>
+        /// HttpMethod
+        /// </summary>
+        public string HttpMethod { get; set; }
+        /// <summary>
+        /// IsAuthenticated
+        /// </summary>
+        public bool? IsAuthenticated { get; set; }
+        /// <summary>
+        /// IsLocal
+        /// </summary>
+        public bool? IsLocal { get; set; }
+        /// <summary>
+        /// IsSecureConnection
+        /// </summary>
+        public bool? IsSecureConnection { get; set; }
+        /// <summary>
+        /// RawUrl
+        /// </summary>
+        public string RawUrl { get; set; }
+        /// <summary>
+        /// RequestType
+        /// </summary>
+        public string RequestType { get; set; }
+        /// <summary>
+        /// TotalBytes
+        /// </summary>
+        public int? TotalBytes { get; set; }
+        /// <summary>
+        /// UrlReferrer
+        /// </summary>
+        public string UrlReferrer { get; set; }
+        /// <summary>
+        /// UserAgent
+        /// </summary>
+        public string UserAgent { get; set; }
+        /// <summary>
+        /// UserHostAddress
+        /// </summary>
+        public string UserHostAddress { get; set; }
+        /// <summary>
+        /// UserHostName
+        /// </summary>
+        public string UserHostName { get; set; }
 
     }
 
@@ -327,18 +694,59 @@ namespace ReUse_Std.AppDataModels.Logging
     /// </summary>
     public class Hsl
     {
-        public DateTime DateFound;
+        /// <summary>
+        /// Current item key guid
+        /// </summary>
+        public Guid HslId { get; set; } = _.g;
+        /// <summary>
+        /// Code Entry guid
+        /// </summary>
+        public Guid? E { get; set; }
+        /// <summary>
+        /// DateFound
+        /// </summary>
+        public DateTime DateFound { get; set; } = _.d;
 
-        public int? CodePage;
-        public int? Count;
-        public bool? IsCookieless;
-        public bool? IsNewSession;
-        public bool? IsReadOnly;
-        public bool? IsSynchronized;
-        public int? LCID;
-        public int? Mode;
-        public int? CookieMode;
-        public int? Timeout;
+        /// <summary>
+        /// CodePage
+        /// </summary>
+        public int? CodePage { get; set; }
+        /// <summary>
+        /// Count
+        /// </summary>
+        public int? Count { get; set; }
+        /// <summary>
+        /// IsCookieless
+        /// </summary>
+        public bool? IsCookieless { get; set; }
+        /// <summary>
+        /// IsNewSession
+        /// </summary>
+        public bool? IsNewSession { get; set; }
+        /// <summary>
+        /// IsReadOnly
+        /// </summary>
+        public bool? IsReadOnly { get; set; }
+        /// <summary>
+        /// IsSynchronized
+        /// </summary>
+        public bool? IsSynchronized { get; set; }
+        /// <summary>
+        /// LCID
+        /// </summary>
+        public int? LCID { get; set; }
+        /// <summary>
+        /// Mode
+        /// </summary>
+        public int? Mode { get; set; }
+        /// <summary>
+        /// CookieMode
+        /// </summary>
+        public int? CookieMode { get; set; }
+        /// <summary>
+        /// Timeout
+        /// </summary>
+        public int? Timeout { get; set; }
 
     }
 
@@ -347,13 +755,39 @@ namespace ReUse_Std.AppDataModels.Logging
     /// </summary>
     public class Hcx
     {
-        public DateTime DateFound;
+        /// <summary>
+        /// Current item key guid
+        /// </summary>
+        public Guid HcxId { get; set; } = _.g;
+        /// <summary>
+        /// Code Entry guid
+        /// </summary>
+        public Guid? E { get; set; }
+        /// <summary>
+        /// DateFound
+        /// </summary>
+        public DateTime DateFound { get; set; } = _.d;
 
-        public bool? IsCustomErrorEnabled;
-        public bool? IsDebuggingEnabled;
-        public bool? IsPostNotification;
-        public string Server;
-        public string User;
+        /// <summary>
+        /// IsCustomErrorEnabled
+        /// </summary>
+        public bool? IsCustomErrorEnabled { get; set; }
+        /// <summary>
+        /// IsDebuggingEnabled
+        /// </summary>
+        public bool? IsDebuggingEnabled { get; set; }
+        /// <summary>
+        /// IsPostNotification
+        /// </summary>
+        public bool? IsPostNotification { get; set; }
+        /// <summary>
+        /// Server
+        /// </summary>
+        public string Server { get; set; }
+        /// <summary>
+        /// User
+        /// </summary>
+        public string User { get; set; }
 
     }
 
@@ -362,38 +796,139 @@ namespace ReUse_Std.AppDataModels.Logging
     /// </summary>
     public class Wpl
     {
-        public DateTime DateFound;
+        /// <summary>
+        /// Current item key guid
+        /// </summary>
+        public Guid WplId { get; set; } = _.g;
+        /// <summary>
+        /// Code Entry guid
+        /// </summary>
+        public Guid? E { get; set; }
+        /// <summary>
+        /// DateFound
+        /// </summary>
+        public DateTime DateFound { get; set; } = _.d;
 
-        public double? AsyncTimeout;
-        public bool? Buffer;
-        public string ClientTarget;
-        public int? CodePage;
-        public string ContentType;
-        public string Culture;
-        public string ErrorPage;
-        public bool? EnableEventValidation;
-        public bool? EnableViewState;
-        public bool? EnableViewStateMac;
-        public bool? IsAsync;
-        public bool? IsCallback;
-        public bool? IsCrossPagePostBack;
-        public bool? IsPostBack;
-        public bool? IsPostBackEventControlRegistered;
-        public bool? IsReusable;
-        public bool? IsValid;
-        public bool? MaintainScrollPositionOnPostBack;
-        public string MetaDescription;
-        public string MetaKeywords;
-        public string ResponseEncoding;
-        public int? LCID;
-        public int? MaxPageStateFieldLength;
-        public bool? SmartNavigation;
-        public bool? TraceEnabled;
-        public int? TraceModeValue;
-        public string UICulture;
-        public string Title;
-        public string Theme;
-        public string StyleSheetTheme;
+        /// <summary>
+        /// AsyncTimeout
+        /// </summary>
+        public double? AsyncTimeout { get; set; }
+        /// <summary>
+        /// Buffer
+        /// </summary>
+        public bool? Buffer { get; set; }
+        /// <summary>
+        /// ClientTarget
+        /// </summary>
+        public string ClientTarget { get; set; }
+        /// <summary>
+        /// CodePage
+        /// </summary>
+        public int? CodePage { get; set; }
+        /// <summary>
+        /// ContentType
+        /// </summary>
+        public string ContentType { get; set; }
+        /// <summary>
+        /// Culture
+        /// </summary>
+        public string Culture { get; set; }
+        /// <summary>
+        /// ErrorPage
+        /// </summary>
+        public string ErrorPage { get; set; }
+        /// <summary>
+        /// EnableEventValidation
+        /// </summary>
+        public bool? EnableEventValidation { get; set; }
+        /// <summary>
+        /// EnableViewState
+        /// </summary>
+        public bool? EnableViewState { get; set; }
+        /// <summary>
+        /// EnableViewStateMac
+        /// </summary>
+        public bool? EnableViewStateMac { get; set; }
+        /// <summary>
+        /// IsAsync
+        /// </summary>
+        public bool? IsAsync { get; set; }
+        /// <summary>
+        /// IsCallback
+        /// </summary>
+        public bool? IsCallback { get; set; }
+        /// <summary>
+        /// IsCrossPagePostBack
+        /// </summary>
+        public bool? IsCrossPagePostBack { get; set; }
+        /// <summary>
+        /// IsPostBack
+        /// </summary>
+        public bool? IsPostBack { get; set; }
+        /// <summary>
+        /// IsPostBackEventControlRegistered
+        /// </summary>
+        public bool? IsPostBackEventControlRegistered { get; set; }
+        /// <summary>
+        /// IsReusable
+        /// </summary>
+        public bool? IsReusable { get; set; }
+        /// <summary>
+        /// IsValid
+        /// </summary>
+        public bool? IsValid { get; set; }
+        /// <summary>
+        /// MaintainScrollPositionOnPostBack
+        /// </summary>
+        public bool? MaintainScrollPositionOnPostBack { get; set; }
+        /// <summary>
+        /// MetaDescription
+        /// </summary>
+        public string MetaDescription { get; set; }
+        /// <summary>
+        /// MetaKeywords
+        /// </summary>
+        public string MetaKeywords { get; set; }
+        /// <summary>
+        /// ResponseEncoding
+        /// </summary>
+        public string ResponseEncoding { get; set; }
+        /// <summary>
+        /// LCID
+        /// </summary>
+        public int? LCID { get; set; }
+        /// <summary>
+        /// MaxPageStateFieldLength
+        /// </summary>
+        public int? MaxPageStateFieldLength { get; set; }
+        /// <summary>
+        /// SmartNavigation
+        /// </summary>
+        public bool? SmartNavigation { get; set; }
+        /// <summary>
+        /// TraceEnabled
+        /// </summary>
+        public bool? TraceEnabled { get; set; }
+        /// <summary>
+        /// TraceModeValue
+        /// </summary>
+        public int? TraceModeValue { get; set; }
+        /// <summary>
+        /// UICulture
+        /// </summary>
+        public string UICulture { get; set; }
+        /// <summary>
+        /// Title
+        /// </summary>
+        public string Title { get; set; }
+        /// <summary>
+        /// Theme
+        /// </summary>
+        public string Theme { get; set; }
+        /// <summary>
+        /// StyleSheetTheme
+        /// </summary>
+        public string StyleSheetTheme { get; set; }
 
     }
 
@@ -402,13 +937,39 @@ namespace ReUse_Std.AppDataModels.Logging
     /// </summary>
     public class Wpr
     {
-        public DateTime DateFound;
+        /// <summary>
+        /// Current item key guid
+        /// </summary>
+        public Guid WprId { get; set; } = _.g;
+        /// <summary>
+        /// Code Entry guid
+        /// </summary>
+        public Guid? E { get; set; }
+        /// <summary>
+        /// DateFound
+        /// </summary>
+        public DateTime D { get; set; } = _.d;
 
-        public bool? IsAnonymous;
-        public bool? IsDirty;
-        public DateTime? LastActivityDate;
-        public DateTime? LastUpdatedDate;
-        public string UserName;
+        /// <summary>
+        /// IsAnonymous
+        /// </summary>
+        public bool? A { get; set; }
+        /// <summary>
+        /// IsDirty
+        /// </summary>
+        public bool? Dr { get; set; }
+        /// <summary>
+        /// LastActivityDate
+        /// </summary>
+        public DateTime? Da { get; set; }
+        /// <summary>
+        /// LastUpdatedDate
+        /// </summary>
+        public DateTime? Du { get; set; }
+        /// <summary>
+        /// UserName
+        /// </summary>
+        public string U { get; set; }
 
     }
 
@@ -417,6 +978,10 @@ namespace ReUse_Std.AppDataModels.Logging
     /// </summary>
     public class Hbc
     {
+        /// <summary>
+        /// Current item key guid
+        /// </summary>
+        public Guid HbcId { get; set; } = _.g;
         public DateTime DateFound;
 
         public bool? Win32;
