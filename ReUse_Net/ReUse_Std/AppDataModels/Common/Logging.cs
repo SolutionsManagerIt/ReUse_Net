@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ReUse_Std.Base;
 
 namespace ReUse_Std.AppDataModels.Logging
 {
@@ -14,7 +15,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple Logs Storage Data
     /// </summary>
-    public struct Lgs
+    public class Lgs
     {
 
         public List<EntryData> Entries;
@@ -37,12 +38,12 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple Session Log Data
     /// </summary>
-    public struct Ls
+    public class Ls
     {
         /// <summary>
         /// Current item key guid
         /// </summary>
-        public Guid LsId { get; set; }
+        public Guid LsId { get; set; } = _.g;
         /// <summary>
         /// 
         /// </summary>

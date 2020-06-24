@@ -214,6 +214,21 @@ namespace ReUse_Std.Base.Texts
         }
 
         /// <summary>
+        /// Get Substring current StringData with StartIndex and optional Length
+        /// </summary>
+        public static string S(this string StringData, int StartIndex, int? Length = null)
+        {
+            if (StringData == null)
+                return null;
+            var st = StartIndex;
+            if(st < 0)
+                st = 0;
+            if (Length != null)
+                return StringData.Substring(st, Length.Value);
+            return StringData.Substring(st);
+        }
+
+        /// <summary>
         /// Format current String_Format with FormatValues
         /// </summary>
         /// <param name="String_Format"></param>

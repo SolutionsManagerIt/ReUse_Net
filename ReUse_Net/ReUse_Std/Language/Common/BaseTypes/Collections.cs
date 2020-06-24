@@ -119,27 +119,7 @@ namespace ReUse_Std.Common
             return DefaultValueOnEmpty;
         }
 
-        /// <summary>
-        /// Perform common Concat for IEnumerable data
-        /// </summary>
-        public static IEnumerable<T> Gc<T>(this IEnumerable<T> ArrayNo_0, IEnumerable<T> ArrayNo_1, IEnumerable<T> ArrayNo_2 = null, IEnumerable<T> ArrayNo_3 = null, params IEnumerable<T>[] MoreArrays)
-        {
-            var Result = new T[0].AsEnumerable();
-            if (ArrayNo_0.C())
-                Result = Result.Concat(ArrayNo_0);
-            if (ArrayNo_1.C())
-                Result = Result.Concat(ArrayNo_1);
-            if (ArrayNo_2.C())
-                Result = Result.Concat(ArrayNo_2);
-            if (ArrayNo_3.C())
-                Result = Result.Concat(ArrayNo_3);
-            if (MoreArrays.C())
-                foreach (var Array in MoreArrays)
-                    if (Array.C())
-                        Result = Result.Concat(Array);
-            return Result;
-        }
-
+        
         /// <summary>
         /// Create common ForEach Loop to process List from IList
         /// </summary>
@@ -174,6 +154,54 @@ namespace ReUse_Std.Common
             return DefaultValueOnError;
         }
 
+        #endregion
+
+        #region Concat 
+        /// <summary>
+        /// Perform common Concat for IEnumerable data
+        /// </summary>
+        public static IEnumerable<T> Gc<T>(this IEnumerable<T> ArrayNo_0, IEnumerable<T> ArrayNo_1, IEnumerable<T> ArrayNo_2 = null, IEnumerable<T> ArrayNo_3 = null, params IEnumerable<T>[] MoreArrays)
+        {
+            var Result = new T[0].AsEnumerable();
+            if (ArrayNo_0.C())
+                Result = Result.Concat(ArrayNo_0);
+            if (ArrayNo_1.C())
+                Result = Result.Concat(ArrayNo_1);
+            if (ArrayNo_2.C())
+                Result = Result.Concat(ArrayNo_2);
+            if (ArrayNo_3.C())
+                Result = Result.Concat(ArrayNo_3);
+            if (MoreArrays.C())
+                foreach (var Array in MoreArrays)
+                    if (Array.C())
+                        Result = Result.Concat(Array);
+            return Result;
+        }
+
+        /// <summary>
+        /// Perform common Concat for IEnumerable data
+        /// </summary>
+        public static IEnumerable<T> Gc<T>(this IEnumerable<T> ArrayNo_0, IEnumerable<IEnumerable<T>> ArrayToAdd, params IEnumerable<T>[] MoreArrays)
+        {
+            var r = ArrayNo_0.l();
+
+            foreach (IEnumerable<T> cn in ArrayToAdd)
+                r.AddRange(cn);
+
+            if (MoreArrays.C())
+                foreach (var a in MoreArrays)
+                    if (a.C())
+                        r.AddRange(a);
+            return r;
+        }
+
+        /// <summary>
+        /// Perform common Concat for IEnumerable data
+        /// </summary>
+        public static IEnumerable<T> Gc<T>(this IEnumerable<IEnumerable<T>> ArrayToAdd, params IEnumerable<T>[] MoreArrays)
+        {
+            return _.l<T>().Gc(ArrayToAdd, MoreArrays);
+        }
 
         #endregion
 
@@ -222,16 +250,35 @@ namespace ReUse_Std.Common
 
         #endregion
 
-        #region Set 
-
         #endregion
+
+        #region Convert 
+
+        /// <summary>
+        /// Convert IEnumerable to List content 
+        /// </summary>
+        public static List<T> l<T>(this IEnumerable<T> List_To_Convert)
+        {
+            if (List_To_Convert == null)
+                return null;
+            return List_To_Convert.ToList();
+        }
+
+        /// <summary>
+        /// Convert IEnumerable to Array content 
+        /// </summary>
+        public static T[] a<T>(this IEnumerable<T> List_To_Convert)
+        {
+            if (List_To_Convert == null)
+                return null;
+            return List_To_Convert.ToArray();
+        }
 
         #endregion
 
         #region IDictionary
 
         #region Check 
-
 
         /// <summary>
         /// Dictionary Check
@@ -270,6 +317,20 @@ namespace ReUse_Std.Common
         #endregion
 
         #region Get 
+
+        /// <summary>
+        /// Get value from current Dictionary using KeyValue
+        /// </summary>
+        public static ResT v<KeyT, ResT>(this IDictionary<KeyT, ResT> Dictionary, KeyT KeyValue, ResT DefaultValue = default(ResT))
+        {
+            if(Dictionary == null || KeyValue == null)
+                return DefaultValue;
+
+            if(!Dictionary.ContainsKey(KeyValue))
+                return DefaultValue;
+
+            return Dictionary[KeyValue];
+        }
 
         /// <summary>
         /// Perform common Concat for IDictionary data

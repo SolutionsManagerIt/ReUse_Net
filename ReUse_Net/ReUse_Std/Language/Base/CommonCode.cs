@@ -517,17 +517,27 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Return new Empty List of current Type
         /// </summary>
-        public static List<T> S<T>() { return new List<T>(); }
+        public static List<T> l<T>(IEnumerable<T> DataToAdd = null) 
+        { 
+            if (DataToAdd == null)
+                return new List<T>();
+            return DataToAdd.l(); 
+        }
+
+        /// <summary>
+        /// Return new Empty IEnumerable of current Type
+        /// </summary>
+        public static IEnumerable<T> i<T>() { return new List<T>(); }
 
         /// <summary>
         /// Return new Empty Dictionary with current Key and Value Types
         /// </summary>
-        public static IDictionary<KeyT, ValueT> Dc<KeyT, ValueT>() { return new Dictionary<KeyT, ValueT>(); }
+        public static IDictionary<KeyT, ValueT> dc<KeyT, ValueT>() { return new Dictionary<KeyT, ValueT>(); }
 
         /// <summary>
         /// Create Empty KeyValuePair with current Types
         /// </summary>
-        public static KeyValuePair<KeyT, ValueT> K<KeyT, ValueT>(KeyT Key, ValueT Value = default(ValueT))
+        public static KeyValuePair<KeyT, ValueT> k<KeyT, ValueT>(KeyT Key, ValueT Value = default(ValueT))
         {
             return new KeyValuePair<KeyT, ValueT>(Key, Value);
         }
@@ -535,7 +545,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Create Empty Nullable KeyValuePair? with current Types
         /// </summary>
-        public static KeyValuePair<KeyT, ValueT>? Kn<KeyT, ValueT>()
+        public static KeyValuePair<KeyT, ValueT>? kn<KeyT, ValueT>()
         {
             return new KeyValuePair<KeyT, ValueT>?();
         }

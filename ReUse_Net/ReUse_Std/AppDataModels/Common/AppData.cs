@@ -18,7 +18,7 @@ namespace ReUse_Std.AppDataModels.Common
         /// <summary>
         /// Current App guid
         /// </summary>
-        public Guid AppId { get; set; }
+        public Guid AppId { get; set; } = _.g;
 
         /// <summary>
         /// App encoding schema content storage
@@ -48,7 +48,7 @@ namespace ReUse_Std.AppDataModels.Common
         /// <summary>
         /// Current connection guid
         /// </summary>
-        public Guid SqId { get; set; }
+        public Guid SqId { get; set; } = _.g;
 
         /// <summary>
         /// Current Sql Server Name (or use localhost if empty)
@@ -101,7 +101,7 @@ namespace ReUse_Std.AppDataModels.Common
         /// <summary>
         /// Current serialized content guid
         /// </summary>
-        public Guid BnId { get; set; }
+        public Guid BnId { get; set; } = _.g;
         /// <summary>
         /// Serialized Objects data
         /// </summary>

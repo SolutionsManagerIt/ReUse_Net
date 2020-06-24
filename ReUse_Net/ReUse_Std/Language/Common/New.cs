@@ -21,7 +21,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Add Items to CurrentList (with chaining, return CurrentList) from current ListToAdd and MoreItems if necessary
         /// </summary>
-        public static List<T> A<T>(this List<T> CurrentList, IEnumerable<T> ListToAdd, params T[] MoreItems)
+        public static List<T> a<T>(this List<T> CurrentList, IEnumerable<T> ListToAdd, params T[] MoreItems)
         {
             if (ListToAdd != null)
                 CurrentList.AddRange(ListToAdd);
@@ -285,15 +285,15 @@ namespace ReUse_Std.Common
             return new T[ItemsNo];
         }
 
-        /// <summary>
-        /// Create Array From current ImportDataFrom IEnumerable
-        /// </summary>
-        public static T[] A<T>(this IEnumerable<T> ImportDataFrom)
-        {
-            if (ImportDataFrom == null)
-                return null;
-            return ImportDataFrom.ToArray();
-        }
+        ///// <summary>
+        ///// Create Array From current ImportDataFrom IEnumerable
+        ///// </summary>
+        //public static T[] A<T>(this IEnumerable<T> ImportDataFrom)
+        //{
+        //    if (ImportDataFrom == null)
+        //        return null;
+        //    return ImportDataFrom.ToArray();
+        //}
 
         /// <summary>
         /// Create Array with current Items No 0-2  and more ItemsNo3_AndMore if necessary

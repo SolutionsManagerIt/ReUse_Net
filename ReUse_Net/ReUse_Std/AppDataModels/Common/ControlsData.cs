@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ReUse_Std.Base;
 
 namespace ReUse_Std.AppDataModels.Common
 {
@@ -17,7 +18,7 @@ namespace ReUse_Std.AppDataModels.Common
         /// <summary>
         /// Current values data guid
         /// </summary>
-        public Guid VdId { get; set; }
+        public Guid VdId { get; set; } = _.g;
         /// <summary>
         /// Int values
         /// </summary>
@@ -49,7 +50,7 @@ namespace ReUse_Std.AppDataModels.Common
         /// <summary>
         /// Current values int data number type guid
         /// </summary>
-        public Guid VdnId { get; set; }
+        public Guid VdnId { get; set; } = _.g;
         /// <summary>
         /// Int value
         /// </summary>
@@ -78,7 +79,7 @@ namespace ReUse_Std.AppDataModels.Common
         /// <summary>
         /// Current values data float number type guid
         /// </summary>
-        public Guid VdfId { get; set; }
+        public Guid VdfId { get; set; } = _.g;
         /// <summary>
         /// decimal value
         /// </summary>
@@ -102,7 +103,7 @@ namespace ReUse_Std.AppDataModels.Common
         /// <summary>
         /// Current values int data number type guid
         /// </summary>
-        public Guid VddId { get; set; }
+        public Guid VddId { get; set; } = _.g;
         /// <summary>
         /// DateTime value
         /// </summary>

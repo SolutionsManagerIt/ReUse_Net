@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ReUse_Std.Base;
 
 namespace ReUse_Std.AppDataModels.Common
 {
@@ -13,7 +14,7 @@ namespace ReUse_Std.AppDataModels.Common
         /// <summary>
         /// Current item with title and description guid
         /// </summary>
-        public Guid CiId { get; set; }
+        public Guid CiId { get; set; } = _.g;
         /// <summary>
         /// Title
         /// </summary>
@@ -41,7 +42,7 @@ namespace ReUse_Std.AppDataModels.Common
         /// <summary>
         /// Current date item with details on added updated guid
         /// </summary>
-        public Guid DiId { get; set; }
+        public Guid DiId { get; set; } = _.g;
         /// <summary>
         /// Updated At
         /// </summary>
@@ -69,7 +70,7 @@ namespace ReUse_Std.AppDataModels.Common
         /// <summary>
         /// Current visibility item with details on added updated guid
         /// </summary>
-        public Guid ViId { get; set; }
+        public Guid ViId { get; set; } = _.g;
         /// <summary>
         /// Use Global
         /// </summary>
@@ -97,7 +98,7 @@ namespace ReUse_Std.AppDataModels.Common
         /// <summary>
         /// Current navigation item with details on added updated guid
         /// </summary>
-        public Guid NiId { get; set; }
+        public Guid NiId { get; set; } = _.g;
         /// <summary>
         /// Parent item Guid 
         /// </summary>

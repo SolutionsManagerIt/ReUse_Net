@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ReUse_Std.Base;
 
 namespace ReUse_Std.AppDataModels.Common
 {
@@ -13,7 +14,7 @@ namespace ReUse_Std.AppDataModels.Common
         /// <summary>
         /// Current encoded content guid
         /// </summary>
-        public Guid EnId { get; set; }
+        public Guid EnId { get; set; } = _.g;
 
     }
 

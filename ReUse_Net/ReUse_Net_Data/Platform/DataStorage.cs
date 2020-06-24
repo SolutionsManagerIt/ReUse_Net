@@ -154,10 +154,9 @@ namespace ReUse_Net_Data.Platform
 
         #region common cases
 
-
-
+        #region Include data 
         /// <summary>
-        /// Include common data storage
+        /// Include common data storage with 1 property type
         /// </summary>
         public static IQueryable<T> I<T, TProperty>(this IQueryable<T> Storage, Expression<Func<T, TProperty>> IncludePath, params Expression<Func<T, TProperty>>[] MorePathes)
         {
@@ -167,6 +166,84 @@ namespace ReUse_Net_Data.Platform
             return r;
         }
 
+        /// <summary>
+        /// Include common data storage with 2 property types
+        /// </summary>
+        public static IQueryable<T> I<T, TPr, TPr1>(this IQueryable<T> Storage, Expression<Func<T, TPr>> IncludePath, Expression<Func<T, TPr1>> IncludePath1)
+        {
+            var r = Storage.Include(IncludePath);
+            if (IncludePath1 != null)
+                r = r.Include(IncludePath1);
+            return r;
+        }
+
+        /// <summary>
+        /// Include common data storage with 3 property types
+        /// </summary>
+        public static IQueryable<T> I<T, TPr, TPr1, TPr2>(this IQueryable<T> Storage, Expression<Func<T, TPr>> IncludePath, Expression<Func<T, TPr1>> IncludePath1, Expression<Func<T, TPr2>> IncludePath2)
+        {
+            var r = Storage.Include(IncludePath);
+            if(IncludePath1 != null)
+                r = r.Include(IncludePath1);
+            if (IncludePath2 != null)
+                r = r.Include(IncludePath2);
+            return r;
+        }
+
+        /// <summary>
+        /// Include common data storage with 4 property types
+        /// </summary>
+        public static IQueryable<T> I<T, TPr, TPr1, TPr2, TPr3>(this IQueryable<T> Storage, Expression<Func<T, TPr>> IncludePath, Expression<Func<T, TPr1>> IncludePath1, Expression<Func<T, TPr2>> IncludePath2, Expression<Func<T, TPr3>> IncludePath3)
+        {
+            var r = Storage.Include(IncludePath);
+            if (IncludePath1 != null)
+                r = r.Include(IncludePath1);
+            if (IncludePath2 != null)
+                r = r.Include(IncludePath2);
+            if (IncludePath3 != null)
+                r = r.Include(IncludePath3);
+            return r;
+        }
+
+        /// <summary>
+        /// Include common data storage with 5 property types
+        /// </summary>
+        public static IQueryable<T> I<T, TPr, TPr1, TPr2, TPr3, TPr4>(this IQueryable<T> Storage, Expression<Func<T, TPr>> IncludePath, Expression<Func<T, TPr1>> IncludePath1, Expression<Func<T, TPr2>> IncludePath2, Expression<Func<T, TPr3>> IncludePath3, Expression<Func<T, TPr4>> IncludePath4)
+        {
+            var r = Storage.Include(IncludePath);
+            if (IncludePath1 != null)
+                r = r.Include(IncludePath1);
+            if (IncludePath2 != null)
+                r = r.Include(IncludePath2);
+            if (IncludePath3 != null)
+                r = r.Include(IncludePath3);
+            if (IncludePath4 != null)
+                r = r.Include(IncludePath4);
+            return r;
+        }
+
+        /// <summary>
+        /// Include common data storage with 6 property types
+        /// </summary>
+        public static IQueryable<T> I<T, TPr, TPr1, TPr2, TPr3, TPr4, TPr5>(this IQueryable<T> Storage, Expression<Func<T, TPr>> IncludePath, Expression<Func<T, TPr1>> IncludePath1, Expression<Func<T, TPr2>> IncludePath2, Expression<Func<T, TPr3>> IncludePath3, Expression<Func<T, TPr4>> IncludePath4, Expression<Func<T, TPr5>> IncludePath5)
+        {
+            var r = Storage.Include(IncludePath);
+            if (IncludePath1 != null)
+                r = r.Include(IncludePath1);
+            if (IncludePath2 != null)
+                r = r.Include(IncludePath2);
+            if (IncludePath3 != null)
+                r = r.Include(IncludePath3);
+            if (IncludePath4 != null)
+                r = r.Include(IncludePath4);
+            if (IncludePath5 != null)
+                r = r.Include(IncludePath5);
+            return r;
+        }
+
+        #endregion
+
+        #region Get data
         /// <summary>
         /// Get common data storage
         /// </summary>
@@ -253,7 +330,7 @@ namespace ReUse_Net_Data.Platform
             });
             return res;
         }
-
+        #endregion
 
         #endregion
 

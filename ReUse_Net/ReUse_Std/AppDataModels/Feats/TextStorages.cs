@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ReUse_Std.Base;
 
 namespace ReUse_Std.AppDataModels.Feats
 {
@@ -18,7 +19,7 @@ namespace ReUse_Std.AppDataModels.Feats
 		/// <summary>
 		/// Current date item with details on added updated guid
 		/// </summary>
-		public Guid TsId { get; set; }
+		public Guid TsId { get; set; } = _.g;
 
 		/// <summary>
 		/// Words data
@@ -49,7 +50,7 @@ namespace ReUse_Std.AppDataModels.Feats
 		/// <summary>
 		/// Current date item with details on added updated guid
 		/// </summary>
-		public Guid TrId { get; set; }
+		public Guid TrId { get; set; } = _.g;
 
 		/// <summary>
 		/// Text data

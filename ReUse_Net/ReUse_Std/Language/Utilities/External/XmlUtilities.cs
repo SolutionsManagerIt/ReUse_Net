@@ -19,7 +19,7 @@ namespace ReUse_Std.Utilities.External.Xml
         /// <summary>
         /// Get Data From Xml File with current FilePath and optional AddCurrentDirectory
         /// </summary>
-        public static XmlDocument _Xl(this string FilePath, bool AddCurrentDirectory = true)
+        public static XmlDocument Xl(this string FilePath, bool AddCurrentDirectory = true)
         {
             XmlDocument xml = new XmlDocument();
             var dir = AddCurrentDirectory ? Environment.CurrentDirectory + "\\" : "";
@@ -30,7 +30,7 @@ namespace ReUse_Std.Utilities.External.Xml
         /// <summary>
         /// Get Linq Data From Xml File with current FilePath and optional AddCurrentDirectory
         /// </summary>
-        public static XDocument _Xq(this string FilePath, bool AddCurrentDirectory = true)
+        public static XDocument Xq(this string FilePath, bool AddCurrentDirectory = true)
         {
             var dir = AddCurrentDirectory ? Environment.CurrentDirectory + "\\" : "";
             return XDocument.Load(dir + FilePath);
@@ -39,7 +39,7 @@ namespace ReUse_Std.Utilities.External.Xml
         /// <summary>
         /// Get new Xml Linq Data with current RootElementTitle and optional AddCurrentDirectory
         /// </summary>
-        public static XDocument _Xn(this string RootElementTitle)
+        public static XDocument Xn(this string RootElementTitle)
         {
             var x = new XDocument(new XElement(RootElementTitle));
             //x.Add(new XElement(RootElementTitle));
@@ -49,11 +49,100 @@ namespace ReUse_Std.Utilities.External.Xml
         /// <summary>
         /// Save Linq Data To Xml File with current FilePath and optional AddCurrentDirectory
         /// </summary>
-        public static XDocument _S(this XDocument XmlData, string FilePath, bool AddCurrentDirectory = true)
+        public static XDocument S(this XDocument XmlData, string FilePath, bool AddCurrentDirectory = true)
         {
             var dir = AddCurrentDirectory ? Environment.CurrentDirectory + "\\" : "";
             XmlData.Save(dir + FilePath);
             return XmlData;
+        }
+
+        #endregion
+
+        #region Common xml
+
+        /// <summary>
+        /// Get XDocument from current TextData
+        /// </summary>
+        public static XDocument Gx(this string TextData)
+        {
+            if (TextData.C())
+                return XDocument.Parse(TextData);
+            return null;
+        }
+
+        /// <summary>
+        /// Get sub elements from current XElement using Title, SubTitle, SubSubTitle
+        /// </summary>
+        public static IEnumerable<XElement> E(this XElement Curr, string Title = null, string SubTitle = null, string SubSubTitle = null)
+        {
+            IEnumerable<XElement> rs = null;
+            if (Title.C())
+                rs = Curr.Elements(Title);
+            else
+                rs = Curr.Elements();
+            if (SubTitle.C())
+                rs = rs.Elements(SubTitle);
+            if (SubSubTitle.C())
+                rs = rs.Elements(SubSubTitle);
+            return rs;
+        }
+
+        /// <summary>
+        /// Get sub elements from current XElements using Title, SubTitle, SubSubTitle
+        /// </summary>
+        public static IEnumerable<XElement> E(this IEnumerable<XElement> Curr, string Title = null, string SubTitle = null, string SubSubTitle = null)
+        {
+            IEnumerable<XElement> rs;
+            if (Title.C())
+                rs = Curr.Elements(Title);
+            else
+                rs = Curr.Elements();
+            if (SubTitle.C())
+                rs = rs.Elements(SubTitle);
+            if (SubSubTitle.C())
+                rs = rs.Elements(SubSubTitle);
+            return rs;
+        }
+
+        /// <summary>
+        /// Get Value from current XElements using ItemNo
+        /// </summary>
+        public static string v(this XElement[] Curr, int ItemNo = 0)
+        {
+            int i = ItemNo;
+            if(i < 0)
+                i = 0;
+            var ln = Curr.Length;
+            if (i >= ln)
+                return null;
+            return Curr[i].Value;
+        }
+
+        /// <summary>
+        /// Get first sub element  from current XElement using Title, SubTitle, SubSubTitle
+        /// </summary>
+        public static XElement e(this XElement Curr, string Title = null, string SubTitle = null, string SubSubTitle = null)
+        {
+            XElement rs;
+            if (Title.C())
+                rs = Curr.Element(Title);
+            else
+                rs = Curr.Elements().f();
+            if (SubTitle.C())
+                rs = rs.Element(SubTitle);
+            if (SubSubTitle.C())
+                rs = rs.Element(SubSubTitle);
+            return rs;
+        }
+
+        /// <summary>
+        /// Get first Attribute from current XElement using Title, SubElementTitle, SubSubElementTitle
+        /// </summary>
+        public static string a(this XElement Curr, string Title, string SubElementTitle = null, string SubSubElementTitle = null)
+        {
+            if (SubElementTitle.C())
+                return Curr.e(SubElementTitle, SubSubElementTitle).Attribute(Title).Value;
+            return Curr.Attribute(Title).Value;
         }
 
         #endregion
@@ -65,10 +154,10 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static T[] X<T>(this string FilePath, f<XElement, T[]> MethodToProcessRootElement, bool AddCurrentDirectory = true, bool SaveDocumentAfterProcess = false, string SaveFilePath = null, bool SaveAddCurrentDirectory = true)
         {
-            var r = FilePath._Xq(AddCurrentDirectory);
+            var r = FilePath.Xq(AddCurrentDirectory);
             var res = MethodToProcessRootElement(r.Root);
             if (SaveDocumentAfterProcess)
-                r._S(SaveFilePath ?? FilePath, SaveAddCurrentDirectory);
+                r.S(SaveFilePath ?? FilePath, SaveAddCurrentDirectory);
             return res;
         }
 
@@ -79,24 +168,24 @@ namespace ReUse_Std.Utilities.External.Xml
         /// <summary>
         /// Get Data From Xml Element with current ElementPath and AttributePath
         /// </summary>
-        public static string _G(this XmlDocument CurrDoc, string ElementPath, string AttributePath = null, Xv ValueType = Xv.V)
+        public static string G(this XmlDocument CurrDoc, string ElementPath, string AttributePath = null, Xv ValueType = Xv.V)
         {
             var r = CurrDoc.DocumentElement[ElementPath];
             if (r == null)
                 return null;
             if (!AttributePath.C() || !r.HasAttribute(AttributePath))
-                return r._G(ValueType);
+                return r.G(ValueType);
 
             var a = r.Attributes[AttributePath];
             if (a == null)
                 return null;
-            return a._G(ValueType);
+            return a.G(ValueType);
         }
 
         /// <summary>
         /// Get Attributes Data From Xml Element with current ElementPath and optional TheseAttributesOnly (or all)
         /// </summary>
-        public static IDictionary<string, string> _G(this XmlDocument CurrDoc, string ElementPath, Xv ValueType = Xv.V, IEnumerable<string> TheseAttributesOnly = null)
+        public static IDictionary<string, string> G(this XmlDocument CurrDoc, string ElementPath, Xv ValueType = Xv.V, IEnumerable<string> TheseAttributesOnly = null)
         {
             var r = CurrDoc.DocumentElement[ElementPath];
             if (r == null || r.Attributes == null || r.Attributes.Count < 0)
@@ -105,7 +194,7 @@ namespace ReUse_Std.Utilities.External.Xml
             var a = new Dictionary<string, string>();
             foreach (XmlAttribute item in r.Attributes)
                 if (TheseAttributesOnly == null || TheseAttributesOnly.Contains(item.Name))
-                    a.Add(item.Name, item._G(ValueType));
+                    a.Add(item.Name, item.G(ValueType));
 
             return a;
         }
@@ -114,7 +203,7 @@ namespace ReUse_Std.Utilities.External.Xml
         /// <summary>
         /// Get Data From current XmlElement
         /// </summary>
-        public static string _G(this XmlElement CurrElement, Xv ValueType = Xv.V)
+        public static string G(this XmlElement CurrElement, Xv ValueType = Xv.V)
         {
             return ValueType == Xv.T ? CurrElement.InnerText : ValueType == Xv.X ? CurrElement.InnerXml : ValueType == Xv.O ? CurrElement.OuterXml : CurrElement.Value;
         }
@@ -122,7 +211,7 @@ namespace ReUse_Std.Utilities.External.Xml
         /// <summary>
         /// Get Data From current XmlAttribute
         /// </summary>
-        public static string _G(this XmlAttribute CurrElement, Xv ValueType = Xv.V)
+        public static string G(this XmlAttribute CurrElement, Xv ValueType = Xv.V)
         {
             return ValueType == Xv.T ? CurrElement.InnerText : ValueType == Xv.X ? CurrElement.InnerXml : ValueType == Xv.O ? CurrElement.OuterXml : CurrElement.Value;
         }
@@ -134,7 +223,7 @@ namespace ReUse_Std.Utilities.External.Xml
         /// <summary>
         /// Get Common Data with chaining (return CurrRootElem) From current CurrRootElem with MethodToProcess with optional SubElementPath (or CurrRootElem) and SelectElementsPath (sub select)
         /// </summary>
-        public static XElement _G<T>(this XElement CurrRootElem, out T CurrentValue, f<XElement, T> MethodToProcess, string SubElementPath = null, string SelectElementsPath = null)
+        public static XElement G<T>(this XElement CurrRootElem, out T CurrentValue, f<XElement, T> MethodToProcess, string SubElementPath = null, string SelectElementsPath = null)
         {
             CurrentValue = CurrRootElem._g(MethodToProcess, (ref XElement i) =>
             {
@@ -159,10 +248,10 @@ namespace ReUse_Std.Utilities.External.Xml
         /// <summary>
         /// Get Attributes Data and Element Values From current CurrRootElem with optional SubElementPath (or CurrRootElem) and TheseAttributesOnly (or all)
         /// </summary>
-        public static IDictionary<string, string> _G(this XElement CurrRootElem, IEnumerable<string> TheseAttributesOnly = null, string SubElementPath = null, string SelectElementsPath = null, bool AddElementValue = true)
+        public static IDictionary<string, string> G(this XElement CurrRootElem, IEnumerable<string> TheseAttributesOnly = null, string SubElementPath = null, string SelectElementsPath = null, bool AddElementValue = true)
         {
             var rs = new Dictionary<string, string>();
-            CurrRootElem._G(out rs, r =>
+            CurrRootElem.G(out rs, r =>
             {
                 var a = new Dictionary<string, string>();
                 if (AddElementValue)
@@ -183,18 +272,18 @@ namespace ReUse_Std.Utilities.External.Xml
         /// <summary>
         /// Get Common Data with chaining (return CurrRootElem) From current CurrRootElem with MethodToProcess with optional SubElementPath (or child Elements), TheseAttributesOnly (or all) and SelectElementsPath (sub select)
         /// </summary>
-        public static XElement _Gd<T>(this XElement CurrRootElem, out T CurrentValue, f<IDictionary<string, string>, T> MethodToProcess, string SubElementPath = null, string SelectElementsPath = null, IEnumerable<string> TheseAttributesOnly = null, bool AddElementValue = true)
+        public static XElement Gd<T>(this XElement CurrRootElem, out T CurrentValue, f<IDictionary<string, string>, T> MethodToProcess, string SubElementPath = null, string SelectElementsPath = null, IEnumerable<string> TheseAttributesOnly = null, bool AddElementValue = true)
         {
-            return CurrRootElem._G(out CurrentValue, r =>
+            return CurrRootElem.G(out CurrentValue, r =>
             {
-                return MethodToProcess(r._G(TheseAttributesOnly, SelectElementsPath, null, AddElementValue));
+                return MethodToProcess(r.G(TheseAttributesOnly, SelectElementsPath, null, AddElementValue));
             }, SubElementPath);
         }
 
         /// <summary>
         /// Get List of Common Data with chaining (return CurrRootElem) From current CurrRootElem Elements with MethodToProcess with optional SubElementPath (or child Elements) and SelectElementsPath (container for array) 
         /// </summary>
-        public static XElement _Ga<T>(this XElement CurrRootElem, out IEnumerable<T> CurrentValues, f<XElement, T> MethodToProcess, string SubElementsPath = null, string SelectElementsPath = null)
+        public static XElement Ga<T>(this XElement CurrRootElem, out IEnumerable<T> CurrentValues, f<XElement, T> MethodToProcess, string SubElementsPath = null, string SelectElementsPath = null)
         {
             if (SelectElementsPath != null)
             {
@@ -217,11 +306,11 @@ namespace ReUse_Std.Utilities.External.Xml
         /// <summary>
         /// Get List of Attributes Data with chaining (return CurrRootElem) and Element Values From current CurrRootElem Elements with MethodToProcess with optional SubElementPath (or child Elements), TheseAttributesOnly (or all) and SelectElementsPath (sub select)
         /// </summary>
-        public static XElement _Gd<T>(this XElement CurrRootElem, out IEnumerable<T> CurrentValues, f<IDictionary<string, string>, T> MethodToProcess, string SubElementsPath = null, string SelectElementsPath = null, IEnumerable<string> TheseAttributesOnly = null, bool AddElementValue = true)
+        public static XElement Gd<T>(this XElement CurrRootElem, out IEnumerable<T> CurrentValues, f<IDictionary<string, string>, T> MethodToProcess, string SubElementsPath = null, string SelectElementsPath = null, IEnumerable<string> TheseAttributesOnly = null, bool AddElementValue = true)
         {
-            return CurrRootElem._Ga(out CurrentValues, r =>
+            return CurrRootElem.Ga(out CurrentValues, r =>
             {
-                return MethodToProcess(r._G(TheseAttributesOnly, SelectElementsPath, null, AddElementValue));
+                return MethodToProcess(r.G(TheseAttributesOnly, SelectElementsPath, null, AddElementValue));
             }, SubElementsPath);
         }
 
@@ -233,7 +322,7 @@ namespace ReUse_Std.Utilities.External.Xml
         /// <summary>
         /// Add Element with Common Data with chaining (return CurrRootElem) to current CurrRootElem with ElementName and MethodToProcess and optional SubElementPath (or CurrRootElem)
         /// </summary>
-        public static XElement _S(this XElement CurrRootElem, string ElementName, f<IEnumerable<object>> MethodToProcess, string SubElementPath = null, fr<XElement> MethodToPostProcessElement = null)
+        public static XElement S(this XElement CurrRootElem, string ElementName, f<IEnumerable<object>> MethodToProcess, string SubElementPath = null, fr<XElement> MethodToPostProcessElement = null)
         {
             var s = SubElementPath.C();
             return CurrRootElem._gc(r =>
@@ -266,9 +355,9 @@ namespace ReUse_Std.Utilities.External.Xml
         /// <summary>
         /// Add Element with Attributes Data with chaining (return CurrRootElem) to current CurrRootElem with ElementName and optional SubElementPath (or CurrRootElem) and TheseAttributesOnly (or all)
         /// </summary>
-        public static XElement _S(this XElement CurrRootElem, string ElementName, string SubElementPath = null, IDictionary<string, object> Attributes = null, fr<XElement> MethodToPostProcessElement = null)
+        public static XElement S(this XElement CurrRootElem, string ElementName, string SubElementPath = null, IDictionary<string, object> Attributes = null, fr<XElement> MethodToPostProcessElement = null)
         {
-            return CurrRootElem._S(ElementName, () =>
+            return CurrRootElem.S(ElementName, () =>
             {
                 return Attributes.Select(e => (object)(new XAttribute(e.Key, e.Value)));
             }, SubElementPath, MethodToPostProcessElement);
@@ -277,9 +366,9 @@ namespace ReUse_Std.Utilities.External.Xml
         /// <summary>
         /// Add Element with Common Data with chaining (return CurrRootElem) to current CurrRootElem with ElementName and MethodToProcess and optional SubElementPath (or CurrRootElem)
         /// </summary>
-        public static XElement _Sd(this XElement CurrRootElem, string ElementName, f<IDictionary<string, object>> MethodToProcess, string SubElementPath = null, fr<XElement> MethodToPostProcessElement = null)
+        public static XElement Sd(this XElement CurrRootElem, string ElementName, f<IDictionary<string, object>> MethodToProcess, string SubElementPath = null, fr<XElement> MethodToPostProcessElement = null)
         {
-            return CurrRootElem._S(ElementName, () =>
+            return CurrRootElem.S(ElementName, () =>
             {
                 var x = MethodToProcess();
                 if (x == null)
@@ -291,7 +380,7 @@ namespace ReUse_Std.Utilities.External.Xml
         /// <summary>
         /// Add List of Elements with Common Data with chaining (return CurrRootElem) to current CurrRootElem with ElementName and MethodToProcess and optional SubElementPath (or CurrRootElem), SubElementCounter (no)
         /// </summary>
-        public static XElement _Sa<T>(this XElement CurrRootElem, string ElementName, IEnumerable<T> Data, f<T, IEnumerable<object>> MethodToProcess, string SubElementPath = null, frv<XElement, T> MethodToPostProcessElement = null, string SubElementCounter = null)
+        public static XElement Sa<T>(this XElement CurrRootElem, string ElementName, IEnumerable<T> Data, f<T, IEnumerable<object>> MethodToProcess, string SubElementPath = null, frv<XElement, T> MethodToPostProcessElement = null, string SubElementCounter = null)
         {
             if (Data == null)
                 return CurrRootElem;
@@ -335,9 +424,9 @@ namespace ReUse_Std.Utilities.External.Xml
         /// <summary>
         /// Add List of Elements with Common Data with chaining (return CurrRootElem) to current CurrRootElem with ElementName and MethodToProcess and optional SubElementPath (or CurrRootElem)
         /// </summary>
-        public static XElement _Sda<T>(this XElement CurrRootElem, string ElementName, IEnumerable<T> Data, f<T, IDictionary<string, object>> MethodToProcess, string SubElementPath = null, frv<XElement, T> MethodToPostProcessElement = null)
+        public static XElement Sda<T>(this XElement CurrRootElem, string ElementName, IEnumerable<T> Data, f<T, IDictionary<string, object>> MethodToProcess, string SubElementPath = null, frv<XElement, T> MethodToPostProcessElement = null)
         {
-            return CurrRootElem._Sa(ElementName, Data, (i) =>
+            return CurrRootElem.Sa(ElementName, Data, (i) =>
             {
                 var x = MethodToProcess(i);
                 if (x == null)
@@ -350,7 +439,7 @@ namespace ReUse_Std.Utilities.External.Xml
         /// <summary>
         /// Add List of ElementsToAdd with chaining (return CurrRootElem) to current CurrRootElem with ElementName and Attribute Names and optional SubElementPath (or CurrRootElem)
         /// </summary>
-        public static XElement _S(this XElement CurrRootElem, IEnumerable<object> ElementsToAdd, string ElementName = "m", string ElementAttr = "x", string SubElementPath = null, string SubElementCounter = null)
+        public static XElement S(this XElement CurrRootElem, IEnumerable<object> ElementsToAdd, string ElementName = "m", string ElementAttr = "x", string SubElementPath = null, string SubElementCounter = null)
         {
             if (ElementsToAdd == null)
                 return CurrRootElem;
@@ -388,7 +477,7 @@ namespace ReUse_Std.Utilities.External.Xml
         /// <summary>
         /// Get common save XML method to add SubElementPath to CurrRootElem
         /// </summary>
-        private static fr<XElement> _Sc(this XElement CurrRootElem, string SubElementPath)
+        private static fr<XElement> Sc(this XElement CurrRootElem, string SubElementPath)
         {
             return (ref XElement i) =>
             {

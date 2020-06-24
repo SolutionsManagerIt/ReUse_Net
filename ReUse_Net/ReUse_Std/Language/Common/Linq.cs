@@ -15,6 +15,7 @@ namespace ReUse_Std.Common
     {
         #region Common queries
 
+        #region Where
         /// <summary>
         /// Perform common Linq Where Query with WhereCondition and optional OrderByCondition, Distinct, TakeNRecords
         /// </summary>
@@ -39,9 +40,12 @@ namespace ReUse_Std.Common
         {
             if (Data == null)
                 return null;
-            return Data.W(WhereCondition, OrderByCondition, Distinct, TakeNRecords).A();
+            return Data.W(WhereCondition, OrderByCondition, Distinct, TakeNRecords).a();
         }
 
+        #endregion
+
+        #region Any Where, First 
         /// <summary>
         /// Perform common Linq Any Query with AnyWhereCondition
         /// </summary>
@@ -53,6 +57,30 @@ namespace ReUse_Std.Common
             return Data.Any(e => AnyWhereCondition(e));
         }
 
+        /// <summary>
+        /// Perform common First item from current Data
+        /// </summary>
+        public static T f<T>(this IEnumerable<T> Data)
+        {
+            if (Data == null)
+                return default(T);
+
+            return Data.First();
+        }
+
+        /// <summary>
+        /// Perform common FirstOrDefault item from current Data
+        /// </summary>
+        public static T F<T>(this IEnumerable<T> Data)
+        {
+            if (Data == null)
+                return default(T);
+
+            return Data.FirstOrDefault();
+        }
+        #endregion
+
+        #region Select
         /// <summary>
         /// Perform common Linq Select Where Query with SelectCondition and optional WhereCondition, OrderByCondition, Distinct, TakeNRecords
         /// </summary>
@@ -80,7 +108,7 @@ namespace ReUse_Std.Common
         {
             if (Data == null || SelectCondition == null)
                 return null;
-            return Data.S(SelectCondition, WhereCondition, OrderByCondition, Distinct, TakeNRecords).A();
+            return Data.S(SelectCondition, WhereCondition, OrderByCondition, Distinct, TakeNRecords).a();
         }
 
         /// <summary>
@@ -90,9 +118,12 @@ namespace ReUse_Std.Common
         {
             if (Data == null || SelectCondition == null)
                 return null;
-            return Data.S(SelectCondition, WhereCondition, OrderByCondition, Distinct, TakeNRecords).A();
+            return Data.S(SelectCondition, WhereCondition, OrderByCondition, Distinct, TakeNRecords).a();
         }
 
+        #endregion
+
+        #region GroupBy, Distinct
         /// <summary>
         /// Perform common Linq GroupBy Where Query with GroupByCondition and optional WhereCondition, OrderByCondition, Distinct, TakeNRecords
         /// </summary>
@@ -110,7 +141,7 @@ namespace ReUse_Std.Common
         {
             if (Data == null || GroupByCondition == null)
                 return null;
-            return Data.G(GroupByCondition, WhereCondition, OrderByCondition, Distinct, TakeNRecords).A();
+            return Data.G(GroupByCondition, WhereCondition, OrderByCondition, Distinct, TakeNRecords).a();
         }
 
         /// <summary>
@@ -137,10 +168,13 @@ namespace ReUse_Std.Common
         {
             if (Data == null)
                 return null;
-            return Data.D(DistinctCondition, WhereCondition, OrderByCondition, TakeNRecords).A();
+            return Data.D(DistinctCondition, WhereCondition, OrderByCondition, TakeNRecords).a();
 
         }
 
+        #endregion
+
+        #region OrderBy
         /// <summary>
         /// Perform common Linq OrderBy Query with WhereCondition and optional OrderByCondition, Distinct, TakeNRecords
         /// </summary>
@@ -165,9 +199,8 @@ namespace ReUse_Std.Common
         {
             if (Data == null)
                 return null;
-            return Data.O(OrderByCondition, Distinct, TakeNRecords).A();
+            return Data.O(OrderByCondition, Distinct, TakeNRecords).a();
         }
-
 
         /// <summary>
         /// Perform common Linq OrderBy Query with WhereCondition and optional OrderByCondition, Distinct, TakeNRecords
@@ -193,9 +226,10 @@ namespace ReUse_Std.Common
         {
             if (Data == null)
                 return null;
-            return Data.O(OrderByCondition, Distinct, TakeNRecords).A();
+            return Data.O(OrderByCondition, Distinct, TakeNRecords).a();
         }
 
+        #endregion
 
         #endregion
 

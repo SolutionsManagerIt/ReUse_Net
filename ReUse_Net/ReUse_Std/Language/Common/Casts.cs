@@ -717,7 +717,7 @@ namespace ReUse_Std.Common
             if (Value == null || Value.Length == 0)
                 return DefaultValue;
             DateTime r;
-            if (DateTime.TryParseExact(Value, CustomFormats.A(), null, CustomDateTimeStyle ?? DateTimeStyles.AllowWhiteSpaces, out r))
+            if (DateTime.TryParseExact(Value, CustomFormats.a(), null, CustomDateTimeStyle ?? DateTimeStyles.AllowWhiteSpaces, out r))
                 return r;
             return DefaultValue;
         }
@@ -757,7 +757,7 @@ namespace ReUse_Std.Common
             if (Value == null || Value.Length == 0)
                 return DefaultValue;
             TimeSpan r;
-            if (TimeSpan.TryParseExact(Value, CustomFormats.A(), null, CustomTimeSpanStyle ?? TimeSpanStyles.None, out r))
+            if (TimeSpan.TryParseExact(Value, CustomFormats.a(), null, CustomTimeSpanStyle ?? TimeSpanStyles.None, out r))
                 return r;
             return DefaultValue;
         }

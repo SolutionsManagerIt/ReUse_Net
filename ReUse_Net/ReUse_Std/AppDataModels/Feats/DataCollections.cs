@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using ReUse_Std.AppDataModels.Common;
+using ReUse_Std.Base;
 
 namespace ReUse_Std.AppDataModels.Feats
 {
@@ -18,7 +19,7 @@ namespace ReUse_Std.AppDataModels.Feats
 		/// <summary>
 		/// Current date item with details on added updated guid
 		/// </summary>
-		public Guid ElId { get; set; }
+		public Guid ElId { get; set; } = _.g;
 
 		/// <summary>
 		/// navigation item
