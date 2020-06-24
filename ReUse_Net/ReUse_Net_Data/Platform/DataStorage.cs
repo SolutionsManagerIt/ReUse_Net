@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Data.Entity;
 //using System.Data.Entity.Utilities;
@@ -145,30 +146,24 @@ namespace ReUse_Net_Data.Platform
         #region common cases
 
         /// <summary>
-        /// Get common data storage
+        /// AddOrUpdate common data storage
         /// </summary>
-        public static IEnumerable<T> Gd<T>(this string ConnectionName, f<T, bool> MethodToSelect, bool EnsureStructure = true) where T : class
+        public static async Task<bool> Ua<T>(this T[] ElementToUpdate, string ConnectionName) where T : class
         {
             var cs = new DCx<T>(ConnectionName);
-            if (EnsureStructure)
-                cs.N();
+            var e = ElementToUpdate;
 
-            IEnumerable<T> res = null;
-
-            cs.R(c =>
+            await cs.Ua(c =>
             {
-                if(MethodToSelect != null)
-                    res = c.d1.w(a => MethodToSelect(a));
-                else
-                    res = c.d1.ToArray();
+                c.d1.AddOrUpdate(e);
             });
-            return res;
+            return true;
         }
 
         /// <summary>
         /// AddOrUpdate common data storage
         /// </summary>
-        public static bool Ua<T>(this T[] ElementToUpdate, string ConnectionName) where T : class
+        public static bool U<T>(this T[] ElementToUpdate, string ConnectionName) where T : class
         {
             var cs = new DCx<T>(ConnectionName);
             var e = ElementToUpdate;
@@ -179,6 +174,105 @@ namespace ReUse_Net_Data.Platform
             });
             return true;
         }
+
+        /// <summary>
+        /// Include common data storage
+        /// </summary>
+        public static IQueryable<T> I<T, TProperty>(this IQueryable<T> Storage, Expression<Func<T, TProperty>> IncludePath, params Expression<Func<T, TProperty>>[] MorePathes)
+        {
+            var r = Storage.Include(IncludePath);
+            foreach (Expression<Func<T, TProperty>> cn in MorePathes)
+                r = r.Include(cn);
+            return r;
+        }
+
+        /// <summary>
+        /// Get common data storage
+        /// </summary>
+        public static IEnumerable<T1> Gd<T1>(this string ConnectionName, f<IQueryable<T1>, IQueryable<T1>> MethodToInclude = null, f<T1, bool> MethodToSelect = null, bool EnsureStructure = true) where T1 : class
+        {
+            var cs = new DCx<T1>(ConnectionName);
+            if (EnsureStructure)
+                cs.N();
+
+            IQueryable<T1> resq = null;
+            IEnumerable<T1> res = null;
+
+            cs.R(c =>
+            {
+                if (MethodToInclude != null)
+                    resq = MethodToInclude(c.d1);
+                else
+                    resq = c.d1;
+                if (MethodToSelect != null)
+                    res = resq.w(e => MethodToSelect(e));
+                else
+                    res = resq.ToArray();
+            });
+            return res;
+        }
+
+        /// <summary>
+        /// Get common data storage
+        /// </summary>
+        public static IEnumerable<T1> Gd<T1, T2>(this string ConnectionName, f<IQueryable<T1>, IQueryable<T1>> MethodToInclude, f<T1, bool> MethodToSelect = null, f<IQueryable<T2>, IQueryable<T2>> MethodToInclude2 = null, bool EnsureStructure = true) where T1 : class where T2 : class
+        {
+            var cs = new DCx<T1, T2>(ConnectionName);
+            if (EnsureStructure)
+                cs.N();
+
+            IQueryable<T1> resq = null;
+            IEnumerable<T1> res = null;
+            IEnumerable<T2> res2 = null;
+
+            cs.R(c =>
+            {
+                if (MethodToInclude != null)
+                    resq = MethodToInclude(c.d1);
+                else
+                    resq = c.d1;
+                if (MethodToSelect != null)
+                    res = resq.w(e => MethodToSelect(e));
+                else
+                    res = resq.ToArray();
+                if (MethodToInclude2 != null)
+                    res2 = MethodToInclude2(c.d2).w(e => e != null);
+            });
+            return res;
+        }
+
+        /// <summary>
+        /// Get common data storage
+        /// </summary>
+        public static IEnumerable<T1> Gd<T1, T2, T3>(this string ConnectionName, f<IQueryable<T1>, IQueryable<T1>> MethodToInclude, f<IQueryable<T2>, IQueryable<T2>> MethodToInclude2, f<T1, bool> MethodToSelect = null, f<IQueryable<T3>, IQueryable<T3>> MethodToInclude3 = null, bool EnsureStructure = true) where T1 : class where T2 : class where T3 : class
+        {
+            var cs = new DCx<T1, T2, T3>(ConnectionName);
+            if (EnsureStructure)
+                cs.N();
+
+            IQueryable<T1> resq = null;
+            IEnumerable<T1> res = null;
+            IEnumerable<T2> res2 = null;
+            IEnumerable<T3> res3 = null;
+
+            cs.R(c =>
+            {
+                if (MethodToInclude != null)
+                    resq = MethodToInclude(c.d1);
+                else
+                    resq = c.d1;
+                if (MethodToSelect != null)
+                    res = resq.w(e => MethodToSelect(e));
+                else
+                    res = resq.ToArray();
+                if (MethodToInclude2 != null)
+                    res2 = MethodToInclude2(c.d2).w(e => e != null);
+                if (MethodToInclude3 != null)
+                    res3 = MethodToInclude3(c.d3).w(e => e != null);
+            });
+            return res;
+        }
+
 
         #endregion
 
