@@ -19,10 +19,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AppDataModels\Feats\**" />
+    <Compile Remove="Blocks\**" />
+    <Compile Remove="Features\**" />
+    <EmbeddedResource Remove="AppDataModels\Feats\**" />
+    <EmbeddedResource Remove="Blocks\**" />
+    <EmbeddedResource Remove="Features\**" />
+    <None Remove="AppDataModels\Feats\**" />
+    <None Remove="Blocks\**" />
+    <None Remove="Features\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="AppDataModels\Common\" />
-    <Folder Include="AppDataModels\Feats\" />
-    <Folder Include="Blocks\" />
-    <Folder Include="Features\" />
   </ItemGroup>
 
   <ItemGroup>

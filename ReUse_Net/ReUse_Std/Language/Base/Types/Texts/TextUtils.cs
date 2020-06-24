@@ -41,8 +41,8 @@ namespace ReUse_Std.Base.Texts
             if (IgnoreCase)
                 IgnoreCaseValue = true;
 
-            string Val_A = String_To_Check.S(Trim, null, null, IgnoreCaseValue);
-            string Val_B = String_To_Compare.S(Trim, null, null, IgnoreCaseValue);
+            string Val_A = String_To_Check.T(Trim, IgnoreCaseValue);
+            string Val_B = String_To_Compare.T(Trim, IgnoreCaseValue);
 
             if (Val_A == Val_B)
                 return true;
@@ -130,9 +130,26 @@ namespace ReUse_Std.Base.Texts
         }
 
         /// <summary>
+        /// Get data from string with Trim ToCaseUpper 
+        /// </summary>
+        public static string T(this string String_Source, bool Trim = true, bool? ToCaseUpper = null)
+        {
+            string Result = String_Source;
+
+            if (Trim)
+                Result = Result.Trim();
+
+            if (ToCaseUpper == true)
+                Result = Result.ToUpperInvariant();
+            if (ToCaseUpper == false)
+                Result = Result.ToLowerInvariant();
+            return Result;
+        }
+
+        /// <summary>
         /// Get data from string with Replace Trim ToCaseUpper 
         /// </summary>
-        public static string S(this string String_Source, bool Trim = true, string Pattern = null, string Replace = null, bool? ToCaseUpper = null)
+        public static string R(this string String_Source, string Pattern = null, string Replace = null, bool Trim = true, bool? ToCaseUpper = null)
         {
             string Result = String_Source;
 
@@ -144,7 +161,7 @@ namespace ReUse_Std.Base.Texts
             if (ToCaseUpper == false)
                 Result = Result.ToLowerInvariant();
 
-            if (!Pattern.C(true, false))
+            if (Pattern == null || !Pattern.C(true, false))
                 return Result;
 
             return Result.Replace(Pattern, Replace ?? "");
@@ -202,7 +219,7 @@ namespace ReUse_Std.Base.Texts
         /// <param name="String_Format"></param>
         /// <param name="FormatValues"></param>
         /// <returns></returns>
-        public static string Fs(this string String_Format, params object[] FormatValues)
+        public static string F(this string String_Format, params object[] FormatValues)
         {
             try
             {
@@ -224,7 +241,7 @@ namespace ReUse_Std.Base.Texts
         /// <param name="String_Format"></param>
         /// <param name="FormatValues"></param>
         /// <returns></returns>
-        public static string Fsc(this string String_Format, params object[] FormatValues)
+        public static string Fc(this string String_Format, params object[] FormatValues)
         {
             if (String_Format == null)
                 return String_Format;
@@ -250,7 +267,7 @@ namespace ReUse_Std.Base.Texts
         /// <param name="String_Format"></param>
         /// <param name="FormatValues"></param>
         /// <returns></returns>
-        public static string Fsf(this string String_Format, string FormatTypeFormat = null, params object[] FormatValues)
+        public static string Ff(this string String_Format, string FormatTypeFormat = null, params object[] FormatValues)
         {
             if (String_Format == null)
                 return String_Format;

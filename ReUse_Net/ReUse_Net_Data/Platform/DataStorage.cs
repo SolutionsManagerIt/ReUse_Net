@@ -38,14 +38,6 @@ namespace ReUse_Net_Data.Platform
             return CurrContext;
         }
 
-        ///// <summary>
-        ///// Generates a script to create all tables for the current model in CurrContext
-        ///// </summary>
-        //public static string Q<T>(this T CurrContext) where T : DbContext
-        //{
-        //    return CurrContext.Database.();
-        //}
-
         #endregion
 
         #region items
@@ -88,14 +80,6 @@ namespace ReUse_Net_Data.Platform
             }
         }
 
-        //public static async Task<List<D>> GetBlogsAsync<T, D>(this T CurrContext) where T : DbContext
-        //{
-        //    using (var context = CurrContext)
-        //    {
-        //        return await context.Blogs.ToListAsync();
-        //    }
-        //}
-        
         /// <summary>
         /// Read data Async in CurrContext using custom MethodToReadData. 
         /// </summary>
@@ -109,71 +93,68 @@ namespace ReUse_Net_Data.Platform
 
         #endregion
 
-        #region  Insert Or Update single items
-        ///// <summary>
-        ///// Insert entity to CurrContext. 
-        ///// If it is known whether or not an insert or update is needed, then either Add or Update can be used appropriately
-        ///// </summary>
-        //public static void I<T>(this T CurrContext, object entity) where T : DbContext
-        //{
-        //    CurrContext.Database.Add(entity);
-        //    CurrContext.SaveChanges();
-        //}
+        #region  Insert Or Update items
 
-        ///// <summary>
-        ///// Update entity to CurrContext. 
-        ///// If it is known whether or not an insert or update is needed, then either Add or Update can be used appropriately
-        ///// </summary>
-        //public static void U<T>(this T CurrContext, object entity) where T : DbContext
-        //{
-        //    CurrContext.Update(entity);
-        //    CurrContext.SaveChanges();
-        //}
+        /// <summary>
+        /// AddOrUpdate common data storage
+        /// </summary>
+        public static async Task<bool> Ua<T>(this T[] ElementsToUpdate, string ConnectionName) where T : class
+        {
+            var cs = new DCx<T>(ConnectionName);
+            await cs.Ua(c =>
+            {
+                c.d1.AddOrUpdate(ElementsToUpdate);
+            });
+            return true;
+        }
 
-        ///// <summary>
-        ///// Insert Or Update entity to CurrContext. 
-        ///// The Update method normally marks the entity for update, not insert. However, if the entity has a auto-generated key, and no key value has been set, then the entity is instead automatically marked for insert.
-        ///// </summary>
-        //public static void Iu<T>(this T CurrContext, object entity) where T : DbContext
-        //{
-        //    CurrContext.Update(entity);
-        //    CurrContext.SaveChanges();
-        //}
+        /// <summary>
+        /// AddOrUpdate common data storage
+        /// </summary>
+        public static bool U<T>(this T[] ElementsToUpdate, string ConnectionName) where T : class
+        {
+            var cs = new DCx<T>(ConnectionName);
+            cs.U(c =>
+            {
+                c.d1.AddOrUpdate(ElementsToUpdate);
+            });
+            return true;
+        }
+
+
+        /// <summary>
+        /// AddOrUpdate common data storage
+        /// </summary>
+        public static async Task<bool> ua<T>(this T ElementToUpdate, string ConnectionName) where T : class
+        {
+            var cs = new DCx<T>(ConnectionName);
+            await cs.Ua(c =>
+            {
+                c.d1.AddOrUpdate(ElementToUpdate);
+            });
+            return true;
+        }
+
+        /// <summary>
+        /// AddOrUpdate common data storage
+        /// </summary>
+        public static bool u<T>(this T ElementToUpdate, string ConnectionName) where T : class
+        {
+            var cs = new DCx<T>(ConnectionName);
+            cs.U(c =>
+            {
+                c.d1.AddOrUpdate(ElementToUpdate);
+            });
+            return true;
+        }
+
         #endregion
 
         #endregion
 
         #region common cases
 
-        /// <summary>
-        /// AddOrUpdate common data storage
-        /// </summary>
-        public static async Task<bool> Ua<T>(this T[] ElementToUpdate, string ConnectionName) where T : class
-        {
-            var cs = new DCx<T>(ConnectionName);
-            var e = ElementToUpdate;
 
-            await cs.Ua(c =>
-            {
-                c.d1.AddOrUpdate(e);
-            });
-            return true;
-        }
-
-        /// <summary>
-        /// AddOrUpdate common data storage
-        /// </summary>
-        public static bool U<T>(this T[] ElementToUpdate, string ConnectionName) where T : class
-        {
-            var cs = new DCx<T>(ConnectionName);
-            var e = ElementToUpdate;
-
-            cs.U(c =>
-            {
-                c.d1.AddOrUpdate(e);
-            });
-            return true;
-        }
 
         /// <summary>
         /// Include common data storage

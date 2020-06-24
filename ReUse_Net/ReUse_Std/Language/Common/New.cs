@@ -10,7 +10,7 @@ namespace ReUse_Std.Common
     /// <summary>
     /// Fast Create New Structs Data Utilities
     /// </summary>
-    public static class N
+    public static class CreateNewStructsUtilities
     {
         #region List and Array Utilities
 
@@ -104,7 +104,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create List with current Items No 0-5 and MoreItems if necessary
         /// </summary>
-        public static List<T> _L<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2, T ItemNo_3, T ItemNo_4, T ItemNo_5, params T[] MoreItems)
+        public static List<T> L<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2, T ItemNo_3, T ItemNo_4, T ItemNo_5, params T[] MoreItems)
         {
             var Result = new List<T>() { ItemNo_0, ItemNo_1, ItemNo_2, ItemNo_3, ItemNo_4, ItemNo_5 };
             if (MoreItems.C())
@@ -115,7 +115,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create List with current Items No 0-5
         /// </summary>
-        public static List<T> _L<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2, T ItemNo_3, T ItemNo_4, T ItemNo_5 = default(T))
+        public static List<T> L<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2, T ItemNo_3, T ItemNo_4, T ItemNo_5 = default(T))
         {
             return new List<T>() { ItemNo_0, ItemNo_1, ItemNo_2, ItemNo_3, ItemNo_4, ItemNo_5 };
         }
@@ -123,7 +123,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create List with current Items No 0-4
         /// </summary>
-        public static List<T> _L<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2, T ItemNo_3, T ItemNo_4 = default(T))
+        public static List<T> L<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2, T ItemNo_3, T ItemNo_4 = default(T))
         {
             return new List<T>() { ItemNo_0, ItemNo_1, ItemNo_2, ItemNo_3, ItemNo_4 };
         }
@@ -131,7 +131,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create List with current Items No 0-3
         /// </summary>
-        public static List<T> _L<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2, T ItemNo_3 = default(T))
+        public static List<T> L<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2, T ItemNo_3 = default(T))
         {
             return new List<T>() { ItemNo_0, ItemNo_1, ItemNo_2, ItemNo_3 };
         }
@@ -139,7 +139,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create List with current Items No 0-2
         /// </summary>
-        public static List<T> _L<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2 = default(T))
+        public static List<T> L<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2 = default(T))
         {
             return new List<T>() { ItemNo_0, ItemNo_1, ItemNo_2 };
         }
@@ -147,7 +147,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create List with current Items No 0-1
         /// </summary>
-        public static List<T> _L<T>(this T ItemNo_0, T ItemNo_1 = default(T))
+        public static List<T> L<T>(this T ItemNo_0, T ItemNo_1 = default(T))
         {
             return new List<T>() { ItemNo_0, ItemNo_1 };
         }
@@ -155,7 +155,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create List with current ItemNo_0
         /// </summary>
-        public static List<T> _L<T>(this T ItemNo_0)
+        public static List<T> L<T>(this T ItemNo_0)
         {
             return new List<T>() { ItemNo_0 };
         }
@@ -163,16 +163,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create Empty List with SampleItem Type
         /// </summary>
-        public static List<T> _Ls<T>(this T SampleItem)
-        {
-            return new List<T>();
-        }
-
-
-        /// <summary>
-        /// Create Empty List with Type
-        /// </summary>
-        public static List<T> _L<T>()
+        public static List<T> Ls<T>(this T SampleItem)
         {
             return new List<T>();
         }
@@ -198,7 +189,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create IEnumerable with current Items No 0-5 and MoreItems if necessary
         /// </summary>
-        public static IEnumerable<T> _I<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2, T ItemNo_3, T ItemNo_4, T ItemNo_5, params T[] MoreItems)
+        public static IEnumerable<T> I<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2, T ItemNo_3, T ItemNo_4, T ItemNo_5, params T[] MoreItems)
         {
             var Result = new List<T>() { ItemNo_0, ItemNo_1, ItemNo_2, ItemNo_3, ItemNo_4, ItemNo_5 };
             if (MoreItems.C())
@@ -209,7 +200,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create IEnumerable with current Items No 0-5
         /// </summary>
-        public static IEnumerable<T> _I<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2, T ItemNo_3, T ItemNo_4, T ItemNo_5 = default(T))
+        public static IEnumerable<T> I<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2, T ItemNo_3, T ItemNo_4, T ItemNo_5 = default(T))
         {
             return new List<T>() { ItemNo_0, ItemNo_1, ItemNo_2, ItemNo_3, ItemNo_4, ItemNo_5 };
         }
@@ -217,7 +208,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create IEnumerable with current Items No 0-4
         /// </summary>
-        public static IEnumerable<T> _I<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2, T ItemNo_3, T ItemNo_4 = default(T))
+        public static IEnumerable<T> I<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2, T ItemNo_3, T ItemNo_4 = default(T))
         {
             return new List<T>() { ItemNo_0, ItemNo_1, ItemNo_2, ItemNo_3, ItemNo_4 };
         }
@@ -225,7 +216,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create IEnumerable with current Items No 0-3
         /// </summary>
-        public static IEnumerable<T> _I<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2, T ItemNo_3 = default(T))
+        public static IEnumerable<T> I<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2, T ItemNo_3 = default(T))
         {
             return new List<T>() { ItemNo_0, ItemNo_1, ItemNo_2, ItemNo_3 };
         }
@@ -233,7 +224,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create IEnumerable with current Items No 0-2
         /// </summary>
-        public static IEnumerable<T> _I<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2 = default(T))
+        public static IEnumerable<T> I<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2 = default(T))
         {
             return new List<T>() { ItemNo_0, ItemNo_1, ItemNo_2 };
         }
@@ -241,7 +232,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create IEnumerable with current Items No 0-1
         /// </summary>
-        public static IEnumerable<T> _I<T>(this T ItemNo_0, T ItemNo_1 = default(T))
+        public static IEnumerable<T> I<T>(this T ItemNo_0, T ItemNo_1 = default(T))
         {
             return new List<T>() { ItemNo_0, ItemNo_1 };
         }
@@ -249,7 +240,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create IEnumerable with current ItemNo_0
         /// </summary>
-        public static IEnumerable<T> _I<T>(this T ItemNo_0)
+        public static IEnumerable<T> I<T>(this T ItemNo_0)
         {
             return new List<T>() { ItemNo_0 };
         }
@@ -257,7 +248,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create Empty IEnumerable with SampleItem Type
         /// </summary>
-        public static IEnumerable<T> _Is<T>(this T SampleItem)
+        public static IEnumerable<T> Is<T>(this T SampleItem)
         {
             return new List<T>();
         }
@@ -265,7 +256,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create Empty IEnumerable with Type
         /// </summary>
-        public static IEnumerable<T> _I<T>()
+        public static IEnumerable<T> I<T>()
         {
             return new List<T>();
         }
@@ -277,7 +268,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create Empty Array with SampleItem Type and ItemsNo
         /// </summary>
-        public static T[] _As<T>(this T SampleItem, int ItemsNo)
+        public static T[] As<T>(this T SampleItem, int ItemsNo)
         {
             if (ItemsNo < 0)
                 return null;
@@ -287,7 +278,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create Empty Array with  ItemsNo
         /// </summary>
-        public static T[] _A<T>(this int ItemsNo)
+        public static T[] A<T>(this int ItemsNo)
         {
             if (ItemsNo < 0)
                 return null;
@@ -297,7 +288,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create Array From current ImportDataFrom IEnumerable
         /// </summary>
-        public static T[] _A<T>(this IEnumerable<T> ImportDataFrom)
+        public static T[] A<T>(this IEnumerable<T> ImportDataFrom)
         {
             if (ImportDataFrom == null)
                 return null;
@@ -307,7 +298,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create Array with current Items No 0-2  and more ItemsNo3_AndMore if necessary
         /// </summary>
-        public static T[] _A<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2, params T[] MoreItems)
+        public static T[] A<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2, params T[] MoreItems)
         {
             var Result = new T[3] { ItemNo_0, ItemNo_1, ItemNo_2 };
             if (MoreItems.C())
@@ -318,7 +309,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create Array with current Items No 0-2
         /// </summary>
-        public static T[] _A<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2 = default(T))
+        public static T[] A<T>(this T ItemNo_0, T ItemNo_1, T ItemNo_2 = default(T))
         {
             return new T[3] { ItemNo_0, ItemNo_1, ItemNo_2 };
         }
@@ -326,7 +317,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create Array with current Items No 0-1
         /// </summary>
-        public static T[] _A<T>(this T ItemNo_0, T ItemNo_1 = default(T))
+        public static T[] A<T>(this T ItemNo_0, T ItemNo_1 = default(T))
         {
             return new T[2] { ItemNo_0, ItemNo_1 };
         }
@@ -334,7 +325,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create Array with current ItemNo_0
         /// </summary>
-        public static T[] _A<T>(this T ItemNo_0)
+        public static T[] A<T>(this T ItemNo_0)
         {
             return new T[1] { ItemNo_0 };
         }
@@ -479,92 +470,31 @@ namespace ReUse_Std.Common
         }
 
 
-        /// <summary>
-        /// Create Empty KeyValuePair with current SampleKeyItem Type
-        /// </summary>
-        public static KeyValuePair<KeyT, ValueT> _Ks<KeyT, ValueT>(this KeyT SampleKeyItem)
-        {
-            return new KeyValuePair<KeyT, ValueT>();
-        }
-
-        /// <summary>
-        /// Create Empty KeyValuePair with current Types
-        /// </summary>
-        public static KeyValuePair<KeyT, ValueT> _K<KeyT, ValueT>()
-        {
-            return new KeyValuePair<KeyT, ValueT>();
-        }
-
-        /// <summary>
-        /// Create Empty Nullable KeyValuePair? with current Types
-        /// </summary>
-        public static KeyValuePair<KeyT, ValueT>? _Kn<KeyT, ValueT>()
-        {
-            return new KeyValuePair<KeyT, ValueT>?();
-        }
-
-        /// <summary>
-        /// Create Empty Nullable KeyValuePair? with current SampleKeyItem Type
-        /// </summary>
-        public static KeyValuePair<KeyT, ValueT>? _Kns<KeyT, ValueT>(this KeyT SampleKeyItem)
-        {
-            return new KeyValuePair<KeyT, ValueT>?();
-        }
-
+        #region KeyValuePairs
+        
         /// <summary>
         /// Create KeyValuePair with current Key and Value
         /// </summary>
-        public static KeyValuePair<KeyT, ValueT> _K<KeyT, ValueT>(this KeyT Key, ValueT Value = default(ValueT))
+        public static KeyValuePair<KeyT, ValueT> K<KeyT, ValueT>(this KeyT Key, ValueT Value = default(ValueT))
         {
             return new KeyValuePair<KeyT, ValueT>(Key, Value);
-        }
-
+        } 
+        
         /// <summary>
         /// Create Nullable KeyValuePair with current Key and Value
         /// </summary>
-        public static KeyValuePair<KeyT, ValueT>? _Kn<KeyT, ValueT>(this KeyT Key, ValueT Value = default(ValueT))
+        public static KeyValuePair<KeyT, ValueT>? Kn<KeyT, ValueT>(this KeyT Key, ValueT Value = default(ValueT))
         {
             if (Key.Equals(null))
                 return null;
             return new KeyValuePair<KeyT, ValueT>(Key, Value);
         }
-
-        ///// <summary>
-        ///// Convert Dictionary to IDictionary with current Key and Value Types
-        ///// </summary>
-        //public static IDictionary<KeyT, ValueT> I<KeyT, ValueT>(this Dictionary<KeyT, ValueT> CurrentDictionary)
-        //{
-        //    return CurrentDictionary;
-        //}
-
-        /// <summary>
-        /// Create new  IDictionary
-        /// </summary>
-        public static IDictionary<KeyT, ValueT> Id<KeyT, ValueT>()
-        {
-            return new Dictionary<KeyT, ValueT>();
-        }
-
-        /// <summary>
-        /// Create Empty Dictionary with current Key and Value Types
-        /// </summary>
-        public static IDictionary<KeyT, ValueT> D<KeyT, ValueT>()
-        {
-            return new Dictionary<KeyT, ValueT>();
-        }
-
-        /// <summary>
-        /// Create Empty Dictionary with current SampleKeyItem and Value Types
-        /// </summary>
-        public static IDictionary<KeyT, ValueT> _Ds<KeyT, ValueT>(this KeyT SampleKeyItem)
-        {
-            return new Dictionary<KeyT, ValueT>();
-        }
-
+        #endregion
+        
         /// <summary>
         /// Create New Dictionary with one item with current Key and Value
         /// </summary>
-        public static IDictionary<KeyT, ValueT> _D<KeyT, ValueT>(this KeyT Key, ValueT Value = default(ValueT))
+        public static IDictionary<KeyT, ValueT> D<KeyT, ValueT>(this KeyT Key, ValueT Value = default(ValueT))
         {
             var res = new Dictionary<KeyT, ValueT>();
             res.Add(Key, Value);
@@ -574,7 +504,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create New Dictionary with two items with current Keys and Values
         /// </summary>
-        public static IDictionary<KeyT, ValueT> _D<KeyT, ValueT>(this KeyT Key1, KeyT Key2, ValueT Value1 = default(ValueT), ValueT Value2 = default(ValueT))
+        public static IDictionary<KeyT, ValueT> D<KeyT, ValueT>(this KeyT Key1, KeyT Key2, ValueT Value1 = default(ValueT), ValueT Value2 = default(ValueT))
         {
             var res = new Dictionary<KeyT, ValueT>();
             res.Add(Key1, Value1);
@@ -585,7 +515,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create New Dictionary with two items with current Keys and Values
         /// </summary>
-        public static IDictionary<KeyT, ValueT> _D<KeyT, ValueT>(this KeyT Key1, KeyT Key2, ValueT Value1, ValueT Value2, KeyValuePair<KeyT, ValueT> Val3, KeyValuePair<KeyT, ValueT>? Val4 = null, params KeyValuePair<KeyT, ValueT>[] MoreItems)
+        public static IDictionary<KeyT, ValueT> D<KeyT, ValueT>(this KeyT Key1, KeyT Key2, ValueT Value1, ValueT Value2, KeyValuePair<KeyT, ValueT> Val3, KeyValuePair<KeyT, ValueT>? Val4 = null, params KeyValuePair<KeyT, ValueT>[] MoreItems)
         {
             var res = new Dictionary<KeyT, ValueT>();
             res.Add(Key1, Value1);
@@ -602,7 +532,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create New Dictionary with two items with current Keys and Func Method Values
         /// </summary>
-        public static IDictionary<KeyT, ValueT> _Df<KeyT, ValueT>(this KeyT Key1, KeyT Key2, f<KeyT, ValueT> Value1, f<KeyT, ValueT> Value2, KeyValuePair<KeyT, f<KeyT, ValueT>> Val3, KeyValuePair<KeyT, f<KeyT, ValueT>>? Val4 = null, params KeyValuePair<KeyT, f<KeyT, ValueT>>[] MoreItems)
+        public static IDictionary<KeyT, ValueT> Df<KeyT, ValueT>(this KeyT Key1, KeyT Key2, f<KeyT, ValueT> Value1, f<KeyT, ValueT> Value2, KeyValuePair<KeyT, f<KeyT, ValueT>> Val3, KeyValuePair<KeyT, f<KeyT, ValueT>>? Val4 = null, params KeyValuePair<KeyT, f<KeyT, ValueT>>[] MoreItems)
         {
             var res = new Dictionary<KeyT, ValueT>();
             res.Add(Key1, Value1(Key1));
@@ -619,55 +549,15 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create New Dictionary with two items with current Keys and Func Method Values
         /// </summary>
-        public static IDictionary<KeyT, ValueT> _Df<KeyT, ValueT>(this KeyT Key1, f<KeyT, ValueT> Value1)
+        public static IDictionary<KeyT, ValueT> Df<KeyT, ValueT>(this KeyT Key1, f<KeyT, ValueT> Value1)
         {
             var res = new Dictionary<KeyT, ValueT>();
             res.Add(Key1, Value1(Key1));
             return res;
         }
 
-
         #endregion
 
-        /// <summary>
-        /// Create New DataTable
-        /// </summary>
-        public static DataTable T()
-        {
-            return new DataTable();
-        }
-
-        #region DateTime, Guid
-
-        /// <summary>
-        /// Create new DateTime
-        /// </summary>
-        public static DateTime Dt(DateTime? ValueIfNotNull = null, bool ReturnNowIfValueNull = true)
-        {
-            if (ValueIfNotNull != null)
-                return ValueIfNotNull.Value;
-            else
-                if (ReturnNowIfValueNull)
-                return DateTime.Now;
-            else
-                return new DateTime();
-        }
-
-        /// <summary>
-        /// Create new Guid
-        /// </summary>
-        public static Guid G(Guid? ValueIfNotNull = null, bool GenerateNewIfValueNull = true)
-        {
-            if (ValueIfNotNull != null)
-                return ValueIfNotNull.Value;
-            else
-                if (GenerateNewIfValueNull)
-                return Guid.NewGuid();
-            else
-                return new Guid();
-        }
-
-        #endregion
     }
 
 
@@ -676,7 +566,7 @@ namespace ReUse_Std.Common
     /// <summary>
     /// Common Disposable class with custom OnDisposeMethods
     /// </summary>
-    public class _D<T> : IDisposable
+    public class D<T> : IDisposable
     {
         // Pointer to an external unmanaged resource.
         //private IntPtr handle;
@@ -697,15 +587,17 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Init Disposable class with custom UseTryCatch OnDisposeMethods
         /// </summary>
-        public _D(f<T> OnDisposeMethod, bool UseTryCatch = true)
+        public D(f<T> OnDisposeMethod, bool UseTryCatch = true)
         {
             this._Dm = OnDisposeMethod;
             this._T = UseTryCatch;
         }
 
-        // Implement IDisposable.
-        // Do not make this method virtual.
-        // A derived class should not be able to override this method.
+        /// <summary>
+        /// Implement IDisposable.
+        /// Do not make this method virtual.
+        /// A derived class should not be able to override this method.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
@@ -717,13 +609,16 @@ namespace ReUse_Std.Common
             GC.SuppressFinalize(this);
         }
 
-        // Dispose(bool disposing) executes in two distinct scenarios.
-        // If disposing equals true, the method has been called directly
-        // or indirectly by a user's code. Managed and unmanaged resources
-        // can be disposed.
-        // If disposing equals false, the method has been called by the
-        // runtime from inside the finalizer and you should not reference
-        // other objects. Only unmanaged resources can be disposed.
+        /// <summary>
+        /// Dispose(bool disposing) executes in two distinct scenarios.
+        /// If disposing equals true, the method has been called directly
+        /// or indirectly by a user's code. Managed and unmanaged resources
+        /// can be disposed.
+        /// If disposing equals false, the method has been called by the
+        /// runtime from inside the finalizer and you should not reference
+        /// other objects. Only unmanaged resources can be disposed.
+        /// </summary>
+        /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
             // Check to see if Dispose has already been called.

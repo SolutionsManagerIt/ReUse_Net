@@ -47,7 +47,6 @@ namespace ReUse_Std.Common
             return List_To_Check.Contains(List_Contains_Item);
         }
 
-
         #endregion
 
         #region Get 
@@ -150,7 +149,7 @@ namespace ReUse_Std.Common
                 return ReturnOnError;
 
             int Counter = 0;
-            return DataToProcess.Select(e => FunctionToProcessValue((Counter++)._K(e), CurrCodeType));
+            return DataToProcess.Select(e => FunctionToProcessValue((Counter++).K(e), CurrCodeType));
         }
 
         /// <summary>
@@ -170,7 +169,7 @@ namespace ReUse_Std.Common
         public static T G<T>(this ICollection<T> CurrObjectFields, int ItemNo = 0, T DefaultValueOnError = default(T))
         {
             if (CurrObjectFields != null && CurrObjectFields.Count > 0 && CurrObjectFields.Count < ItemNo)
-                return CurrObjectFields.ElementAt(ItemNo)._T(DefaultValueOnError);
+                return CurrObjectFields.ElementAt(ItemNo).T(DefaultValueOnError);
 
             return DefaultValueOnError;
         }
@@ -183,7 +182,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Return a page (of size PageSize) no PageNo from DataToPage
         /// </summary>
-        public static IEnumerable<T> _P<T>(this IEnumerable<T> DataToPage, int PageSize = 1000, int PageNo = 0)
+        public static IEnumerable<T> P<T>(this IEnumerable<T> DataToPage, int PageSize = 1000, int PageNo = 0)
         {
             return DataToPage.Skip(PageNo * PageSize).Take(PageSize);
         }
@@ -191,7 +190,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Return a page (of size PageSize) no PageNo from IQueryable DataToPage
         /// </summary>
-        public static IQueryable<T> _Pq<T>(this IQueryable<T> DataToPage, int PageSize = 1000, int PageNo = 0)
+        public static IQueryable<T> Pq<T>(this IQueryable<T> DataToPage, int PageSize = 1000, int PageNo = 0)
         {
             return DataToPage.Skip(PageNo * PageSize).Take(PageSize);
         }
@@ -199,7 +198,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Return all pages (of size PageSize) of data from DataToPage
         /// </summary>
-        public static IEnumerable<IEnumerable<T>> _Ps<T>(this IEnumerable<T> DataToPage, int PageSize = 1000)
+        public static IEnumerable<IEnumerable<T>> Ps<T>(this IEnumerable<T> DataToPage, int PageSize = 1000)
         {
             if (DataToPage == null || PageSize < 1)
                 yield return null;

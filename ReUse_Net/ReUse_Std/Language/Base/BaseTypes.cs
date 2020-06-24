@@ -40,7 +40,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Checks if all values are null
         /// </summary>          
-        public static bool _na(this object Value_1, object Value_2, object Value_3 = null, object Value_4 = null, object Value_5 = null, object Value_6 = null, object Value_7 = null, object Value_8 = null, object Value_9 = null, object Value_10 = null, params object[] MoreValues)
+        public static bool na(this object Value_1, object Value_2, object Value_3 = null, object Value_4 = null, object Value_5 = null, object Value_6 = null, object Value_7 = null, object Value_8 = null, object Value_9 = null, object Value_10 = null, params object[] MoreValues)
         {
             var Result = Value_1 == null && Value_2 == null && Value_3 == null && Value_4 == null && Value_5 == null && Value_6 == null && Value_7 == null && Value_8 == null && Value_9 == null && Value_10 == null;
             if (MoreValues.C())
@@ -56,7 +56,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Checks all Parameters are not null
         /// </summary>
-        public static bool _n(this object Value)
+        public static bool n(this object Value)
         {
             return Value != null;
         }
@@ -64,7 +64,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Checks all Parameters are not null
         /// </summary>
-        public static bool _n(this object Value_1, object Value_2)
+        public static bool n(this object Value_1, object Value_2)
         {
             return Value_1 != null && Value_2 != null;
         }
@@ -72,7 +72,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Checks all Parameters are not null
         /// </summary>
-        public static bool _n(this object Value_1, object Value_2, object Value_3)
+        public static bool n(this object Value_1, object Value_2, object Value_3)
         {
             return Value_1 != null && Value_2 != null && Value_3 != null;
         }
@@ -80,7 +80,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Checks all Parameters are not null
         /// </summary>
-        public static bool _n(this object Value_1, object Value_2, object Value_3, object Value_4)
+        public static bool n(this object Value_1, object Value_2, object Value_3, object Value_4)
         {
             return Value_1 != null && Value_2 != null && Value_3 != null && Value_4 != null;
         }
@@ -88,7 +88,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Checks all Parameters are not null
         /// </summary>
-        public static bool _n(this object Value_1, object Value_2, object Value_3, object Value_4, object Value_5)
+        public static bool n(this object Value_1, object Value_2, object Value_3, object Value_4, object Value_5)
         {
             return Value_1 != null && Value_2 != null && Value_3 != null && Value_4 != null && Value_5 != null;
         }
@@ -96,7 +96,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Checks all Parameters are not null
         /// </summary>
-        public static bool _n(this object Value_1, object Value_2, object Value_3, object Value_4, object Value_5, object Value_6)
+        public static bool n(this object Value_1, object Value_2, object Value_3, object Value_4, object Value_5, object Value_6)
         {
             return Value_1 != null && Value_2 != null && Value_3 != null && Value_4 != null && Value_5 != null && Value_6 != null;
         }
@@ -104,7 +104,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Checks all Parameters are not null
         /// </summary>
-        public static bool _n(this object Value_1, object Value_2, object Value_3, object Value_4, object Value_5, object Value_6, object Value_7)
+        public static bool n(this object Value_1, object Value_2, object Value_3, object Value_4, object Value_5, object Value_6, object Value_7)
         {
             return Value_1 != null && Value_2 != null && Value_3 != null && Value_4 != null && Value_5 != null && Value_6 != null && Value_7 != null;
         }
@@ -112,7 +112,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Checks all Parameters are not null
         /// </summary>
-        public static bool _n(this object Value_1, object Value_2, object Value_3, object Value_4, object Value_5, object Value_6, object Value_7, params object[] MoreValues)
+        public static bool n(this object Value_1, object Value_2, object Value_3, object Value_4, object Value_5, object Value_6, object Value_7, params object[] MoreValues)
         {
             var Result = Value_1 != null && Value_2 != null && Value_3 != null && Value_4 != null && Value_5 != null && Value_6 != null && Value_7 != null;
             if (MoreValues.C())

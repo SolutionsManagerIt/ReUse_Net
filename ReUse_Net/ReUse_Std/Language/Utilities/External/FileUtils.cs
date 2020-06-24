@@ -269,12 +269,12 @@ namespace ReUse_Std.Utilities.External.Files
                 string[] vl = null;
                 if (CustomDelimiter == null)
                 {
-                    vl = t.Split(";"._A(), StringSplitOptions.None);
+                    vl = t.Split(";".A(), StringSplitOptions.None);
                     if (vl.Length == 1)
-                        vl = t.Split(","._A(), StringSplitOptions.None);
+                        vl = t.Split(",".A(), StringSplitOptions.None);
                 }
                 else
-                    vl = t.Split(CustomDelimiter._A(), StringSplitOptions.None);
+                    vl = t.Split(CustomDelimiter.A(), StringSplitOptions.None);
 
                 return MethodToProcessData(vl);
             });
@@ -290,7 +290,7 @@ namespace ReUse_Std.Utilities.External.Files
 
             var v = Values.S(e => MethodToProcessData(e));
             if (HeadersData != null)
-                v = HeadersData._A().Union(v);
+                v = HeadersData.A().Union(v);
             v._FS(FileWithPath, FileEncoding, OverWriteIfExists, AppendIfExists);
 
             return false;
@@ -306,7 +306,7 @@ namespace ReUse_Std.Utilities.External.Files
             var d = CustomDelimiter ?? ";";
             var v = Values.S(e => MethodToProcessData(e).Gc(d, true, false));
             if (HeadersData != null)
-                v = HeadersData.Gc(d, true, false)._A().Union(v);
+                v = HeadersData.Gc(d, true, false).A().Union(v);
             return v._FS(FileWithPath, FileEncoding, OverWriteIfExists, AppendIfExists);
         }
 

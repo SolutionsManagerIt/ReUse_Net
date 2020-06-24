@@ -39,7 +39,7 @@ namespace ReUse_Std.Common
         {
             if (Data == null)
                 return null;
-            return Data.W(WhereCondition, OrderByCondition, Distinct, TakeNRecords)._A();
+            return Data.W(WhereCondition, OrderByCondition, Distinct, TakeNRecords).A();
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace ReUse_Std.Common
         {
             if (Data == null || SelectCondition == null)
                 return null;
-            return Data.S(SelectCondition, WhereCondition, OrderByCondition, Distinct, TakeNRecords)._A();
+            return Data.S(SelectCondition, WhereCondition, OrderByCondition, Distinct, TakeNRecords).A();
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace ReUse_Std.Common
         {
             if (Data == null || SelectCondition == null)
                 return null;
-            return Data.S(SelectCondition, WhereCondition, OrderByCondition, Distinct, TakeNRecords)._A();
+            return Data.S(SelectCondition, WhereCondition, OrderByCondition, Distinct, TakeNRecords).A();
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace ReUse_Std.Common
         {
             if (Data == null || GroupByCondition == null)
                 return null;
-            return Data.G(GroupByCondition, WhereCondition, OrderByCondition, Distinct, TakeNRecords)._A();
+            return Data.G(GroupByCondition, WhereCondition, OrderByCondition, Distinct, TakeNRecords).A();
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace ReUse_Std.Common
         {
             if (Data == null)
                 return null;
-            return Data.D(DistinctCondition, WhereCondition, OrderByCondition, TakeNRecords)._A();
+            return Data.D(DistinctCondition, WhereCondition, OrderByCondition, TakeNRecords).A();
 
         }
 
@@ -165,7 +165,7 @@ namespace ReUse_Std.Common
         {
             if (Data == null)
                 return null;
-            return Data.O(OrderByCondition, Distinct, TakeNRecords)._A();
+            return Data.O(OrderByCondition, Distinct, TakeNRecords).A();
         }
 
 
@@ -193,7 +193,7 @@ namespace ReUse_Std.Common
         {
             if (Data == null)
                 return null;
-            return Data.O(OrderByCondition, Distinct, TakeNRecords)._A();
+            return Data.O(OrderByCondition, Distinct, TakeNRecords).A();
         }
 
 

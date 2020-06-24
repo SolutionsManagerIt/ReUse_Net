@@ -16,7 +16,7 @@ namespace ReUse_Std.Base
     /// <summary>
     /// Common Code Schema Utilities  -  Run, Try, Loop, If, Process, For, Each, etc
     /// </summary>
-    public static class C
+    public static class CommonCodeUtilities
     {
         #region private
 
@@ -159,7 +159,7 @@ namespace ReUse_Std.Base
         /// or return default on not true. 
         /// Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
         /// </summary>        
-        public static ResT _R<ParamT, ResT>(this Proc<ParamT, ResT> ProcessToRun, Cx? CurrCodeType = null, _Log? CustomLogToAddRecords = null)
+        public static ResT _R<ParamT, ResT>(this Pr<ParamT, ResT> ProcessToRun, Cx? CurrCodeType = null, _Log? CustomLogToAddRecords = null)
         {
             bool UseTryCatch = CurrCodeType != null && CurrCodeType.Value.T;
             PerformanceLog? PerfLog = null;
@@ -172,16 +172,16 @@ namespace ReUse_Std.Base
             if (UsePerformanceLog)
                 PerfLog = l._P(CurrCodeType);
 
-            Proc<ParamT, ResT> Res = ProcessToRun;
+            Pr<ParamT, ResT> Res = ProcessToRun;
 
-            Res.Error = (param, result, exc, code) =>
+            Res.Er = (param, result, exc, code) =>
             {
                 if (UseErrorLog)
                     l._E(null, exc, CurrCodeType);
-                return (ProcessToRun.Error == null) ? result : ProcessToRun.Error(param, result, exc, CurrCodeType);
+                return (ProcessToRun.Er == null) ? result : ProcessToRun.Er(param, result, exc, CurrCodeType);
             };
 
-            var ResultData = TryIf(Res, CurrCodeType);
+            var ResultData = Ti(Res, CurrCodeType);
 
             if (UsePerformanceLog)
                 l._P(PerfLog, null, CurrCodeType);
@@ -196,7 +196,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Start App method with logs and performance (old format)
         /// </summary>        
-        public static T AppS<T>(string SolutionName, f<T> FuncToRun, T ReturnOnError = default(T), Cx? FuncRunContext = null, Cx? CustomLogs = null, Cx? CustomPerf = null)
+        public static T AppS<T>(this string SolutionName, f<T> FuncToRun, T ReturnOnError = default(T), Cx? FuncRunContext = null, Cx? CustomLogs = null, Cx? CustomPerf = null)
         {
             //Log.CurrLogsCode = FuncRunContext ?? CustomLogs;
             //Log.Start();
@@ -240,28 +240,28 @@ namespace ReUse_Std.Base
         /// Check methods Init and End methods return bool? results and run CheckTrue/CheckFalse/CheckNull methods if available
         /// or return default on not true
         /// </summary>        
-        public static ResT F<ParamT, ResT>(Proc<ParamT, ResT> ProcessToRun, Cx? CurrCodeType = null)
+        public static ResT F<ParamT, ResT>(Pr<ParamT, ResT> ProcessToRun, Cx? CurrCodeType = null)
         {
-            if ((ProcessToRun.Process == null && ProcessToRun.Fail == null) || ProcessToRun.Params == null)
-                return ProcessToRun.Default;
+            if ((ProcessToRun.Vt == null && ProcessToRun.F == null) || ProcessToRun.P == null)
+                return ProcessToRun.D;
 
-            if (!C_Func.Eval(ProcessToRun, ProcessToRun.Init, CurrCodeType))
-                return ProcessToRun.Default;
+            if (!Code_FuncUtils.E(ProcessToRun, ProcessToRun.I, CurrCodeType))
+                return ProcessToRun.D;
 
-            ParamT CurrParam = ProcessToRun.Params;
-            if (ProcessToRun.Pre != null)
-                CurrParam = ProcessToRun.Pre(ProcessToRun.Params, CurrCodeType);
+            ParamT CurrParam = ProcessToRun.P;
+            if (ProcessToRun.Pe != null)
+                CurrParam = ProcessToRun.Pe(ProcessToRun.P, CurrCodeType);
 
-            ResT Result = ProcessToRun.Default;
-            if (ProcessToRun.Process != null)
-                Result = ProcessToRun.Process(ProcessToRun.Params, CurrCodeType);
+            ResT Result = ProcessToRun.D;
+            if (ProcessToRun.Vt != null)
+                Result = ProcessToRun.Vt(ProcessToRun.P, CurrCodeType);
             else
-                Result = ProcessToRun.Fail(ProcessToRun.Params, CurrCodeType);
-            if (ProcessToRun.Post != null)
-                Result = ProcessToRun.Post(ProcessToRun.Params, Result, CurrCodeType);
+                Result = ProcessToRun.F(ProcessToRun.P, CurrCodeType);
+            if (ProcessToRun.Ps != null)
+                Result = ProcessToRun.Ps(ProcessToRun.P, Result, CurrCodeType);
 
-            if (!C_Func.Eval(ProcessToRun, ProcessToRun.End, Result, CurrCodeType))
-                return ProcessToRun.Default;
+            if (!Code_FuncUtils.E(ProcessToRun, ProcessToRun.E, Result, CurrCodeType))
+                return ProcessToRun.D;
 
             return Result;
         }
@@ -274,36 +274,36 @@ namespace ReUse_Std.Base
         /// Check methods Init and End methods return bool? results and run CheckTrue/CheckFalse/CheckNull methods if available
         /// or return default on not true
         /// </summary> 
-        public static ResT Try<ParamT, ResT>(Proc<ParamT, ResT> ProcessToRun, Cx? CurrCodeType = null)
+        public static ResT T<ParamT, ResT>(Pr<ParamT, ResT> ProcessToRun, Cx? CurrCodeType = null)
         {
             bool UseTryCatch = CurrCodeType != null && CurrCodeType.Value.T;
 
-            Proc<ParamT, ResT> Res = ProcessToRun;
+            Pr<ParamT, ResT> Res = ProcessToRun;
 
-            Res.Process = (param, code) =>
+            Res.Vt = (param, code) =>
             {
-                ResT Result = ProcessToRun.Default;
+                ResT Result = ProcessToRun.D;
                 if (UseTryCatch)
                 {
                     try
                     {
-                        if (ProcessToRun.Process != null)
-                            Result = ProcessToRun.Process(param, CurrCodeType);
+                        if (ProcessToRun.Vt != null)
+                            Result = ProcessToRun.Vt(param, CurrCodeType);
                         else
-                            Result = ProcessToRun.Fail(param, CurrCodeType);
+                            Result = ProcessToRun.F(param, CurrCodeType);
                     }
                     catch (Exception exc)
                     {
-                        Result = ProcessToRun.Default;
-                        if (ProcessToRun.Error != null)
-                            Result = ProcessToRun.Error(param, Result, exc, CurrCodeType);
+                        Result = ProcessToRun.D;
+                        if (ProcessToRun.Er != null)
+                            Result = ProcessToRun.Er(param, Result, exc, CurrCodeType);
                     }
                 }
                 else
-                    if (ProcessToRun.Process != null)
-                    Result = ProcessToRun.Process(param, CurrCodeType);
+                    if (ProcessToRun.Vt != null)
+                    Result = ProcessToRun.Vt(param, CurrCodeType);
                 else
-                    Result = ProcessToRun.Fail(param, CurrCodeType);
+                    Result = ProcessToRun.F(param, CurrCodeType);
                 return Result;
             };
 
@@ -318,43 +318,43 @@ namespace ReUse_Std.Base
         /// Check methods Init and End methods return bool? results and run CheckTrue/CheckFalse/CheckNull methods if available
         /// or return default on not true
         /// </summary>        
-        public static ResT If<ParamT, ResT>(Proc<ParamT, ResT> ProcessToRun, Cx? CurrCodeType = null)
+        public static ResT I<ParamT, ResT>(Pr<ParamT, ResT> ProcessToRun, Cx? CurrCodeType = null)
         {
-            if (ProcessToRun.Validate == null && ProcessToRun.ValidNull == null)
-                return ProcessToRun.Default;
+            if (ProcessToRun.V == null && ProcessToRun.Vn == null)
+                return ProcessToRun.D;
 
-            Proc<ParamT, ResT> Res = ProcessToRun;
+            Pr<ParamT, ResT> Res = ProcessToRun;
 
-            Res.Process = (param, code) =>
+            Res.Vt = (param, code) =>
             {
                 bool? Validated = true;
-                ResT Result = ProcessToRun.Default;
-                if (ProcessToRun.Validate != null)
-                    Validated = ProcessToRun.Validate(param, CurrCodeType);
+                ResT Result = ProcessToRun.D;
+                if (ProcessToRun.V != null)
+                    Validated = ProcessToRun.V(param, CurrCodeType);
 
                 if (Validated == null)
                 {
-                    if (ProcessToRun.ValidNull != null)
-                        Result = ProcessToRun.ValidNull(param, CurrCodeType);
+                    if (ProcessToRun.Vn != null)
+                        Result = ProcessToRun.Vn(param, CurrCodeType);
                     else
-                        if (ProcessToRun.Fail != null)
-                        Result = ProcessToRun.Fail(param, CurrCodeType);
+                        if (ProcessToRun.F != null)
+                        Result = ProcessToRun.F(param, CurrCodeType);
                 }
                 else
                     if (Validated == false)
                 {
-                    if (ProcessToRun.ValidFalse != null)
-                        Result = ProcessToRun.ValidFalse(param, CurrCodeType);
+                    if (ProcessToRun.Vf != null)
+                        Result = ProcessToRun.Vf(param, CurrCodeType);
                     else
-                        if (ProcessToRun.Fail != null)
-                        Result = ProcessToRun.Fail(param, CurrCodeType);
+                        if (ProcessToRun.F != null)
+                        Result = ProcessToRun.F(param, CurrCodeType);
                 }
                 else
-                        if (ProcessToRun.Process != null)
-                    Result = ProcessToRun.Process(param, CurrCodeType);
+                        if (ProcessToRun.Vt != null)
+                    Result = ProcessToRun.Vt(param, CurrCodeType);
                 else
-                            if (ProcessToRun.Fail != null)
-                    Result = ProcessToRun.Fail(param, CurrCodeType);
+                            if (ProcessToRun.F != null)
+                    Result = ProcessToRun.F(param, CurrCodeType);
                 return Result;
             };
 
@@ -370,46 +370,46 @@ namespace ReUse_Std.Base
         /// Check methods Init and End methods return bool? results and run CheckTrue/CheckFalse/CheckNull methods if available
         /// or return default on not true
         /// </summary> 
-        public static ResT TryIf<ParamT, ResT>(Proc<ParamT, ResT> ProcessToRun, Cx? CurrCodeType = null)
+        public static ResT Ti<ParamT, ResT>(Pr<ParamT, ResT> ProcessToRun, Cx? CurrCodeType = null)
         {
             bool UseTryCatch = CurrCodeType != null && CurrCodeType.Value.T;
 
-            Proc<ParamT, ResT> Res = ProcessToRun;
+            Pr<ParamT, ResT> Res = ProcessToRun;
 
-            Res.Process = (param, code) =>
+            Res.Vt = (param, code) =>
             {
                 bool? Validated = true;
-                ResT Result = ProcessToRun.Default;
-                if (ProcessToRun.Validate != null)
-                    Validated = ProcessToRun.Validate(param, CurrCodeType);
+                ResT Result = ProcessToRun.D;
+                if (ProcessToRun.V != null)
+                    Validated = ProcessToRun.V(param, CurrCodeType);
 
                 if (Validated == null)
                 {
-                    if (ProcessToRun.ValidNull != null)
-                        Result = ProcessToRun.ValidNull(param, CurrCodeType);
+                    if (ProcessToRun.Vn != null)
+                        Result = ProcessToRun.Vn(param, CurrCodeType);
                     else
-                        if (ProcessToRun.Fail != null)
-                        Result = ProcessToRun.Fail(param, CurrCodeType);
+                        if (ProcessToRun.F != null)
+                        Result = ProcessToRun.F(param, CurrCodeType);
                 }
                 else
                     if (Validated == false)
                 {
-                    if (ProcessToRun.ValidFalse != null)
-                        Result = ProcessToRun.ValidFalse(param, CurrCodeType);
+                    if (ProcessToRun.Vf != null)
+                        Result = ProcessToRun.Vf(param, CurrCodeType);
                     else
-                        if (ProcessToRun.Fail != null)
-                        Result = ProcessToRun.Fail(param, CurrCodeType);
+                        if (ProcessToRun.F != null)
+                        Result = ProcessToRun.F(param, CurrCodeType);
                 }
                 else
-                        if (ProcessToRun.Process != null)
-                    Result = ProcessToRun.Process(param, CurrCodeType);
+                        if (ProcessToRun.Vt != null)
+                    Result = ProcessToRun.Vt(param, CurrCodeType);
                 else
-                            if (ProcessToRun.Fail != null)
-                    Result = ProcessToRun.Fail(param, CurrCodeType);
+                            if (ProcessToRun.F != null)
+                    Result = ProcessToRun.F(param, CurrCodeType);
                 return Result;
             };
 
-            return Try(Res, CurrCodeType);
+            return T(Res, CurrCodeType);
         }
 
         #endregion
@@ -434,7 +434,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Get Memory Usage Text
         /// </summary>
-        public static string _Mu(this Mvt ValueType)
+        public static string T(this Mvt ValueType)
         {
             var v = Process.GetCurrentProcess().WorkingSet64;
             if (ValueType == Mvt.Mb)
@@ -448,7 +448,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Get Memory Usage value
         /// </summary>
-        public static double _Muv(this Mvt ValueType)
+        public static double V(this Mvt ValueType)
         {
             var v = Process.GetCurrentProcess().WorkingSet64;
             if (ValueType == Mvt.Mb)
@@ -462,7 +462,7 @@ namespace ReUse_Std.Base
     }
 
     /// <summary>
-    /// Default Common Applications Props and
+    /// Default Common Applications Props and values. Methods to generate new items, common data, types and environment variables 
     /// </summary>
     public static class _
     {
@@ -480,20 +480,68 @@ namespace ReUse_Std.Base
         /// </summary>
         public static Guid g { get { return Guid.NewGuid(); } }
 
-        ///// <summary>
-        ///// Return new List of SqlParameters
-        ///// </summary>
-        //public static List<SqlParameter> p { get { return new List<SqlParameter>(); } }
+        #region Environment
+        /// <summary>
+        /// Return Environment UserName
+        /// </summary>
+        public static string u { get { return Environment.UserName; } }
+        /// <summary>
+        /// Return Environment UserDomainName
+        /// </summary>
+        public static string ud { get { return Environment.UserDomainName; } }
 
         /// <summary>
-        /// Return new List of strings
+        /// Return Environment MachineName
+        /// </summary>
+        public static string m { get { return Environment.MachineName; } }
+
+        /// <summary>
+        /// Return Environment CurrentDirectory
+        /// </summary>
+        public static string cd { get { return Environment.CurrentDirectory; } }
+        #endregion
+
+        /// <summary>
+        /// Return new Empty List of strings
         /// </summary>
         public static List<string> s { get { return new List<string>(); } }
 
+        /// <summary>
+        /// Return new Empty DataTable
+        /// </summary>
+        public static DataTable t { get { return new DataTable(); } }
 
         #endregion
 
-        #region Fields
+        #region Return new methods
+        /// <summary>
+        /// Return new Empty List of current Type
+        /// </summary>
+        public static List<T> S<T>() { return new List<T>(); }
+
+        /// <summary>
+        /// Return new Empty Dictionary with current Key and Value Types
+        /// </summary>
+        public static IDictionary<KeyT, ValueT> Dc<KeyT, ValueT>() { return new Dictionary<KeyT, ValueT>(); }
+
+        /// <summary>
+        /// Create Empty KeyValuePair with current Types
+        /// </summary>
+        public static KeyValuePair<KeyT, ValueT> K<KeyT, ValueT>(KeyT Key, ValueT Value = default(ValueT))
+        {
+            return new KeyValuePair<KeyT, ValueT>(Key, Value);
+        }
+
+        /// <summary>
+        /// Create Empty Nullable KeyValuePair? with current Types
+        /// </summary>
+        public static KeyValuePair<KeyT, ValueT>? Kn<KeyT, ValueT>()
+        {
+            return new KeyValuePair<KeyT, ValueT>?();
+        }
+        #endregion
+
+
         #region SQL types
 
         public const SqlDbType qn = SqlDbType.NVarChar;
@@ -512,9 +560,6 @@ namespace ReUse_Std.Base
         //public const SqlDbType qn = SqlDbType.NVarChar;
 
         #endregion 
-        #endregion
-
-
 
         #region App Exec Context utils
 
@@ -551,7 +596,7 @@ namespace ReUse_Std.Base
     /// <summary>
     /// Code Type Utils
     /// </summary>
-    public static class C_Type
+    public static class Code_Type_Utils
     {
         /// <summary>
         /// Create new CodeType for App with current code UseTryCatch setting
@@ -677,7 +722,7 @@ namespace ReUse_Std.Base
     /// <summary>
     /// CodeCommon Utils
     /// </summary>
-    public static class C_Common
+    public static class Code_CommonUtils
     {
         /// <summary>
         /// Create new CodeCommon details with Logs for current ParametersData setting
@@ -762,7 +807,7 @@ namespace ReUse_Std.Base
     /// <summary>
     /// CodeEntry Utils
     /// </summary>
-    public static class C_Entry
+    public static class Code_EntryUtils
     {
         /// <summary>
         /// Create new CodeEntryData for current ClassName
@@ -784,25 +829,25 @@ namespace ReUse_Std.Base
     /// <summary>
     /// Code Func Lambda expressions Utils
     /// </summary>
-    public static class C_Func
+    public static class Code_FuncUtils
     {
         /// <summary>
         /// Evaluate common bool? return from CheckToEvaluate with context CheckFalse/CheckNull/CheckTrue methods details
         /// Returns true if any method return true, else false
         /// </summary>        
         /// <returns>Returns true if any method return true, else false</returns>
-        public static bool Eval<ParamT, ResT>(Proc<ParamT, ResT> CurrProcess, f<ParamT, Cx?, bool?> CheckToEvaluate, Cx? CurrCodeType = null, ResT ResToEvaluate = default(ResT), bool EvaluateDefault = true)
+        public static bool E<ParamT, ResT>(this Pr<ParamT, ResT> CurrProcess, f<ParamT, Cx?, bool?> CheckToEvaluate, Cx? CurrCodeType = null, ResT ResToEvaluate = default(ResT), bool EvaluateDefault = true)
         {
             if (CheckToEvaluate == null)
                 return EvaluateDefault;
-            bool? Res = CheckToEvaluate(CurrProcess.Params, CurrCodeType);
+            bool? Res = CheckToEvaluate(CurrProcess.P, CurrCodeType);
 
-            if (Res == null && CurrProcess.CheckNull != null)
-                return CurrProcess.CheckNull(CurrProcess.Params, ResToEvaluate, CurrCodeType);
-            if (Res == false && CurrProcess.CheckFalse != null)
-                return !CurrProcess.CheckFalse(CurrProcess.Params, ResToEvaluate, CurrCodeType);
-            if (Res == true && CurrProcess.CheckTrue != null)
-                return !CurrProcess.CheckTrue(CurrProcess.Params, ResToEvaluate, CurrCodeType);
+            if (Res == null && CurrProcess.Cn != null)
+                return CurrProcess.Cn(CurrProcess.P, ResToEvaluate, CurrCodeType);
+            if (Res == false && CurrProcess.Cf != null)
+                return !CurrProcess.Cf(CurrProcess.P, ResToEvaluate, CurrCodeType);
+            if (Res == true && CurrProcess.Ct != null)
+                return !CurrProcess.Ct(CurrProcess.P, ResToEvaluate, CurrCodeType);
 
             if (Res == true)
                 return true;
@@ -814,18 +859,18 @@ namespace ReUse_Std.Base
         /// Returns true if any method return true, else false
         /// </summary>        
         /// <returns>Returns true if any method return true, else false</returns>
-        public static bool Eval<ParamT, ResT>(Proc<ParamT, ResT> CurrProcess, f<ParamT, ResT, Cx?, bool?> CheckToEvaluate, ResT ResToEvaluate = default(ResT), Cx? CurrCodeType = null, bool EvaluateDefault = true)
+        public static bool E<ParamT, ResT>(this Pr<ParamT, ResT> CurrProcess, f<ParamT, ResT, Cx?, bool?> CheckToEvaluate, ResT ResToEvaluate = default(ResT), Cx? CurrCodeType = null, bool EvaluateDefault = true)
         {
             if (CheckToEvaluate == null)
                 return EvaluateDefault;
-            bool? Res = CheckToEvaluate(CurrProcess.Params, ResToEvaluate, CurrCodeType);
+            bool? Res = CheckToEvaluate(CurrProcess.P, ResToEvaluate, CurrCodeType);
 
-            if (Res == null && CurrProcess.CheckNull != null)
-                return CurrProcess.CheckNull(CurrProcess.Params, ResToEvaluate, CurrCodeType);
-            if (Res == false && CurrProcess.CheckFalse != null)
-                return !CurrProcess.CheckFalse(CurrProcess.Params, ResToEvaluate, CurrCodeType);
-            if (Res == true && CurrProcess.CheckTrue != null)
-                return !CurrProcess.CheckTrue(CurrProcess.Params, ResToEvaluate, CurrCodeType);
+            if (Res == null && CurrProcess.Cn != null)
+                return CurrProcess.Cn(CurrProcess.P, ResToEvaluate, CurrCodeType);
+            if (Res == false && CurrProcess.Cf != null)
+                return !CurrProcess.Cf(CurrProcess.P, ResToEvaluate, CurrCodeType);
+            if (Res == true && CurrProcess.Ct != null)
+                return !CurrProcess.Ct(CurrProcess.P, ResToEvaluate, CurrCodeType);
 
             if (Res == true)
                 return true;
@@ -835,7 +880,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Create new Func and add AddOn method with Original with AddAfterOriginal order
         /// </summary>        
-        public static f<ParamT, Cx?, ResT> Add<ParamT, ResT>(f<ParamT, Cx?, ResT> Original, f<ParamT, Cx?, ResT> AddOn, Cx? CurrCodeType = null, bool AddAfterOriginal = false)
+        public static f<ParamT, Cx?, ResT> A<ParamT, ResT>(this f<ParamT, Cx?, ResT> Original, f<ParamT, Cx?, ResT> AddOn, Cx? CurrCodeType = null, bool AddAfterOriginal = false)
         {
             if (Original == null && AddOn == null)
                 return null;
@@ -859,7 +904,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Create new Func and add AddOn method with Original with AddAfterOriginal order
         /// </summary>        
-        public static f<ParamT, ResT, Cx?, ResT> Add<ParamT, ResT>(f<ParamT, ResT, Cx?, ResT> Original, f<ParamT, ResT, Cx?, ResT> AddOn, Cx? CurrCodeType = null, bool AddAfterOriginal = false)
+        public static f<ParamT, ResT, Cx?, ResT> A<ParamT, ResT>(this f<ParamT, ResT, Cx?, ResT> Original, f<ParamT, ResT, Cx?, ResT> AddOn, Cx? CurrCodeType = null, bool AddAfterOriginal = false)
         {
             if (Original == null && AddOn == null)
                 return null;
@@ -883,17 +928,17 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Create new custom process with specified methods
         /// </summary>        
-        public static Proc<ParamT, ResT> Eval<ParamT, ResT>(ParamT StartParam, f<ParamT, Cx?, ResT> ProcessFunc, Cx? CurrCodeType = null, f<ParamT, Cx?, ResT> ProcessFail = null, f<ParamT, ResT, Exception, Cx?, ResT> ProcessError = null)
+        public static Pr<ParamT, ResT> E<ParamT, ResT>(this ParamT StartParam, f<ParamT, Cx?, ResT> ProcessFunc, Cx? CurrCodeType = null, f<ParamT, Cx?, ResT> ProcessFail = null, f<ParamT, ResT, Exception, Cx?, ResT> ProcessError = null)
         {
-            Proc<ParamT, ResT> Result = new Proc<ParamT, ResT>();
+            Pr<ParamT, ResT> Result = new Pr<ParamT, ResT>();
 
-            Result.Params = StartParam;
+            Result.P = StartParam;
             if (ProcessFunc == null)
-                Result.Process = ProcessFunc;
+                Result.Vt = ProcessFunc;
             if (ProcessFail == null)
-                Result.Fail = ProcessFail;
+                Result.F = ProcessFail;
             if (ProcessError == null)
-                Result.Error = ProcessError;
+                Result.Er = ProcessError;
 
             return Result;
         }
@@ -907,7 +952,7 @@ namespace ReUse_Std.Base
     /// <summary>
     /// Global Applications Common Execution Context
     /// </summary>
-    public class Ax : _D<bool>
+    public class Ax : D<bool>
     {
         /// <summary>
         /// Base default app Code Type
@@ -1074,76 +1119,76 @@ namespace ReUse_Std.Base
     /// <summary>
     /// Common Process Data Functions
     /// </summary>    
-    public struct Proc<ParamT, ResT>
+    public struct Pr<ParamT, ResT>
     {
         /// <summary>
         /// Params To Start Process
         /// </summary>
-        public ParamT Params;
+        public ParamT P;
         /// <summary>
         /// Check Params on Start
         /// </summary>
-        public f<ParamT, Cx?, bool?> Init;
+        public f<ParamT, Cx?, bool?> I;
         /// <summary>
         /// Pre Process
         /// </summary>
-        public f<ParamT, Cx?, ParamT> Pre;
+        public f<ParamT, Cx?, ParamT> Pe;
         /// <summary>
         /// Validate Process Type For Params
         /// </summary>
-        public f<ParamT, Cx?, bool?> Validate;
+        public f<ParamT, Cx?, bool?> V;
         /// <summary>
         /// Process Params on Validate True (or Validate Null)
         /// </summary>
-        public f<ParamT, Cx?, ResT> Process;
+        public f<ParamT, Cx?, ResT> Vt;
         /// <summary>
         /// Process Params on Validate False 
         /// </summary>
-        public f<ParamT, Cx?, ResT> ValidFalse;
+        public f<ParamT, Cx?, ResT> Vf;
         /// <summary>
         /// Process Params on Validate Null
         /// </summary>
-        public f<ParamT, Cx?, ResT> ValidNull;
+        public f<ParamT, Cx?, ResT> Vn;
         /// <summary>
         /// Run On Main Process Is Null
         /// </summary>
-        public f<ParamT, Cx?, ResT> Fail;
+        public f<ParamT, Cx?, ResT> F;
         /// <summary>
         /// Post Process
         /// </summary>
-        public f<ParamT, ResT, Cx?, ResT> Post;
+        public f<ParamT, ResT, Cx?, ResT> Ps;
         /// <summary>
         /// Check Result
         /// </summary>
-        public f<ParamT, ResT, Cx?, bool?> End;
+        public f<ParamT, ResT, Cx?, bool?> E;
         /// <summary>
         /// Custom Use Try Catch Error Handler
         /// </summary>
-        public f<ParamT, ResT, Exception, Cx?, ResT> Error;
+        public f<ParamT, ResT, Exception, Cx?, ResT> Er;
         /// <summary>
         /// Run On Check Is Null
         /// </summary>
-        public f<ParamT, ResT, Cx?, bool> CheckNull;
+        public f<ParamT, ResT, Cx?, bool> Cn;
         /// <summary>
         /// Run On Check Is True
         /// </summary>
-        public f<ParamT, ResT, Cx?, bool> CheckTrue;
+        public f<ParamT, ResT, Cx?, bool> Ct;
         /// <summary>
         /// Run On Check Is False
         /// </summary>
-        public f<ParamT, ResT, Cx?, bool> CheckFalse;
+        public f<ParamT, ResT, Cx?, bool> Cf;
         /// <summary>
         /// Return Default On Error
         /// </summary>
-        public ResT Default;
+        public ResT D;
         /// <summary>
         /// Custom Use Try Catch 
         /// </summary>
-        public f<ParamT, Cx?, bool?> CustomUseTryCatch;
+        public f<ParamT, Cx?, bool?> Tc;
         /// <summary>
         /// Re Throw Error On Error Catch
         /// </summary>
-        public bool? ReThrowOnError;
+        public bool? Re;
     }
 
     //public struct CodeError

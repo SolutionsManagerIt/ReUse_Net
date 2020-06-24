@@ -404,7 +404,7 @@ namespace ReUse_Std.Base.Performance
                     ClassData.First().Methods.Add(NewUID, MethodTitle);
             }
             else
-                CurrentLogs.Entries.Add(new EntryData() { Class = ClassTitle, Methods = NewUID._D(MethodTitle) });
+                CurrentLogs.Entries.Add(new EntryData() { Class = ClassTitle, Methods = NewUID.D(MethodTitle) });
 
             return NewUID;
         }
@@ -968,7 +968,7 @@ namespace ReUse_Std.Base.Performance
         /// </summary>
         public static LogsStorage S(this LogsStorage CurrLogsStorage, string ServerName, string DataBaseName, SessionLog CurrSession, Cx? CurrCode = null)
         {
-            var TablesToGet = "SessionLog"._I("EntryData", "ErrorLog", "EnvironmentDetails"
+            var TablesToGet = "SessionLog".I("EntryData", "ErrorLog", "EnvironmentDetails"
                 , "InfoLog", "PerformanceLog", "ProcessLog", "ProcessDetails", "HttpRequestLog",
                 "HttpSessionLog", "HttpContextLog", "WebPageLog", "WebProfileLog", "HttpBrowsersLog", "WindowsIdentityLog");
 
