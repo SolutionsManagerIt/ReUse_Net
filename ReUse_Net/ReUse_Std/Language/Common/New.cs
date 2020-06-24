@@ -582,14 +582,14 @@ namespace ReUse_Std.Common
         /// <summary>
         /// custom OnDisposeMethods
         /// </summary>
-        protected f<T> _Dm;
+        protected f<T> M;
 
         /// <summary>
         /// Init Disposable class with custom UseTryCatch OnDisposeMethods
         /// </summary>
         public D(f<T> OnDisposeMethod, bool UseTryCatch = true)
         {
-            this._Dm = OnDisposeMethod;
+            this.M = OnDisposeMethod;
             this._T = UseTryCatch;
         }
 
@@ -630,8 +630,8 @@ namespace ReUse_Std.Common
                 {
                     // Dispose managed resources.
                     //component.Dispose();
-                    if (_Dm != null)
-                        _Dm();
+                    if (M != null)
+                        M();
                 }
 
                 // Call the appropriate methods to clean up

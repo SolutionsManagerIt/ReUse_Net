@@ -10,6 +10,7 @@ using System.Diagnostics;
 //using CommonStructsDataUtilities.Logs_old;
 using ReUse_Std.Common;
 using ReUse_Std.Base.Performance;
+using ReUse_Std.AppDataModels.Logging;
 
 namespace ReUse_Std.Base
 {
@@ -31,14 +32,14 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Run Common Try FuncToRun With Errors And Performance Logging based on CurrContext and optional CustomCodeType.
         /// </summary>        
-        public static T R<T>(this Ax CurrContext, f<T> FuncToRun, Cx? CustomCodeType = null, T ReturnOnError = default(T))
+        public static T R<T>(this Ax CurrContext, f<T> FuncToRun, Cx CustomCodeType = null, T ReturnOnError = default(T))
         {
             if (FuncToRun == null)
                 return ReturnOnError;
             var c = CurrContext ?? _.C;
             var t = c.T;
             if (CustomCodeType != null)
-                t = CustomCodeType.Value;
+                t = CustomCodeType;
 
             return t.R(FuncToRun, c.L, ReturnOnError);
         }
@@ -47,19 +48,19 @@ namespace ReUse_Std.Base
         /// Run Common Try FuncToRun With Errors And Performance Logging based on CurrCodeType.
         /// Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
         /// </summary>        
-        public static T R<T>(this Cx CurrCodeType, f<T> FuncToRun, _Log? CustomLogToAddRecords = null, T ReturnOnError = default(T))
+        public static T R<T>(this Cx CurrCodeType, f<T> FuncToRun, Lg CustomLogToAddRecords = null, T ReturnOnError = default(T))
         {
             if (FuncToRun == null)
                 return ReturnOnError;
 
             var l = _.C.L;
             if (CustomLogToAddRecords != null)
-                l = CustomLogToAddRecords.Value;
+                l = CustomLogToAddRecords;
 
-            PerformanceLog? PerfLog = null;
+            Prf PerfLog = null;
 
             if (CurrCodeType.Cp.L)
-                PerfLog = l._P(CurrCodeType);
+                PerfLog = l.P(CurrCodeType);
 
             T Result = ReturnOnError;
 
@@ -72,7 +73,7 @@ namespace ReUse_Std.Base
                 catch (Exception exc)
                 {
                     if (CurrCodeType.Ce.L)
-                        l._E(null, exc, CurrCodeType);
+                        l.E(null, exc, CurrCodeType);
                     return ReturnOnError;
                 }
             }
@@ -80,7 +81,7 @@ namespace ReUse_Std.Base
                 Result = FuncToRun();
 
             if (CurrCodeType.Cp.L)
-                l._P(PerfLog, null, CurrCodeType);
+                l.P(PerfLog, null, CurrCodeType);
 
             return Result;
         }
@@ -89,7 +90,7 @@ namespace ReUse_Std.Base
         /// Run Common Try FuncToRun With Performance only Logging based on CurrCodeType for current MethodName.
         /// Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
         /// </summary>        
-        public static T _Rp<T>(this string MethodName, f<T> FuncToRun, T ReturnOnError = default(T), string ClassName = null, Cx? CurrCodeType = null, string PerformanceComments = null, _Log? CustomLogToAddRecords = null, bool GetPerformanceStats = true)
+        public static T _Rp<T>(this string MethodName, f<T> FuncToRun, T ReturnOnError = default(T), string ClassName = null, Cx CurrCodeType = null, string PerformanceComments = null, Lg CustomLogToAddRecords = null, bool GetPerformanceStats = true)
         {
             if (FuncToRun == null)
                 return ReturnOnError;
@@ -100,7 +101,7 @@ namespace ReUse_Std.Base
         /// Run Common Try FuncToRun With Errors only Logging based on CurrCodeType.
         /// Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
         /// </summary>        
-        public static T _Re<T>(this string MethodName, f<T> FuncToRun, T ReturnOnError = default(T), string ClassName = null, Cx? CurrCodeType = null, string CustomErrorMessage = null, _Log? CustomLogToAddRecords = null)
+        public static T _Re<T>(this string MethodName, f<T> FuncToRun, T ReturnOnError = default(T), string ClassName = null, Cx CurrCodeType = null, string CustomErrorMessage = null, Lg CustomLogToAddRecords = null)
         {
             if (FuncToRun == null)
                 return ReturnOnError;
@@ -111,23 +112,23 @@ namespace ReUse_Std.Base
         /// Run Common Try FuncToRun With Errors And Performance Logging based on CurrCodeType.
         /// Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
         /// </summary>        
-        public static T _R<T>(this string MethodName, f<T> FuncToRun, T ReturnOnError = default(T), string ClassName = null, Cx? CurrCodeType = null, string CustomErrorMessage = null, string PerformanceComments = null, bool SendLogOnError = true, bool GetPerformanceStats = true, _Log? CustomLogToAddRecords = null)
+        public static T _R<T>(this string MethodName, f<T> FuncToRun, T ReturnOnError = default(T), string ClassName = null, Cx CurrCodeType = null, string CustomErrorMessage = null, string PerformanceComments = null, bool SendLogOnError = true, bool GetPerformanceStats = true, Lg CustomLogToAddRecords = null)
         {
             if (FuncToRun == null)
                 return ReturnOnError;
 
-            PerformanceLog? PerfLog = null;
+            Prf PerfLog = null;
             var l = _.C.L;
             if (CustomLogToAddRecords != null)
-                l = CustomLogToAddRecords.Value;
-            bool UsePerformanceLog = GetPerformanceStats && CurrCodeType != null && CurrCodeType.Value.Cp.L;
+                l = CustomLogToAddRecords;
+            bool UsePerformanceLog = GetPerformanceStats && CurrCodeType != null && CurrCodeType.Cp.L;
 
             if (UsePerformanceLog)
-                PerfLog = l._P(CurrCodeType);
+                PerfLog = l.P(CurrCodeType);
 
             T Result = ReturnOnError;
 
-            if (CurrCodeType != null && CurrCodeType.Value.T)
+            if (CurrCodeType != null && CurrCodeType.T)
             {
                 try
                 {
@@ -136,7 +137,7 @@ namespace ReUse_Std.Base
                 catch (Exception exc)
                 {
                     if (SendLogOnError)
-                        l._E(ClassName, MethodName, CustomErrorMessage, exc, CurrCodeType);
+                        l.E(ClassName, MethodName, CustomErrorMessage, exc, CurrCodeType);
                     return ReturnOnError;
                 }
             }
@@ -144,7 +145,7 @@ namespace ReUse_Std.Base
                 Result = FuncToRun();
 
             if (UsePerformanceLog)
-                l._P(PerfLog, ClassName, MethodName, PerformanceComments, CurrCodeType);
+                l.P(PerfLog, ClassName, MethodName, PerformanceComments, CurrCodeType);
 
             return Result;
         }
@@ -159,32 +160,32 @@ namespace ReUse_Std.Base
         /// or return default on not true. 
         /// Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
         /// </summary>        
-        public static ResT _R<ParamT, ResT>(this Pr<ParamT, ResT> ProcessToRun, Cx? CurrCodeType = null, _Log? CustomLogToAddRecords = null)
+        public static ResT _R<ParamT, ResT>(this Pr<ParamT, ResT> ProcessToRun, Cx CurrCodeType = null, Lg CustomLogToAddRecords = null)
         {
-            bool UseTryCatch = CurrCodeType != null && CurrCodeType.Value.T;
-            PerformanceLog? PerfLog = null;
+            bool UseTryCatch = CurrCodeType != null && CurrCodeType.T;
+            Prf PerfLog = null;
             var l = _.C.L;
             if (CustomLogToAddRecords != null)
-                l = CustomLogToAddRecords.Value;
-            bool UsePerformanceLog = CurrCodeType != null && CurrCodeType.Value.Cp.L,
-                UseErrorLog = CurrCodeType != null && CurrCodeType.Value.Ce.L;
+                l = CustomLogToAddRecords;
+            bool UsePerformanceLog = CurrCodeType != null && CurrCodeType.Cp.L,
+                UseErrorLog = CurrCodeType != null && CurrCodeType.Ce.L;
 
             if (UsePerformanceLog)
-                PerfLog = l._P(CurrCodeType);
+                PerfLog = l.P(CurrCodeType);
 
             Pr<ParamT, ResT> Res = ProcessToRun;
 
             Res.Er = (param, result, exc, code) =>
             {
                 if (UseErrorLog)
-                    l._E(null, exc, CurrCodeType);
+                    l.E(null, exc, CurrCodeType);
                 return (ProcessToRun.Er == null) ? result : ProcessToRun.Er(param, result, exc, CurrCodeType);
             };
 
             var ResultData = Ti(Res, CurrCodeType);
 
             if (UsePerformanceLog)
-                l._P(PerfLog, null, CurrCodeType);
+                l.P(PerfLog, null, CurrCodeType);
             return ResultData;
         }
 
@@ -196,14 +197,14 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Start App method with logs and performance (old format)
         /// </summary>        
-        public static T AppS<T>(this string SolutionName, f<T> FuncToRun, T ReturnOnError = default(T), Cx? FuncRunContext = null, Cx? CustomLogs = null, Cx? CustomPerf = null)
+        public static T AppS<T>(this string SolutionName, f<T> FuncToRun, T ReturnOnError = default(T), Cx FuncRunContext = null, Cx CustomLogs = null, Cx CustomPerf = null)
         {
             //Log.CurrLogsCode = FuncRunContext ?? CustomLogs;
             //Log.Start();
             //Prf.CurrLogsCode = FuncRunContext ?? CustomPerf;
             //Prf.Start();
 
-            T Result = (FuncRunContext == null ? _.C.T : FuncRunContext.Value).R(() => { return FuncToRun(); }); //, ReturnOnError);
+            T Result = (FuncRunContext == null ? _.C.T : FuncRunContext).R(() => { return FuncToRun(); }); //, ReturnOnError);
 
             //Prf.Save();
             //Prf.End();
@@ -240,7 +241,7 @@ namespace ReUse_Std.Base
         /// Check methods Init and End methods return bool? results and run CheckTrue/CheckFalse/CheckNull methods if available
         /// or return default on not true
         /// </summary>        
-        public static ResT F<ParamT, ResT>(Pr<ParamT, ResT> ProcessToRun, Cx? CurrCodeType = null)
+        public static ResT F<ParamT, ResT>(Pr<ParamT, ResT> ProcessToRun, Cx CurrCodeType = null)
         {
             if ((ProcessToRun.Vt == null && ProcessToRun.F == null) || ProcessToRun.P == null)
                 return ProcessToRun.D;
@@ -274,9 +275,9 @@ namespace ReUse_Std.Base
         /// Check methods Init and End methods return bool? results and run CheckTrue/CheckFalse/CheckNull methods if available
         /// or return default on not true
         /// </summary> 
-        public static ResT T<ParamT, ResT>(Pr<ParamT, ResT> ProcessToRun, Cx? CurrCodeType = null)
+        public static ResT T<ParamT, ResT>(Pr<ParamT, ResT> ProcessToRun, Cx CurrCodeType = null)
         {
-            bool UseTryCatch = CurrCodeType != null && CurrCodeType.Value.T;
+            bool UseTryCatch = CurrCodeType != null && CurrCodeType.T;
 
             Pr<ParamT, ResT> Res = ProcessToRun;
 
@@ -318,7 +319,7 @@ namespace ReUse_Std.Base
         /// Check methods Init and End methods return bool? results and run CheckTrue/CheckFalse/CheckNull methods if available
         /// or return default on not true
         /// </summary>        
-        public static ResT I<ParamT, ResT>(Pr<ParamT, ResT> ProcessToRun, Cx? CurrCodeType = null)
+        public static ResT I<ParamT, ResT>(Pr<ParamT, ResT> ProcessToRun, Cx CurrCodeType = null)
         {
             if (ProcessToRun.V == null && ProcessToRun.Vn == null)
                 return ProcessToRun.D;
@@ -370,9 +371,9 @@ namespace ReUse_Std.Base
         /// Check methods Init and End methods return bool? results and run CheckTrue/CheckFalse/CheckNull methods if available
         /// or return default on not true
         /// </summary> 
-        public static ResT Ti<ParamT, ResT>(Pr<ParamT, ResT> ProcessToRun, Cx? CurrCodeType = null)
+        public static ResT Ti<ParamT, ResT>(Pr<ParamT, ResT> ProcessToRun, Cx CurrCodeType = null)
         {
-            bool UseTryCatch = CurrCodeType != null && CurrCodeType.Value.T;
+            bool UseTryCatch = CurrCodeType != null && CurrCodeType.T;
 
             Pr<ParamT, ResT> Res = ProcessToRun;
 
@@ -587,7 +588,7 @@ namespace ReUse_Std.Base
         /// </summary>
         public static Ax _Ge(this bool LogPerformance, bool CollectPerfProcessDetails = true)
         {
-            return new Ax() { L = new _Log(), T = true._Te(LogPerformance, CollectPerfProcessDetails) };
+            return new Ax() { L = new Lg(), T = true._Te(LogPerformance, CollectPerfProcessDetails) };
         }
 
         /// <summary>
@@ -595,7 +596,7 @@ namespace ReUse_Std.Base
         /// </summary>
         public static Ax _G(this Cx CommonCodeType)
         {
-            return new Ax() { L = new _Log(), T = CommonCodeType };
+            return new Ax() { L = new Lg(), T = CommonCodeType };
         }
 
         #endregion
@@ -737,7 +738,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Create new CodeCommon details with Logs for current ParametersData setting
         /// </summary>
-        public static Cm _Ccl(this string ParametersData, string CustomDetails = null, int? ArraySize = null, int? CodeIndex = null, Ab? Block = null)
+        public static Cm _Ccl(this string ParametersData, string CustomDetails = null, int? ArraySize = null, int? CodeIndex = null, Ab Block = null)
         {
             Cm Res = new Cm();
 
@@ -754,7 +755,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Create new CodeCommon details for common code for current LogError setting
         /// </summary>
-        public static Cm _Cc(this bool LogError, string ParametersData = null, string CustomDetails = null, int? ArraySize = null, int? CodeIndex = null, Ab? Block = null)
+        public static Cm _Cc(this bool LogError, string ParametersData = null, string CustomDetails = null, int? ArraySize = null, int? CodeIndex = null, Ab Block = null)
         {
             Cm Res = new Cm();
 
@@ -784,7 +785,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Create new CodeCommon details for Tests for current LogError setting
         /// </summary>
-        public static Cm _Cct(this bool LogError, string LogSQL_ConnString = null, string LogXML_DirPath = null, Ab? Block = null, int? ArraySize = null, string ParametersData = null, string CustomDetails = null, int? CodeIndex = null)
+        public static Cm _Cct(this bool LogError, string LogSQL_ConnString = null, string LogXML_DirPath = null, Ab Block = null, int? ArraySize = null, string ParametersData = null, string CustomDetails = null, int? CodeIndex = null)
         {
             Cm Res = new Cm();
 
@@ -846,7 +847,7 @@ namespace ReUse_Std.Base
         /// Returns true if any method return true, else false
         /// </summary>        
         /// <returns>Returns true if any method return true, else false</returns>
-        public static bool E<ParamT, ResT>(this Pr<ParamT, ResT> CurrProcess, f<ParamT, Cx?, bool?> CheckToEvaluate, Cx? CurrCodeType = null, ResT ResToEvaluate = default(ResT), bool EvaluateDefault = true)
+        public static bool E<ParamT, ResT>(this Pr<ParamT, ResT> CurrProcess, f<ParamT, Cx, bool?> CheckToEvaluate, Cx CurrCodeType = null, ResT ResToEvaluate = default(ResT), bool EvaluateDefault = true)
         {
             if (CheckToEvaluate == null)
                 return EvaluateDefault;
@@ -869,7 +870,7 @@ namespace ReUse_Std.Base
         /// Returns true if any method return true, else false
         /// </summary>        
         /// <returns>Returns true if any method return true, else false</returns>
-        public static bool E<ParamT, ResT>(this Pr<ParamT, ResT> CurrProcess, f<ParamT, ResT, Cx?, bool?> CheckToEvaluate, ResT ResToEvaluate = default(ResT), Cx? CurrCodeType = null, bool EvaluateDefault = true)
+        public static bool E<ParamT, ResT>(this Pr<ParamT, ResT> CurrProcess, f<ParamT, ResT, Cx, bool?> CheckToEvaluate, ResT ResToEvaluate = default(ResT), Cx CurrCodeType = null, bool EvaluateDefault = true)
         {
             if (CheckToEvaluate == null)
                 return EvaluateDefault;
@@ -890,7 +891,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Create new Func and add AddOn method with Original with AddAfterOriginal order
         /// </summary>        
-        public static f<ParamT, Cx?, ResT> A<ParamT, ResT>(this f<ParamT, Cx?, ResT> Original, f<ParamT, Cx?, ResT> AddOn, Cx? CurrCodeType = null, bool AddAfterOriginal = false)
+        public static f<ParamT, Cx, ResT> A<ParamT, ResT>(this f<ParamT, Cx, ResT> Original, f<ParamT, Cx, ResT> AddOn, Cx CurrCodeType = null, bool AddAfterOriginal = false)
         {
             if (Original == null && AddOn == null)
                 return null;
@@ -914,7 +915,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Create new Func and add AddOn method with Original with AddAfterOriginal order
         /// </summary>        
-        public static f<ParamT, ResT, Cx?, ResT> A<ParamT, ResT>(this f<ParamT, ResT, Cx?, ResT> Original, f<ParamT, ResT, Cx?, ResT> AddOn, Cx? CurrCodeType = null, bool AddAfterOriginal = false)
+        public static f<ParamT, ResT, Cx, ResT> A<ParamT, ResT>(this f<ParamT, ResT, Cx, ResT> Original, f<ParamT, ResT, Cx, ResT> AddOn, Cx CurrCodeType = null, bool AddAfterOriginal = false)
         {
             if (Original == null && AddOn == null)
                 return null;
@@ -938,7 +939,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Create new custom process with specified methods
         /// </summary>        
-        public static Pr<ParamT, ResT> E<ParamT, ResT>(this ParamT StartParam, f<ParamT, Cx?, ResT> ProcessFunc, Cx? CurrCodeType = null, f<ParamT, Cx?, ResT> ProcessFail = null, f<ParamT, ResT, Exception, Cx?, ResT> ProcessError = null)
+        public static Pr<ParamT, ResT> E<ParamT, ResT>(this ParamT StartParam, f<ParamT, Cx, ResT> ProcessFunc, Cx CurrCodeType = null, f<ParamT, Cx, ResT> ProcessFail = null, f<ParamT, ResT, Exception, Cx, ResT> ProcessError = null)
         {
             Pr<ParamT, ResT> Result = new Pr<ParamT, ResT>();
 
@@ -971,7 +972,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Application logging
         /// </summary>
-        public _Log L;
+        public Lg L;
 
         /// <summary>
         /// Get Common Context with errors and performance with process details
@@ -979,7 +980,7 @@ namespace ReUse_Std.Base
         public Ax(bool LogPerformance = true, bool CollectPerfProcessDetails = true)
             : base(null, true)
         {
-            this._Dm = () =>
+            this.M = () =>
             {
                 return true;// L.Save();
             };
@@ -991,7 +992,7 @@ namespace ReUse_Std.Base
     /// <summary>
     /// Code Type Execution Context
     /// </summary>
-    public struct Cx
+    public class Cx
     {
         /// <summary>
         /// Use Try Catch
@@ -1021,15 +1022,15 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Code Common Asp
         /// </summary>
-        public Cm? Ca;
+        public Cm Ca;
         /// <summary>
         /// Code Common Threads
         /// </summary>
-        public Cm? Ctr;
+        public Cm Ctr;
         /// <summary>
         /// Code Common Test
         /// </summary>
-        public Cm? Ct;
+        public Cm Ct;
 
         /// <summary>
         /// Code Entry
@@ -1040,7 +1041,7 @@ namespace ReUse_Std.Base
     /// <summary>
     /// Code Common details  - ParametersData, Details, ArrayItemSize, LogIndex etc
     /// </summary>
-    public struct Cm
+    public class Cm
     {
         /// <summary>
         /// Log 
@@ -1065,7 +1066,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Array Block Details 
         /// </summary>
-        public Ab? B;
+        public Ab B;
         /// <summary>
         /// Log SQL Conn String
         /// </summary>
@@ -1079,7 +1080,7 @@ namespace ReUse_Std.Base
     /// <summary>
     /// Common Code Entry Data -  class/method details with comments
     /// </summary>
-    public struct Ed
+    public class Ed
     {
         /// <summary>
         /// Class Name
@@ -1114,7 +1115,7 @@ namespace ReUse_Std.Base
     /// <summary>
     /// Code Array Block Details for block / buffer / paged methods
     /// </summary>
-    public struct Ab
+    public class Ab
     {
         /// <summary>
         /// Array Block Size
@@ -1129,7 +1130,7 @@ namespace ReUse_Std.Base
     /// <summary>
     /// Common Process Data Functions
     /// </summary>    
-    public struct Pr<ParamT, ResT>
+    public class Pr<ParamT, ResT>
     {
         /// <summary>
         /// Params To Start Process
@@ -1138,55 +1139,55 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Check Params on Start
         /// </summary>
-        public f<ParamT, Cx?, bool?> I;
+        public f<ParamT, Cx, bool?> I;
         /// <summary>
         /// Pre Process
         /// </summary>
-        public f<ParamT, Cx?, ParamT> Pe;
+        public f<ParamT, Cx, ParamT> Pe;
         /// <summary>
         /// Validate Process Type For Params
         /// </summary>
-        public f<ParamT, Cx?, bool?> V;
+        public f<ParamT, Cx, bool?> V;
         /// <summary>
         /// Process Params on Validate True (or Validate Null)
         /// </summary>
-        public f<ParamT, Cx?, ResT> Vt;
+        public f<ParamT, Cx, ResT> Vt;
         /// <summary>
         /// Process Params on Validate False 
         /// </summary>
-        public f<ParamT, Cx?, ResT> Vf;
+        public f<ParamT, Cx, ResT> Vf;
         /// <summary>
         /// Process Params on Validate Null
         /// </summary>
-        public f<ParamT, Cx?, ResT> Vn;
+        public f<ParamT, Cx, ResT> Vn;
         /// <summary>
         /// Run On Main Process Is Null
         /// </summary>
-        public f<ParamT, Cx?, ResT> F;
+        public f<ParamT, Cx, ResT> F;
         /// <summary>
         /// Post Process
         /// </summary>
-        public f<ParamT, ResT, Cx?, ResT> Ps;
+        public f<ParamT, ResT, Cx, ResT> Ps;
         /// <summary>
         /// Check Result
         /// </summary>
-        public f<ParamT, ResT, Cx?, bool?> E;
+        public f<ParamT, ResT, Cx, bool?> E;
         /// <summary>
         /// Custom Use Try Catch Error Handler
         /// </summary>
-        public f<ParamT, ResT, Exception, Cx?, ResT> Er;
+        public f<ParamT, ResT, Exception, Cx, ResT> Er;
         /// <summary>
         /// Run On Check Is Null
         /// </summary>
-        public f<ParamT, ResT, Cx?, bool> Cn;
+        public f<ParamT, ResT, Cx, bool> Cn;
         /// <summary>
         /// Run On Check Is True
         /// </summary>
-        public f<ParamT, ResT, Cx?, bool> Ct;
+        public f<ParamT, ResT, Cx, bool> Ct;
         /// <summary>
         /// Run On Check Is False
         /// </summary>
-        public f<ParamT, ResT, Cx?, bool> Cf;
+        public f<ParamT, ResT, Cx, bool> Cf;
         /// <summary>
         /// Return Default On Error
         /// </summary>
@@ -1194,7 +1195,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Custom Use Try Catch 
         /// </summary>
-        public f<ParamT, Cx?, bool?> Tc;
+        public f<ParamT, Cx, bool?> Tc;
         /// <summary>
         /// Re Throw Error On Error Catch
         /// </summary>

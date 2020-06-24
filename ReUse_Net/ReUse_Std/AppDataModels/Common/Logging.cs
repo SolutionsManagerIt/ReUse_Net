@@ -15,35 +15,81 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple Logs Storage Data
     /// </summary>
-    public class Lgs
+    public class Lst
     {
-
-        public List<EntryData> Entries;
-        public IDictionary<Guid, List<ErrorLog>> ErrorLogs;
-        public IDictionary<Guid, List<InfoLog>> InfoLogs;
-        public List<EnvironmentDetails> Environments;
-        public IDictionary<Guid, List<PerformanceLog>> PerformanceLogs;
-        public List<ProcessLog> ProcessLogs;
-        public IDictionary<Guid, ProcessDetails> ProcessDetailsData;
-        public List<HttpRequestLog> HttpRequests;
-        public List<HttpSessionLog> HttpSessions;
-        public List<HttpContextLog> HttpContexts;
-        public List<WebPageLog> WebPages;
-        public List<WebProfileLog> WebProfiles;
-        public List<HttpBrowserCapabilitiesLog> HttpBrowsers;
-        public List<WindowsIdentityLog> WindowsIdentities;
+        /// <summary>
+        /// Entries
+        /// </summary>
+        public List<Cde> Entries;
+        /// <summary>
+        /// Error Logs
+        /// </summary>
+        public IDictionary<Guid, List<Err>> ErrorLogs;
+        /// <summary>
+        /// Info Logs
+        /// </summary>
+        public IDictionary<Guid, List<Inf>> InfoLogs;
+        /// <summary>
+        /// Environment Details
+        /// </summary>
+        public List<Env> Environments;
+        /// <summary>
+        /// Performance Logs
+        /// </summary>
+        public IDictionary<Guid, List<Prf>> PerformanceLogs;
+        /// <summary>
+        /// Process Logs
+        /// </summary>
+        public List<Prc> ProcessLogs;
+        /// <summary>
+        /// Process Details Data
+        /// </summary>
+        public IDictionary<Guid, Prd> ProcessDetailsData;
+        /// <summary>
+        /// Http Requests
+        /// </summary>
+        public List<Hrq> HttpRequests;
+        /// <summary>
+        /// Http Sessions
+        /// </summary>
+        public List<Hsl> HttpSessions;
+        /// <summary>
+        /// Http Contexts
+        /// </summary>
+        public List<Hcx> HttpContexts;
+        /// <summary>
+        /// Web Pages
+        /// </summary>
+        public List<Wpl> WebPages;
+        /// <summary>
+        /// Web Profiles
+        /// </summary>
+        public List<Wpr> WebProfiles;
+        /// <summary>
+        /// Http Browsers
+        /// </summary>
+        public List<Hbc> HttpBrowsers;
+        /// <summary>
+        /// Windows Identities
+        /// </summary>
+        public List<Wil> WindowsIdentities;
 
     }
 
     /// <summary>
     /// Simple Session Log Data
     /// </summary>
-    public class Ls
+    public class Sld
     {
         /// <summary>
         /// Current item key guid
         /// </summary>
         public Guid LsId { get; set; } = _.g;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Guid Session_UID { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -106,17 +152,27 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple Code Entry Data
     /// </summary>
-    public struct EntryData
+    public class Cde
     {
         public string Class;
-        public IDictionary<Guid, string> Methods;
+        public List<Cme> Methods;
+
+    }
+
+    /// <summary>
+    /// Simple Methods Entry Data
+    /// </summary>
+    public class Cme
+    {
+        public Guid MethodGuid;
+        public string Method;
 
     }
 
     /// <summary>
     /// Simple Error Log Data
     /// </summary>
-    public struct ErrorLog
+    public class Err
     {
         public DateTime DateFound;
         public int? ArrayItemSize;
@@ -136,7 +192,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple Environment Details Data
     /// </summary>
-    public struct EnvironmentDetails
+    public class Env
     {
         public DateTime CurrentTime;
         public bool Is64BitOperatingSystem;
@@ -159,7 +215,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple Info Log Data
     /// </summary>
-    public struct InfoLog
+    public class Inf
     {
         public DateTime DateFound;
         public int? ArrayItemSize;
@@ -172,7 +228,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple Performance Log Data
     /// </summary>
-    public struct PerformanceLog
+    public class Prf
     {
         public DateTime Start;
         public DateTime? End;
@@ -191,7 +247,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple Process Log Data
     /// </summary>
-    public struct ProcessLog
+    public class Prc
     {
         public DateTime DateFound;
         public int? ProcessId;
@@ -201,9 +257,9 @@ namespace ReUse_Std.AppDataModels.Logging
     }
 
     /// <summary>
-    /// Simple Performance Log Data
+    /// Simple Process Details Log Data
     /// </summary>
-    public struct ProcessDetails
+    public class Prd
     {
         public DateTime DateFound;
         public int? ThreadsCount;
@@ -224,7 +280,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple Windows Identity Log Data
     /// </summary>
-    public struct WindowsIdentityLog
+    public class Wil
     {
         public DateTime DateFound;
         public string AuthenticationType;
@@ -244,7 +300,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple HttpRequest Log Data
     /// </summary>
-    public struct HttpRequestLog
+    public class Hrq
     {
         public DateTime DateFound;
         public string AnonymousID;
@@ -269,7 +325,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple HttpSession Log Data
     /// </summary>
-    public struct HttpSessionLog
+    public class Hsl
     {
         public DateTime DateFound;
 
@@ -289,7 +345,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple HttpContext Log Data
     /// </summary>
-    public struct HttpContextLog
+    public class Hcx
     {
         public DateTime DateFound;
 
@@ -304,7 +360,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple Web Page Log Data
     /// </summary>
-    public struct WebPageLog
+    public class Wpl
     {
         public DateTime DateFound;
 
@@ -344,7 +400,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple User WebProfile Log Data
     /// </summary>
-    public struct WebProfileLog
+    public class Wpr
     {
         public DateTime DateFound;
 
@@ -359,7 +415,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple Http Browser Capabilities Log Data
     /// </summary>
-    public struct HttpBrowserCapabilitiesLog
+    public class Hbc
     {
         public DateTime DateFound;
 

@@ -123,7 +123,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create common ForEach Loop to process List from IList
         /// </summary>
-        public static IEnumerable<ResT> G<ValueT, ResT>(this IEnumerable<ValueT> DataToProcess, f<KeyValuePair<int, ValueT>, Cx?, ResT> FunctionToProcessValue, Cx? CurrCodeType = null, IEnumerable<ResT> ReturnOnError = null)
+        public static IEnumerable<ResT> G<ValueT, ResT>(this IEnumerable<ValueT> DataToProcess, f<KeyValuePair<int, ValueT>, Cx, ResT> FunctionToProcessValue, Cx CurrCodeType = null, IEnumerable<ResT> ReturnOnError = null)
         {
             if (!DataToProcess.C() || FunctionToProcessValue == null)
                 return ReturnOnError;
@@ -135,7 +135,7 @@ namespace ReUse_Std.Common
         /// <summary>
         /// Create common ForEach Loop to process List from IList
         /// </summary>
-        public static IEnumerable<ResT> G<KeyT, ValueT, ResT>(this IEnumerable<KeyT> DataToProcess, f<KeyT, Cx?, ValueT> FunctionToGetValue, f<KeyT, ValueT, Cx?, ResT> FunctionToProcessValue, Cx? CurrCodeType = null, IEnumerable<ResT> ReturnOnError = null)
+        public static IEnumerable<ResT> G<KeyT, ValueT, ResT>(this IEnumerable<KeyT> DataToProcess, f<KeyT, Cx, ValueT> FunctionToGetValue, f<KeyT, ValueT, Cx, ResT> FunctionToProcessValue, Cx CurrCodeType = null, IEnumerable<ResT> ReturnOnError = null)
         {
             if (!DataToProcess.C() || FunctionToGetValue == null || FunctionToProcessValue == null)
                 return ReturnOnError;
