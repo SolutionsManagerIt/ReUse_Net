@@ -9,9 +9,13 @@ namespace TestingNetConsoleApp
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            SQL_Storage.Tcs();
+            await 0.Ga();
+            
+            //SQL_Storage.Tcs();
+
+
         }
     }
 }

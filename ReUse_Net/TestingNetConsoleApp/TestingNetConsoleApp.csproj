@@ -67,8 +67,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Testing_DB_AppModel1.cs" />
+    <Compile Include="Models\Testing_DB_LoggingModel1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\AppStart.cs" />
     <Compile Include="Tests\SQL_Storage.cs" />
   </ItemGroup>
   <ItemGroup>

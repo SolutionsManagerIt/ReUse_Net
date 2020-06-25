@@ -69,7 +69,7 @@ namespace ReUse_Std.Base.Performance
             Nd = DataBaseName;
             Pr = null;
             Sm = SaveLogsMethod;
-            L = new Lst();
+            L = new Lst().I(S);
             Ls = new List<Lst>();
             Rn = 0;
         }
@@ -229,9 +229,13 @@ namespace ReUse_Std.Base.Performance
 
             if (CurrCodeType != null)
             {
-                ClassName = CurrCodeType.C.C;
-                MethodName = CurrCodeType.C.M;
-                PerfComments = CustomComments ?? CurrCodeType.C.Cp;
+                if (CurrCodeType.C != null)
+                {
+                    ClassName = CurrCodeType.C.C;
+                    MethodName = CurrCodeType.C.M;
+                }                    
+                
+                PerfComments = CustomComments ?? CurrCodeType?.C?.Cp;
             }
 
             if (CurrCodeType == null)

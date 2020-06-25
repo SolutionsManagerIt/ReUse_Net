@@ -16,6 +16,18 @@ namespace ReUse_Std.AppDataModels.Common
         /// </summary>
         public Guid EnId { get; set; } = _.g;
 
+        /// <summary>
+        /// Encoded data
+        /// </summary>
+        public string E { get; set; }
+        /// <summary>
+        /// Encoded binary data
+        /// </summary>
+        public byte[] D { get; set; }
+        /// <summary>
+        /// encryption algorithm
+        /// </summary>
+        public Ets? A { get; set; }
     }
 
     /// <summary>

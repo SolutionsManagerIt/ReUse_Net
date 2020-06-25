@@ -25,59 +25,59 @@ namespace ReUse_Std.AppDataModels.Logging
         /// <summary>
         /// Entries
         /// </summary>
-        public List<Cde> C;
+        public List<Cde> C { get; set; }
         /// <summary>
         /// Error Logs
         /// </summary>
-        public List<Err> E;
+        public List<Err> E { get; set; }
         /// <summary>
         /// Info Logs
         /// </summary>
-        public List<Inf> I;
+        public List<Inf> I { get; set; }
         /// <summary>
         /// Environment Details
         /// </summary>
-        public List<Env> En;
+        public List<Env> En { get; set; }
         /// <summary>
         /// Performance Logs
         /// </summary>
-        public List<Prf> P;
+        public List<Prf> P { get; set; }
         /// <summary>
         /// Process Logs
         /// </summary>
-        public List<Prc> Pr;
+        public List<Prc> Pr { get; set; }
         /// <summary>
         /// Process Details Data
         /// </summary>
-        public List<Prd> Pd;
+        public List<Prd> Pd { get; set; }
         /// <summary>
         /// Http Requests
         /// </summary>
-        public List<Hrq> Hr;
+        public List<Hrq> Hr { get; set; }
         /// <summary>
         /// Http Sessions
         /// </summary>
-        public List<Hsl> Hs;
+        public List<Hsl> Hs { get; set; }
         /// <summary>
         /// Http Contexts
         /// </summary>
-        public List<Hcx> Hc;
+        public List<Hcx> Hc { get; set; }
         /// <summary>
         /// Web Pages
         /// </summary>
-        public List<Wpl> Wp;
+        public List<Wpl> Wp { get; set; }
         /// <summary>
         /// Web Profiles
         /// </summary>
-        public List<Wpr> Wpr;
+        public List<Wpr> Wpr { get; set; }
         /// <summary>
         /// Http Browsers
         /// </summary>
-        public List<Hbc> Hb;
+        public List<Hbc> Hb { get; set; }
         /// <summary>
         /// Windows Identities
         /// </summary>
-        public List<Wil> Wi;
+        public List<Wil> Wi { get; set; }
 
     }
 
@@ -301,31 +301,31 @@ namespace ReUse_Std.AppDataModels.Logging
         /// <summary>
         /// Is64BitOperatingSystem
         /// </summary>
-        public bool Xo { get; set; }
+        public bool? Xo { get; set; }
         /// <summary>
         /// Is64BitProcess
         /// </summary>
-        public bool Xp { get; set; }
+        public bool? Xp { get; set; }
         /// <summary>
         /// UserInteractive
         /// </summary>
-        public bool Ui { get; set; }
+        public bool? Ui { get; set; }
         /// <summary>
         /// ProcessorCount
         /// </summary>
-        public int Pc { get; set; }
+        public int? Pc { get; set; }
         /// <summary>
         /// SystemPageSize
         /// </summary>
-        public int Sp { get; set; }
+        public int? Sp { get; set; }
         /// <summary>
         /// TickCount
         /// </summary>
-        public int Ct { get; set; }
+        public int? Ct { get; set; }
         /// <summary>
         /// WorkingSet
         /// </summary>
-        public long W { get; set; }
+        public long? W { get; set; }
         /// <summary>
         /// MachineName
         /// </summary>
@@ -982,14 +982,14 @@ namespace ReUse_Std.AppDataModels.Logging
         /// Current item key guid
         /// </summary>
         public Guid HbcId { get; set; } = _.g;
-        public DateTime DateFound;
+        public DateTime DateFound { get; set; } = _.d;
 
-        public bool? Win32;
-        public bool? Win16;
-        public string W3CDomVersion;
-        public string Version;
-        public bool? VBScript;
-        public bool? UseOptimizedCacheKey;
+        public bool? Win32 { get; set; }
+        public bool? Win16 { get; set; }
+        public string W3CDomVersion { get; set; }
+        public string Version { get; set; }
+        public bool? VBScript { get; set; }
+        public bool? UseOptimizedCacheKey { get; set; }
         public string Type;
         public string TagWriter;
         public bool? Tables;
@@ -1064,7 +1064,10 @@ namespace ReUse_Std.AppDataModels.Logging
         public bool? IsMobileDevice;
         public bool? IsColor;
         public string InputType;
-        public string Id;
+        /// <summary>
+        /// Id
+        /// </summary>
+        public string IdVal { get; set; }
         public string HtmlTextWriter;
         public bool? HidesRightAlignedMultiselectScrollbars;
         public bool? HasBackButton;
@@ -1084,15 +1087,15 @@ namespace ReUse_Std.AppDataModels.Logging
         public bool? CanRenderOneventAndPrevElementsTogether;
         public bool? CanRenderMixedSelects;
         public bool? CanRenderInputAndSelectElementsTogether;
-        public bool? CanRenderEmptySelects;
-        public bool? CanRenderAfterInputOrSelectElement;
-        public bool? CanInitiateVoiceCall;
-        public bool? CanCombineFormsInDeck;
-        public string Browser;
-        public bool? Beta;
-        public bool? BackgroundSounds;
-        public bool? AOL;
-        public bool? ActiveXControls;
+        public bool? CanRenderEmptySelects { get; set; }
+        public bool? CanRenderAfterInputOrSelectElement { get; set; }
+        public bool? CanInitiateVoiceCall { get; set; }
+        public bool? CanCombineFormsInDeck { get; set; }
+        public string Browser { get; set; }
+        public bool? Beta { get; set; }
+        public bool? BackgroundSounds { get; set; }
+        public bool? AOL { get; set; }
+        public bool? ActiveXControls { get; set; }
 
     }
 
