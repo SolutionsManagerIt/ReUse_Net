@@ -49,30 +49,20 @@ namespace TestingNetConsoleApp.Tests
         {
             var qs2 = "name=Testing_DB_LoggingModel1";
 
-            var c20 = qs2.Gsl();
-
             var ct = Tcx();
-            var tc = true.Ns().N("TestingNetConsoleApp");
-            var a = tc.N(e =>
+            var tc = true.Ns().sA().N("TestingNetConsoleApp");
+            var cm = 1.M("AppStart", "Ga uuuu");
+            await tc.R(qs2, ct, 1, async (a, x) =>
             {
-                return e.A().U(qs2);
-            }, ct);
-
-            var cx = 1.M("AppStart", "Ga uuuu");
-
-            var rs1 = a.R(x =>
-            {
-                a.L.E("Error message 1", new Exception("test exc 11"), x, cx);
-                a.L.I("info message 1", x, cx);
+                var g1 = a.L.Pc(x);
+                var g2 = a.L.Pp(x);
+                var g3 = a.L.En(x);
+                await new Task<bool>(() => true);
+                a.L.E("Error message 1", new Exception("test exc 11"), x, cm);
+                a.L.I("info message 1", x, cm);
                 throw new Exception("Test Exception 444");
-                return 5;
-            }, 1, 0.M("AppStart", "Ga", "R"));
+            }, 0.M("AppStart", "Ga", "R"));
 
-
-
-
-            a.L.Save();
-            //var r2 = await Tl().Ua(qs2);
             var c21 = qs2.Gsl();
         }
 
@@ -97,7 +87,7 @@ namespace TestingNetConsoleApp.Tests
         /// </summary>
         public static IDictionary<int, Cx> Tcx()
         {
-            return 1.D(true.Ns().X());
+            return 1.D(true.Ns().sA().X());
         }
 
         ///// <summary>
@@ -124,6 +114,40 @@ namespace TestingNetConsoleApp.Tests
         #endregion
 
         #region common methods
+
+        /// <summary>
+        /// Run new Async common MethodToRunAsync using new context with logging settings and save logs after completed
+        /// </summary>
+        public static async Task R<T>(this Sld Settings, string ConnectionName, IDictionary<T, Cx> Contexts, T ContextKey, f<Ax<T>, Cx, Task> MethodToRunAsync, Mx MethodContext = null , bool Ensure = true)
+        {
+            var rs = ConnectionName.Gsl();
+            var a = Settings.N(async e => await e.ua(ConnectionName), Contexts);
+
+            var rs1 = a.r(async x =>
+            {
+                await MethodToRunAsync(a, x);
+                return 1;
+            }, ContextKey, MethodContext);
+            await a.L.Sva();
+        }
+
+        /// <summary>
+        /// Run new Sync common MethodToRunSync using new context with logging settings and save logs after completed
+        /// </summary>
+        public static void r<T>(this Sld Settings, string ConnectionName, IDictionary<T, Cx> Contexts, T ContextKey, v<Ax<T>, Cx> MethodToRunSync, Mx MethodContext = null, bool Ensure = true)
+        {
+            var rs = ConnectionName.Gsl();
+            var a = Settings.N(async e => await e.ua(ConnectionName), Contexts);
+
+            var rs1 = a.r(x =>
+            {
+                MethodToRunSync(a, x);
+                return 1;
+            }, ContextKey, MethodContext);
+            a.L.Sv();
+        }
+
+
         /// <summary>
         /// Get common app data storage
         /// </summary>
@@ -137,12 +161,12 @@ namespace TestingNetConsoleApp.Tests
         /// </summary>
         public static IEnumerable<Lst> Gsl(this string ConnectionName, bool Ensure = true)
         {            
-            return ConnectionName.Gd<Lst, Cx, Cm>(s => s.I(a => a.C, a => a.E, a => a.E, a => a.P, a => a.I)
-            .I(a => a.X, a => a.Hr, a => a.Hs, a => a.Hb, a => a.En)
+            return ConnectionName.Gd<Lst, Cx, Mx>(s => s.I(a => a.C, a => a.E, a => a.E, a => a.P, a => a.I)
+            .I(a => a.X, a => a.S)
             .I(a => a.Hc, a => a.Hr, a => a.Hs, a => a.Hb, a => a.En)
             .I(a => a.Pd, a => a.Pr, a => a.Wi, a => a.Wp, a => a.Wpr), 
                 s => s.I(a => a.S), 
-                s => s.I(a => a.A), null, Ensure);
+                s => s.I(a => a.A), s => s.LstId == null, Ensure);
         } 
         #endregion
     }

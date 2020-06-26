@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Linq;
 using System.Text;
 using System.Data;
@@ -42,36 +43,46 @@ namespace ReUse_Std.Base.Performance
         private List<Lst> Ls;
 
         /// <summary>
-        /// Server Name
-        /// </summary>
-        private string Ns;
-        /// <summary>
-        /// DataBase Name
-        /// </summary>
-        private string Nd;
-        /// <summary>
         /// Curr Session
         /// </summary>
         private Sld S;
         /// <summary>
-        /// Method To Save Logs
+        /// Method To Save Logs Sync
         /// </summary>
         private f<Lst, bool> Sm;
+        /// <summary>
+        /// Method To Save Logs Async
+        /// </summary>
+        private f<Lst, Task<bool>> Sa;
+
+        /// <summary>
+        /// Check settings
+        /// </summary>
+        private Sls C;
+
+        /// <summary>
+        /// Max records per block limit
+        /// </summary>
+        private int Rl;
+
         #endregion
 
         /// <summary>
-        /// Start logger with parameters from CurrLogSession
+        /// Start Sync logger with SyncSaveLogsMethod and parameters from CurrLogSession
         /// </summary>
-        public Lg(f<Lst, bool> SaveLogsMethod, Sld CurrSession = null, string ServerName = null, string DataBaseName = null)
+        public Lg(f<Lst, bool> SyncSaveLogsMethod, Sld CurrSession = null)
         {
-            S = CurrSession;
-            Ns = ServerName;
-            Nd = DataBaseName;
-            Pr = null;
-            Sm = SaveLogsMethod;
-            L = new Lst().I(S);
-            Ls = new List<Lst>();
-            Rn = 0;
+            Sm = SyncSaveLogsMethod;
+            I(CurrSession);
+        }
+
+        /// <summary>
+        /// Start Async logger with AsyncSaveLogsMethod and parameters from CurrLogSession
+        /// </summary>
+        public Lg(f<Lst, Task<bool>> AsyncSaveLogsMethod, Sld CurrSession = null)
+        {
+            Sa = AsyncSaveLogsMethod;
+            I(CurrSession);
         }
 
         #region public methods
@@ -82,7 +93,7 @@ namespace ReUse_Std.Base.Performance
         /// <summary>
         /// Create New Error Log Entry
         /// </summary>
-        public void E(string CustomComments = null, Exception CurrExc = null, Cx CurrCodeType = null, Cm CustomMethodContext = null)
+        public void E(string CustomComments = null, Exception CurrExc = null, Cx CurrCodeType = null, Mx CustomMethodContext = null)
         {
             Ae(CurrCodeType, CustomComments, CurrExc, CustomMethodContext);
         }
@@ -94,7 +105,7 @@ namespace ReUse_Std.Base.Performance
         /// <summary>
         /// Create New Info Log Entry
         /// </summary>
-        public void I(string Comments = null, Cx CurrCodeType = null, Cm CustomMethodContext = null)
+        public void I(string Comments = null, Cx CurrCodeType = null, Mx CustomMethodContext = null)
         {
             Ai(CurrCodeType, Comments, CustomMethodContext);
         }
@@ -111,7 +122,7 @@ namespace ReUse_Std.Base.Performance
         /// Create New Performance Log Entry
         /// </summary>
         /// <returns>Performance Log Entry Record</returns>
-        public Prf P(Cx CurrCodeType = null, Cm CustomMethodContext = null)
+        public Prf P(Cx CurrCodeType = null, Mx CustomMethodContext = null)
         {
 
             return Pn(CurrCodeType, CustomMethodContext);
@@ -132,18 +143,142 @@ namespace ReUse_Std.Base.Performance
         #endregion
 
         #endregion 
+
+        #region Details Logging
+
+        /// <summary>
+        /// Get Current Process Common Details
+        /// </summary>
+        public Guid? Pc(Cx CurrCodeType)
+        {
+            if (C == null || C.Pr != true)
+                return null;
+
+            Prc r = new Prc();
+
+            if (Pr == null)
+                Pr = Process.GetCurrentProcess();
+
+            if (Pr != null)
+            {
+                Pr.Refresh();
+                r.Ip = Pr.Id;
+                r.Is = Pr.SessionId;
+                r.S = Pr.StartTime;
+            }
+            L.Pr.Add(r);
+            return r.PrcId;
+        }
+
+        /// <summary>
+        /// Get Current Process Performance Details
+        /// </summary>
+        public Guid? Pp(Cx CurrCodeType)
+        {
+            if (C == null || C.Pp != true)
+                return null;
+
+            Prd r = new Prd();
+
+            if (Pr == null)
+                Pr = Process.GetCurrentProcess();
+
+            if (Pr != null)
+            {
+                try
+                {
+                    Pr.Refresh();
+                    r.Ch = Pr.HandleCount;
+                    r.Sx = Pr.NonpagedSystemMemorySize64;
+                    r.Mx = Pr.PagedMemorySize64;
+                    r.Sp = Pr.PagedSystemMemorySize64;
+                    r.Px = Pr.PeakPagedMemorySize64;
+                    r.Vp = Pr.PeakVirtualMemorySize64;
+                    r.Wp = Pr.PeakWorkingSet64;
+                    r.Mp = Pr.PrivateMemorySize64;
+                    r.Tp = Pr.PrivilegedProcessorTime;
+                    r.Ct = Pr.Threads.Count;
+                    r.V = Pr.VirtualMemorySize64;
+                    r.W = Pr.WorkingSet64;
+                }
+                catch (Exception exc)
+                {
+                    int ttt = 555;
+                }
+            }
+
+            L.Pd.Add(r);
+            return r.PrdId;
+        }
+
+        /// <summary>
+        /// Get Environment Details
+        /// </summary>
+        public Guid? En(Cx CurrCodeType)
+        {
+            if (C == null || C.En != true)
+                return null;
+
+            Env r = new Env();
+
+            r.Xo = Environment.Is64BitOperatingSystem;
+            r.Xp = Environment.Is64BitProcess;
+            r.M = Environment.MachineName;
+            r.N = Environment.NewLine;
+            r.Pc = Environment.ProcessorCount;
+            r.Sp = Environment.SystemPageSize;
+            r.Ct = Environment.TickCount;
+
+            if (C.U == true)
+            {
+                r.Ud = Environment.UserDomainName;
+                r.Ui = Environment.UserInteractive;
+                r.Un = Environment.UserName;
+            }
+
+            r.W = Environment.WorkingSet;
+
+            if (C.O == true && Environment.OSVersion != null)
+            {
+                r.Op = Environment.OSVersion.Platform.ToString();
+                r.Os = Environment.OSVersion.ServicePack;
+                r.Ov = Environment.OSVersion.VersionString;
+            }
+
+            L.En.Add(r);
+            return r.EnvId;
+        }
+
+        #endregion
+
         #endregion
 
         #region Private methods
+
+        /// <summary>
+        /// Start Sync logger with parameters from CurrLogSession
+        /// </summary>
+        public void I(Sld CurrSession = null)
+        {
+            S = CurrSession;
+            L = new Lst().I(S);
+            Ls = new List<Lst>();
+            Rn = 0;
+            Rl = -1;
+            if (S.M != null && S.M.Value > 1)
+                Rl = S.M.Value;
+            if (S != null && S.S != null && S.S.L == true)
+                C = S.S;
+        }
 
         #region Error and Info Log Entry
 
         /// <summary>
         /// Add Log Error
         /// </summary>
-        private void Ae(Cx CurrCodeType, string Comments = null, Exception CurrExc = null, Cm CustomMethodContext = null)
+        private void Ae(Cx CurrCodeType, string Comments = null, Exception CurrExc = null, Mx CustomMethodContext = null)
         {
-            if (S == null || S.S == null || S.S.Cl != true)
+            if (C == null || C.L != true)
                 return;
 
             Ce(CurrCodeType, CustomMethodContext);
@@ -158,7 +293,7 @@ namespace ReUse_Std.Base.Performance
             {
                 r.Esr = CurrExc.Source;
                 r.Em = CurrExc.Message;
-                if (S.S.Ced != true)
+                if (S.S.Ea != true)
                 {
                     r.Et = CurrExc.StackTrace;
                     r.Es = CurrExc.ToString();
@@ -168,16 +303,16 @@ namespace ReUse_Std.Base.Performance
             L.E.Add(r);
             Rn++;
 
-            if (S.M != null && S.M.Value > 1 && Rn > S.M.Value)
-                Save();
+            if (Rl > 1 && Rn > Rl)
+                Sv();
         }
 
         /// <summary>
         /// Add Log Information
         /// </summary>
-        private void Ai(Cx CurrCodeType, string Comments = null, Cm CustomMethodContext = null)
+        private void Ai(Cx CurrCodeType, string Comments = null, Mx CustomMethodContext = null)
         {
-            if (S == null || S.S == null || S.S.Cl != true)
+            if (C == null || C.L != true)
                 return;
 
             Ce(CurrCodeType, CustomMethodContext);
@@ -190,8 +325,8 @@ namespace ReUse_Std.Base.Performance
             L.I.Add(r);
             Rn++;
 
-            if (S.M != null && S.M.Value > 1 && Rn > S.M.Value)
-                Save();
+            if (Rl > 1 && Rn > Rl)
+                Sv();
         }
 
         #endregion
@@ -201,16 +336,16 @@ namespace ReUse_Std.Base.Performance
         /// <summary>
         /// Create New Log Entry
         /// </summary>
-        private Prf Pn(Cx CurrCodeType, Cm CustomMethodContext = null)
+        private Prf Pn(Cx CurrCodeType, Mx CustomMethodContext = null)
         {
-            if (S == null || S.S == null || S.S.Cp != true)
+            if (C == null || C.P != true)
                 return null;
 
             Ce(CurrCodeType, CustomMethodContext);
             Prf r = new Prf();
 
-            if (S.S.Cpr == true && CurrCodeType != null && CurrCodeType.S != null && CurrCodeType.S.Cpr == true)
-                r.Is = Prd();
+            if (C.Pr == true && CurrCodeType != null && CurrCodeType.S != null && CurrCodeType.S.Pr == true)
+                r.Is = Pp(CurrCodeType);
             if (CurrCodeType != null)
                 r.X = CurrCodeType.CxId;
             if (CustomMethodContext != null)
@@ -223,13 +358,13 @@ namespace ReUse_Std.Base.Performance
         /// </summary>
         private void Pa(Prf CurrLog, Cx CurrCodeType, string Comments = null)
         {
-            if (S == null || S.S == null || S.S.Cp != true || CurrLog == null)
+            if (C == null || C.P != true || CurrLog == null)
                 return;
 
             var Log = CurrLog;
 
-            if (S.S.Cpr == true && CurrCodeType != null && CurrCodeType.S != null && CurrCodeType.S.Cpr == true)
-                Log.Ie = Prd();
+            if (C.Pr == true && CurrCodeType != null && CurrCodeType.S != null && CurrCodeType.S.Pr == true)
+                Log.Ie = Pp(CurrCodeType);
 
             Log.C = Comments;
             var End = _.d;
@@ -241,8 +376,8 @@ namespace ReUse_Std.Base.Performance
             L.P.Add(Log);
             Rn++;
 
-            if (S.M != null && S.M.Value > 1 && Rn > S.M.Value)
-                Save();
+            if (Rl > 1 && Rn > Rl)
+                Sv();
         }
 
         #endregion
@@ -252,104 +387,12 @@ namespace ReUse_Std.Base.Performance
         /// <summary>
         /// Add details on contexts with check
         /// </summary>
-        private void Ce(Cx CurrCodeType = null, Cm CustomMethodContext = null)
+        private void Ce(Cx CurrCodeType = null, Mx CustomMethodContext = null)
         {
             if (CurrCodeType != null && !L.X.Contains(CurrCodeType))
                 L.X.Add(CurrCodeType);
             if (CustomMethodContext != null && !L.C.Contains(CustomMethodContext))
                 L.C.Add(CustomMethodContext);
-        }
-
-        /// <summary>
-        /// Get Current Process Common Details
-        /// </summary>
-        private void Prc()
-        {
-            if (S == null || S.S == null || S.S.Cpr != true)
-                return;
-
-            Prc Result = new Prc();
-
-            if (Pr != null)
-            {
-                Pr.Refresh();
-                Result.Ip = Pr.Id;
-                Result.Is = Pr.SessionId;
-                Result.S = Pr.StartTime;
-            }
-            L.Pr.Add(Result);
-        }
-
-        /// <summary>
-        /// Get Current Process Performance Details
-        /// </summary>
-        private Guid? Prd()
-        {
-            if (S == null || S.S == null || S.S.Cprd != true)
-                return null;
-
-            Prd Result = new Prd();
-
-            if (Pr != null)
-            {
-                try
-                {
-                    Pr.Refresh();
-                    Result.Ch = Pr.HandleCount;
-                    Result.Sx = Pr.NonpagedSystemMemorySize64;
-                    Result.Mx = Pr.PagedMemorySize64;
-                    Result.Sp = Pr.PagedSystemMemorySize64;
-                    Result.Px = Pr.PeakPagedMemorySize64;
-                    Result.Vp = Pr.PeakVirtualMemorySize64;
-                    Result.Wp = Pr.PeakWorkingSet64;
-                    Result.Mp = Pr.PrivateMemorySize64;
-                    Result.Tp = Pr.PrivilegedProcessorTime;
-                    Result.Ct = Pr.Threads.Count;
-                    Result.V = Pr.VirtualMemorySize64;
-                    Result.W = Pr.WorkingSet64;
-                }
-                catch (Exception exc)
-                {
-                    int ttt = 555;
-                }
-            }
-
-            L.Pd.Add(Result);
-            return Result.PrdId;
-        }
-
-        /// <summary>
-        /// Get Environment Details
-        /// </summary>
-        private void En()
-        {
-            Env Result = new Env();
-
-            Result.Xo = Environment.Is64BitOperatingSystem;
-            Result.Xp = Environment.Is64BitProcess;
-            Result.M = Environment.MachineName;
-            Result.N = Environment.NewLine;
-            Result.Pc = Environment.ProcessorCount;
-            Result.Sp = Environment.SystemPageSize;
-            Result.Ct = Environment.TickCount;
-
-            if (S == null || S.S == null || S.S.Cu != true)
-            {
-                Result.Ud = Environment.UserDomainName;
-                Result.Ui = Environment.UserInteractive;
-                Result.Un = Environment.UserName;
-            }
-
-            Result.W = Environment.WorkingSet;
-
-            if (S == null || S.S == null || S.S.Co != true && Environment.OSVersion != null)
-            {
-                Result.Op = Environment.OSVersion.Platform.ToString();
-                Result.Os = Environment.OSVersion.ServicePack;
-                Result.Ov = Environment.OSVersion.VersionString;
-            }
-
-            L.En.Add(Result);
         }
 
         #endregion
@@ -750,18 +793,22 @@ namespace ReUse_Std.Base.Performance
         #endregion
 
         /// <summary>
-        /// Save All Logs to SQL storage in separate thread
+        /// Save All Logs Sync to SQL storage
         /// </summary>
-        public Guid[] Save(bool StartNewLogsAfterSave = true)
+        public Guid[] Sv(bool StartNewLogsAfterSave = true)
         {
+            if (Sm == null)
+                return null;
+
+            if(L.En.Count < 1 && L.C.Count < 1 && L.Pd.Count < 1 && L.Pr.Count < 1)
+                return null;
+
             var Copy = L;
             Ls.Add(Copy);
 
             var q = Ls.s(e =>
             {
-                bool r = false;
-                if (Sm != null)
-                    r = Sm(e);
+                var r = Sm(e);
                 if (r)
                     e.I(S);
                 return r._c(e.LstId);
@@ -769,8 +816,38 @@ namespace ReUse_Std.Base.Performance
 
             if (StartNewLogsAfterSave)
                 L = new Lst().I(S);
-            
+
             return q.s(e => e._2, e => !e._1);
+        }
+
+        /// <summary>
+        /// Save All Logs Async to SQL storage in separate thread
+        /// </summary>
+        public async Task<Guid[]> Sva(bool StartNewLogsAfterSave = true)
+        {
+            if (Sa == null)
+                return null;
+
+            if (L.En.Count < 1 && L.C.Count < 1 && L.Pd.Count < 1 && L.Pr.Count < 1)
+                return null;
+
+            var Copy = L;
+            Ls.Add(Copy);
+            
+            var q = Ls.s(async e =>
+            {
+                var r = await Sa(e);
+                if (r)
+                    e.I(S);
+                return r._c(e.LstId);
+            });
+
+            var t = await Task.WhenAll(q);
+
+            if (StartNewLogsAfterSave)
+                L = new Lst().I(S);
+
+            return t.s(e => e._2, e => !e._1);
         }
     }
 
@@ -779,7 +856,7 @@ namespace ReUse_Std.Base.Performance
     /// </summary>
     public static class Log_Utilities
     {
-        
+
         ///// <summary>
         ///// Set Common ASP additional settings for  current CurrentSessionLog with error logs enabled
         ///// </summary>
@@ -800,11 +877,19 @@ namespace ReUse_Std.Base.Performance
         //}
 
         /// <summary>
-        /// Get new logger with parameters from current CurrLogSession
+        /// Get new Sync logger with parameters from current CurrLogSession
         /// </summary>
-        public static Lg N(this Sld CurrSession, f<Lst, bool> SaveLogsMethod, string ServerName = null, string DataBaseName = null)
+        public static Lg N(this Sld CurrSession, f<Lst, bool> SyncSaveLogsMethod)
         {
-            return new Lg(SaveLogsMethod, CurrSession, ServerName, DataBaseName);
+            return new Lg(SyncSaveLogsMethod, CurrSession);
+        }
+
+        /// <summary>
+        /// Get new Async logger with parameters from current CurrLogSession
+        /// </summary>
+        public static Lg N(this Sld CurrSession, f<Lst, Task<bool>> AsyncSaveLogsMethod)
+        {
+            return new Lg(AsyncSaveLogsMethod, CurrSession);
         }
 
         #region Logs storage
@@ -816,34 +901,37 @@ namespace ReUse_Std.Base.Performance
         {
             var r = CurrLogsStorage;
 
-            r.C = new List<Cm>();
-            r.X = new List<Cx>();
-            r.E = new List<Err>();
-            r.I = new List<Inf>();
-            r.En = new List<Env>();
-
-            if (CollectDetailsSettings != null && CollectDetailsSettings.S != null)
+            r.S = CollectDetailsSettings;
+            
+            if (r.S != null && r.S.S != null)
             {
-                var s = CollectDetailsSettings.S;
-                if (s.Cp == true)
+                r.C = new List<Mx>();
+                r.X = new List<Cx>();
+                r.E = new List<Err>();
+                r.I = new List<Inf>();
+
+                var s = r.S.S;
+                if (s.En == true)
+                    r.En = new List<Env>();
+                if (s.P == true)
                     r.P = new List<Prf>();
-                if (s.Cpr == true)
+                if (s.Pr == true)
                     r.Pr = new List<Prc>();
-                if (s.Cprd == true)
+                if (s.Pp == true)
                     r.Pd = new List<Prd>();
-                if (s.Chr == true)
+                if (s.Hr == true)
                     r.Hr = new List<Hrq>();
-                if (s.Chs == true)
+                if (s.Hs == true)
                     r.Hs = new List<Hsl>();
-                if (s.Chc == true)
+                if (s.Hc == true)
                     r.Hc = new List<Hcx>();
-                if (s.Cwp == true)
+                if (s.Wp == true)
                     r.Wp = new List<Wpl>();
-                if (s.Cwr == true)
+                if (s.Wr == true)
                     r.Wpr = new List<Wpr>();
-                if (s.Chc == true)
+                if (s.B == true)
                     r.Hb = new List<Hbc>();
-                if (s.Cu == true)
+                if (s.U == true)
                     r.Wi = new List<Wil>();
             }
 

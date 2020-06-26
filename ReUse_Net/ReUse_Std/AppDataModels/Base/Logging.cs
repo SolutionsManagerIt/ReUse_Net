@@ -71,9 +71,14 @@ namespace ReUse_Std.AppDataModels.Logging
         public Guid LstId { get; set; } = _.g;
 
         /// <summary>
+        /// Logs storage settings
+        /// </summary>
+        public Sld S { get; set; }
+
+        /// <summary>
         /// Entries
         /// </summary>
-        public List<Cm> C { get; set; }
+        public List<Mx> C { get; set; }
 
         /// <summary>
         /// Code contexts
@@ -572,7 +577,7 @@ namespace ReUse_Std.AppDataModels.Logging
         /// <summary>
         /// DateFound
         /// </summary>
-        public DateTime DateFound { get; set; } = _.d;
+        public DateTime D { get; set; } = _.d;
         /// <summary>
         /// AnonymousID
         /// </summary>

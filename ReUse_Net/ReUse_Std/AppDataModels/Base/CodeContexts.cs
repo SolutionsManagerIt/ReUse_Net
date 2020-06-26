@@ -78,67 +78,75 @@ namespace ReUse_Std.Base
         /// <summary>
         /// CollectLogs
         /// </summary>
-        public bool? Cl { get; set; }
+        public bool? L { get; set; }
         /// <summary>
         /// CollectPerfLogs
         /// </summary>
-        public bool? Cp { get; set; }
+        public bool? P { get; set; }
         /// <summary>
         /// CollectPerfDetails
         /// </summary>
-        public bool? Cpd { get; set; }
+        public bool? Pa { get; set; }
 
+        /// <summary>
+        /// Collect Environment Logs
+        /// </summary>
+        public bool? En { get; set; }
         /// <summary>
         /// CollectProcessLogs
         /// </summary>
-        public bool? Cpr { get; set; }
+        public bool? Pr { get; set; }
         /// <summary>
         /// CollectProcessDetails
         /// </summary>
-        public bool? Cprd { get; set; }
+        public bool? Pp { get; set; }
         /// <summary>
         /// CollectUsers
         /// </summary>
-        public bool? Cu { get; set; }
+        public bool? U { get; set; }
         /// <summary>
         /// CollectOSData
         /// </summary>
-        public bool? Co { get; set; }
+        public bool? O { get; set; }
         /// <summary>
         /// CollectErrorDetails
         /// </summary>
-        public bool? Ced { get; set; }
+        public bool? Ea { get; set; }
         /// <summary>
         /// CollectHttpRequests
         /// </summary>
-        public bool? Chr { get; set; }
+        public bool? Hr { get; set; }
         /// <summary>
         /// CollectHttpSessions
         /// </summary>
-        public bool? Chs { get; set; }
+        public bool? Hs { get; set; }
         /// <summary>
         /// CollectHttpContexts
         /// </summary>
-        public bool? Chc { get; set; }
+        public bool? Hc { get; set; }
         /// <summary>
         /// CollectWebPages
         /// </summary>
-        public bool? Cwp { get; set; }
+        public bool? Wp { get; set; }
         /// <summary>
         /// CollectWebProfiles
         /// </summary>
-        public bool? Cwr { get; set; }
+        public bool? Wr { get; set; }
         /// <summary>
         /// Collect Browser Details
         /// </summary>
-        public bool? Cb { get; set; }
+        public bool? B { get; set; }
+        /// <summary>
+        /// CollectWindowsIdentity
+        /// </summary>
+        public bool? I { get; set; }
     }
 
     /// <summary>
-    /// Code Common method execution details  - Class Name, Method Name, ParametersData, Details, ArrayItemSize, LogIndex etc
+    /// Common method execution details  - Class Name, Method Name, ParametersData, Details, ArrayItemSize, LogIndex etc
     /// </summary>
     [Serializable]
-    public class Cm
+    public class Mx
     {
         /// <summary>
         /// Current item key guid
@@ -152,7 +160,7 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Common Code Entry Data -  class/method details with comments
         /// </summary>
-        public Ed A { get; set; }
+        public Mda A { get; set; }
 
         /// <summary>
         /// Class Name
@@ -206,7 +214,7 @@ namespace ReUse_Std.Base
     /// Common Code additional details Data -  class/method details with comments
     /// </summary>
     [Serializable]
-    public class Ed
+    public class Mda
     {
         /// <summary>
         /// Current item key guid

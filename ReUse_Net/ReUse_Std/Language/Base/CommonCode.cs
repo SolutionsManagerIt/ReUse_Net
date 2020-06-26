@@ -12,6 +12,7 @@ using ReUse_Std.Common;
 using ReUse_Std.Base.Performance;
 using ReUse_Std.AppDataModels.Logging;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace ReUse_Std.Base
 {
@@ -33,51 +34,109 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Run Common Try FuncToRun With Errors And Performance Logging based on CurrContext and optional CustomCodeType.
         /// </summary>        
-        public static T R<T, Tx>(this Ax<Tx> CurrContext, f<Cx, T> FuncToRun, Tx CustomCodeType = default, Cm CustomMethodContext = null, T ReturnOnError = default)
+        public static T r<T, Tx>(this Ax<Tx> CurrContext, f<Cx, T> FuncToRun, Tx CustomCodeType = default, Mx CustomMethodContext = null, T ReturnOnError = default)
         {
             if (CurrContext == null || FuncToRun == null)
                 return ReturnOnError;
             Cx x = null;
             if (CustomCodeType != null && CurrContext.T != null)
                 x = CurrContext.T.v(CustomCodeType);
-            return CurrContext.L.R(() => FuncToRun(x), x, CustomMethodContext, ReturnOnError);
+            return CurrContext.L.r(() => FuncToRun(x), x, CustomMethodContext, ReturnOnError);
         }
 
         /// <summary>
-        /// Run Common Try FuncToRun With Errors And Performance Logging based on CurrCodeType.
+        /// Run Common Sync Try FuncToRunSync With Errors And Performance Logging based on CurrCodeType.
         /// Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
         /// </summary>        
-        public static T R<T>(this Lg CurrLog, f<T> FuncToRun, Cx CustomCodeType = null, Cm CustomMethodContext = null, T ReturnOnError = default)
+        public static T r<T>(this Lg CurrLog, f<T> FuncToRunSync, Cx CustomCodeType = null, Mx CustomMethodContext = null, T ReturnOnError = default)
         {
-            if (FuncToRun == null)
+            if (FuncToRunSync == null)
                 return ReturnOnError;
 
             var t = CustomCodeType;
             Prf PerfLog = null;
-
-            if (t.S != null && t.S.Cp == true)
+            var ef = false;
+            if (t.S != null && t.S.P == true)
                 PerfLog = CurrLog.P(t, CustomMethodContext);
 
-            T Result;
+            T Result = ReturnOnError;
 
             if (CustomCodeType.T)
             {
                 try
                 {
-                    Result = FuncToRun();
+                    Result = FuncToRunSync();
                 }
                 catch (Exception exc)
                 {
-                    if (t.S != null && t.S.Cl == true)
+                    if (t.S != null && t.S.L == true)
                         CurrLog.E(null, exc, t, CustomMethodContext);
-                    return ReturnOnError;
+                    ef = true;                    
                 }
             }
             else
-                Result = FuncToRun();
+                Result = FuncToRunSync();
 
-            if (t.S != null && t.S.Cp == true)
+            if (t.S != null && t.S.P == true)
                 CurrLog.Pa(PerfLog, null, t);
+
+            if(ef)
+                return ReturnOnError;
+
+            return Result;
+        }
+
+        /// <summary>
+        /// Run Common Async Try FuncToRunAsync With Errors And Performance Logging based on CurrContext and optional CustomCodeType.
+        /// </summary>        
+        public static async Task<T> R<T, Tx>(this Ax<Tx> CurrContext, f<Cx, Task<T>> FuncToRunAsync, Tx CustomCodeType = default, Mx CustomMethodContext = null, T ReturnOnError = default)
+        {
+            if (CurrContext == null || FuncToRunAsync == null)
+                return ReturnOnError;
+            Cx x = null;
+            if (CustomCodeType != null && CurrContext.T != null)
+                x = CurrContext.T.v(CustomCodeType);
+            return await CurrContext.L.R(() => FuncToRunAsync(x), x, CustomMethodContext, ReturnOnError);
+        }
+
+        /// <summary>
+        /// Run Common Async Try FuncToRunAsync With Errors And Performance Logging based on CurrCodeType.
+        /// Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
+        /// </summary>        
+        public static async Task<T> R<T>(this Lg CurrLog, f<Task<T>> FuncToRunAsync, Cx CustomCodeType = null, Mx CustomMethodContext = null, T ReturnOnError = default)
+        {
+            if (FuncToRunAsync == null)
+                return ReturnOnError;
+
+            var t = CustomCodeType;
+            Prf PerfLog = null;
+            var ef = false;
+            if (t.S != null && t.S.P == true)
+                PerfLog = CurrLog.P(t, CustomMethodContext);
+
+            T Result = ReturnOnError;
+
+            if (CustomCodeType.T)
+            {
+                try
+                {
+                    Result = await FuncToRunAsync();
+                }
+                catch (Exception exc)
+                {
+                    if (t.S != null && t.S.L == true)
+                        CurrLog.E(null, exc, t, CustomMethodContext);
+                    ef = true;
+                }
+            }
+            else
+                Result = await FuncToRunAsync();
+
+            if (t.S != null && t.S.P == true)
+                CurrLog.Pa(PerfLog, null, t);
+
+            if (ef)
+                return ReturnOnError;
 
             return Result;
         }
@@ -125,11 +184,19 @@ namespace ReUse_Std.Base
         #region Start Apps Logs Utilities
 
         /// <summary>
-        /// Get new Common App Context from current CurrSession with SaveLogsMethod and BaseContexts
+        /// Get new Sync Common App Context from current CurrSession with SaveLogsMethod and BaseContexts
         /// </summary>
-        public static Ax<Tx> N<Tx>(this Sld CurrSession, f<Lst, bool> SaveLogsMethod, IDictionary<Tx, Cx> BaseContexts = null)
+        public static Ax<Tx> N<Tx>(this Sld CurrSession, f<Lst, bool> SyncSaveLogsMethod, IDictionary<Tx, Cx> BaseContexts = null)
         {
-            return new Ax<Tx>(CurrSession, SaveLogsMethod, BaseContexts);
+            return new Ax<Tx>(CurrSession, SyncSaveLogsMethod, BaseContexts);
+        }
+
+        /// <summary>
+        /// Get new Async Common App Context from current CurrSession with SaveLogsMethod and BaseContexts
+        /// </summary>
+        public static Ax<Tx> N<Tx>(this Sld CurrSession, f<Lst, Task<bool>> AsyncSaveLogsMethod, IDictionary<Tx, Cx> BaseContexts = null)
+        {
+            return new Ax<Tx>(CurrSession, AsyncSaveLogsMethod, BaseContexts);
         }
 
         /// <summary>
@@ -158,14 +225,51 @@ namespace ReUse_Std.Base
         {
             var r = new Sls();
 
-            r.Cl = true;
-            r.Cp = CollectPerfLogs;
-            r.Ced = CollectErrorDetails;
-            r.Cpd = CollectPerfDetails;
-            r.Cu = CollectUsers;
-            r.Co = CollectOSData;
+            r.L = true;
+            r.P = CollectPerfLogs;
+            r.Ea = CollectErrorDetails;
+            r.Pa = CollectPerfDetails;
+            r.U = CollectUsers;
+            r.O = CollectOSData;
 
             return r;
+        }
+
+        /// <summary>
+        /// Set current Session Log Settings with additional details
+        /// </summary>
+        public static Sls sA(this Sls CurrSetts, bool CollectEnvironment = true, bool CollectProcess = true, bool CollectProcessDetails = true, bool CollectWindowsIdentity = true)
+        {
+            CurrSetts.En = CollectEnvironment;
+            CurrSetts.Pr = CollectProcess;
+            CurrSetts.Pp = CollectProcessDetails;
+            CurrSetts.I = CollectWindowsIdentity;
+
+            return CurrSetts;
+        }
+
+        /// <summary>
+        /// Set current Session Log Settings with http logging details
+        /// </summary>
+        public static Sls sH(this Sls CurrSetts, bool CollectHttpRequests = true, bool CollectHttpSessions = true, bool CollectHttpContexts = true)
+        {
+            CurrSetts.Hr = CollectHttpRequests;
+            CurrSetts.Hs = CollectHttpSessions;
+            CurrSetts.Hc = CollectHttpContexts;
+
+            return CurrSetts;
+        }
+
+        /// <summary>
+        /// Set current Session Log Settings with web pages details
+        /// </summary>
+        public static Sls sW(this Sls CurrSetts, bool CollectBrowserDetails = true, bool CollectWebPages = true, bool CollectWebProfiles = true)
+        {
+            CurrSetts.B = CollectBrowserDetails;
+            CurrSetts.Wp = CollectWebPages;
+            CurrSetts.Wr = CollectWebProfiles;
+
+            return CurrSetts;
         }
 
         #endregion
@@ -547,11 +651,11 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Create new Common method execution details for common code with current LogIndex setting
         /// </summary>
-        public static Cm M(this int LogIndex, string ClassNane = null, string MethodName = null, string CustomDetails = null, string ParametersData = null, int? ArraySize = null, Ab Block = null, bool LogError = true)
+        public static Mx M(this int LogIndex, string ClassName = null, string MethodName = null, string CustomDetails = null, string ParametersData = null, int? ArraySize = null, Ab Block = null, bool LogError = true)
         {
-            Cm Res = new Cm();
+            Mx Res = new Mx();
 
-            Res.C = ClassNane;
+            Res.C = ClassName;
             Res.M = MethodName;
             Res.L = LogError;
             Res.P = ParametersData;
@@ -566,11 +670,11 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Create new Common method execution details for common code with current LogError setting
         /// </summary>
-        public static Cm M(this bool LogError, string ClassNane = null, string MethodName = null, string CustomDetails = null, string ParametersData = null, int? ArraySize = null, Ab Block = null, int? LogIndex = null)
+        public static Mx M(this bool LogError, string ClassName = null, string MethodName = null, string CustomDetails = null, string ParametersData = null, int? ArraySize = null, Ab Block = null, int? LogIndex = null)
         {
-            Cm Res = new Cm();
+            Mx Res = new Mx();
 
-            Res.C = ClassNane;
+            Res.C = ClassName;
             Res.M = MethodName;
             Res.L = LogError;
             Res.P = ParametersData;
@@ -585,9 +689,9 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Sets method context Arrays data for current CurrCode - ArraySize, ArrayBlockSize, CustomArrayBlockMessage
         /// </summary>
-        public static Cm S(this Cm CurrCode, int? ArraySize = null, int? ArrayBlockSize = null, string CustomArrayBlockMessage = null)
+        public static Mx S(this Mx CurrCode, int? ArraySize = null, int? ArrayBlockSize = null, string CustomArrayBlockMessage = null)
         {
-            Cm Res = new Cm();
+            Mx Res = new Mx();
 
             if (ArrayBlockSize != null || CustomArrayBlockMessage != null)
                 CurrCode.B = new Ab() { S = ArrayBlockSize, M = CustomArrayBlockMessage };
@@ -599,9 +703,9 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Sets logs destinations for current CurrCode - LogSQL_ConnString, LogXML_DirPath
         /// </summary>
-        public static Cm S(this Cm CurrCode, string LogSQL_ConnString = null, string LogXML_DirPath = null)
+        public static Mx S(this Mx CurrCode, string LogSQL_ConnString = null, string LogXML_DirPath = null)
         {
-            Cm Res = new Cm();
+            Mx Res = new Mx();
 
             CurrCode.Lq = LogSQL_ConnString;
             CurrCode.Lx = LogXML_DirPath;
@@ -746,19 +850,43 @@ namespace ReUse_Std.Base
         /// Application logging
         /// </summary>
         public Lg L;
-                
+
         /// <summary>
-        /// Get Common Context with errors and performance with process details
+        /// Get Common Sync Context with errors and performance with process details
         /// </summary>
-        public Ax(Sld CurrSession, f<Lst, bool> SaveLogsMethod, IDictionary<Tx, Cx> BaseContexts = null)
+        public Ax(Sld CurrSession, f<Lst, bool> SyncSaveLogsMethod, IDictionary<Tx, Cx> BaseContexts = null)
             : base(null, true)
         {
             T = BaseContexts;
-            L = CurrSession.N(SaveLogsMethod);
+            L = CurrSession.N(SyncSaveLogsMethod);
             this.M = () =>
             {
                 if (L != null)
-                    L.Save();
+                    L.Sv();
+                return true;
+            };
+        }
+
+
+        /// <summary>
+        /// Get Common Async Context with errors and performance with process details
+        /// </summary>
+        public Ax(Sld CurrSession, f<Lst, Task<bool>> AsyncSaveLogsMethod, IDictionary<Tx, Cx> BaseContexts = null)
+            : base(null, true)
+        {
+            T = BaseContexts;
+            L = CurrSession.N(AsyncSaveLogsMethod);
+            this.M = () =>
+            {
+                if (L != null)
+                {
+                    var r = L.Sva();
+                    if (r != null)
+                    {
+                        var rs = r.Result;
+                    }                        
+                }
+                    
                 return true;
             };
         }
