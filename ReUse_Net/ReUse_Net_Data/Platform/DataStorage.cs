@@ -273,7 +273,7 @@ namespace ReUse_Net_Data.Platform
         /// <summary>
         /// Get common data storage
         /// </summary>
-        public static IEnumerable<T1> Gd<T1, T2>(this string ConnectionName, f<IQueryable<T1>, IQueryable<T1>> MethodToInclude, f<T1, bool> MethodToSelect = null, f<IQueryable<T2>, IQueryable<T2>> MethodToInclude2 = null, bool EnsureStructure = true) where T1 : class where T2 : class
+        public static IEnumerable<T1> Gd<T1, T2>(this string ConnectionName, f<IQueryable<T1>, IQueryable<T1>> MethodToInclude, f<IQueryable<T2>, IQueryable<T2>> MethodToInclude2 = null, f<T1, bool> MethodToSelect = null, bool EnsureStructure = true) where T1 : class where T2 : class
         {
             var cs = new DCx<T1, T2>(ConnectionName);
             if (EnsureStructure)
@@ -302,7 +302,7 @@ namespace ReUse_Net_Data.Platform
         /// <summary>
         /// Get common data storage
         /// </summary>
-        public static IEnumerable<T1> Gd<T1, T2, T3>(this string ConnectionName, f<IQueryable<T1>, IQueryable<T1>> MethodToInclude, f<IQueryable<T2>, IQueryable<T2>> MethodToInclude2, f<T1, bool> MethodToSelect = null, f<IQueryable<T3>, IQueryable<T3>> MethodToInclude3 = null, bool EnsureStructure = true) where T1 : class where T2 : class where T3 : class
+        public static IEnumerable<T1> Gd<T1, T2, T3>(this string ConnectionName, f<IQueryable<T1>, IQueryable<T1>> MethodToInclude, f<IQueryable<T2>, IQueryable<T2>> MethodToInclude2, f<IQueryable<T3>, IQueryable<T3>> MethodToInclude3 = null, f<T1, bool> MethodToSelect = null, bool EnsureStructure = true) where T1 : class where T2 : class where T3 : class
         {
             var cs = new DCx<T1, T2, T3>(ConnectionName);
             if (EnsureStructure)

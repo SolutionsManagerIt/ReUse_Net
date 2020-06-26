@@ -9,12 +9,60 @@ namespace ReUse_Std.AppDataModels.Logging
     {
     }
 
+    #region Code structs
+
+    ///// <summary>
+    ///// Simple Code Entry Data
+    ///// </summary>
+    //[Serializable]
+    //public class Cde
+    //{
+    //    /// <summary>
+    //    /// Current item key guid
+    //    /// </summary>
+    //    public Guid CdeId { get; set; } = _.g;
+
+    //    /// <summary>
+    //    /// Class name
+    //    /// </summary>
+    //    public string C { get; set; }
+    //    /// <summary>
+    //    /// Class Methods list
+    //    /// </summary>
+    //    public List<Cme> M { get; set; }
+
+    //}
+
+    ///// <summary>
+    ///// Simple Methods Entry Data
+    ///// </summary>
+    //[Serializable]
+    //public class Cme
+    //{
+    //    /// <summary>
+    //    /// Current item key guid
+    //    /// </summary>
+    //    public Guid CmeId { get; set; } = _.g;
+    //    /// <summary>
+    //    /// MethodGuid
+    //    /// </summary>
+    //    public Guid G { get; set; }
+    //    /// <summary>
+    //    /// Method
+    //    /// </summary>
+    //    public string M { get; set; }
+    //}
+
+
+
+    #endregion
 
     #region Logs storage structs
 
     /// <summary>
     /// Simple Logs Storage Data
     /// </summary>
+    [Serializable]
     public class Lst
     {
         /// <summary>
@@ -25,7 +73,12 @@ namespace ReUse_Std.AppDataModels.Logging
         /// <summary>
         /// Entries
         /// </summary>
-        public List<Cde> C { get; set; }
+        public List<Cm> C { get; set; }
+
+        /// <summary>
+        /// Code contexts
+        /// </summary>
+        public List<Cx> X { get; set; }
         /// <summary>
         /// Error Logs
         /// </summary>
@@ -84,6 +137,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple Session Log Data
     /// </summary>
+    [Serializable]
     public class Sld
     {
         /// <summary>
@@ -94,7 +148,7 @@ namespace ReUse_Std.AppDataModels.Logging
         /// <summary>
         /// Session_UID
         /// </summary>
-        public Guid I { get; set; }
+        public Guid? I { get; set; } = _.g;
         /// <summary>
         /// SolutionTitle
         /// </summary>
@@ -105,62 +159,10 @@ namespace ReUse_Std.AppDataModels.Logging
         public string A { get; set; }
 
         /// <summary>
-        /// CollectLogs
+        /// Collect Logs settings
         /// </summary>
-        public bool Cl { get; set; }
-        /// <summary>
-        /// CollectPerfLogs
-        /// </summary>
-        public bool Cp { get; set; }
-        /// <summary>
-        /// CollectPerfDetails
-        /// </summary>
-        public bool Cpd { get; set; }
-
-        /// <summary>
-        /// CollectProcessLogs
-        /// </summary>
-        public bool Cpr { get; set; }
-        /// <summary>
-        /// CollectProcessDetails
-        /// </summary>
-        public bool Cprd { get; set; }
-        /// <summary>
-        /// CollectUsers
-        /// </summary>
-        public bool Cu { get; set; }
-        /// <summary>
-        /// CollectOSData
-        /// </summary>
-        public bool Co { get; set; }
-        /// <summary>
-        /// CollectErrorDetails
-        /// </summary>
-        public bool Ced { get; set; }
-        /// <summary>
-        /// CollectHttpRequests
-        /// </summary>
-        public bool Chr { get; set; }
-        /// <summary>
-        /// CollectHttpSessions
-        /// </summary>
-        public bool Chs { get; set; }
-        /// <summary>
-        /// CollectHttpContexts
-        /// </summary>
-        public bool Chc { get; set; }
-        /// <summary>
-        /// CollectWebPages
-        /// </summary>
-        public bool Cwp { get; set; }
-        /// <summary>
-        /// CollectWebProfiles
-        /// </summary>
-        public bool Cwr { get; set; }
-        /// <summary>
-        /// Collect Browser Details
-        /// </summary>
-        public bool Cb { get; set; }
+        public Sls S { get; set; }
+        
         /// <summary>
         /// MaxLogsLimit
         /// </summary>
@@ -168,57 +170,17 @@ namespace ReUse_Std.AppDataModels.Logging
         /// <summary>
         /// DateTime Now
         /// </summary>
-        public DateTime D { get; set; } = _.D;
+        public DateTime? D { get; set; } = _.D;
         /// <summary>
         /// DateTime UtcNow
         /// </summary>
-        public DateTime Du { get; set; } = _.d;
-    }
-
-    /// <summary>
-    /// Simple Code Entry Data
-    /// </summary>
-    public class Cde
-    {
-        /// <summary>
-        /// Current item key guid
-        /// </summary>
-        public Guid CdeId { get; set; } = _.g;
-
-        /// <summary>
-        /// Class name
-        /// </summary>
-        public string C { get; set; }
-        /// <summary>
-        /// Class Methods list
-        /// </summary>
-        public List<Cme> M { get; set; }
-
-    }
-
-    /// <summary>
-    /// Simple Methods Entry Data
-    /// </summary>
-    public class Cme
-    {
-        /// <summary>
-        /// Current item key guid
-        /// </summary>
-        public Guid CmeId { get; set; } = _.g;
-        /// <summary>
-        /// MethodGuid
-        /// </summary>
-        public Guid G { get; set; }
-        /// <summary>
-        /// Method
-        /// </summary>
-        public string M { get; set; }
-
+        public DateTime? Du { get; set; } = _.d;
     }
 
     /// <summary>
     /// Simple Error Log Data
     /// </summary>
+    [Serializable]
     public class Err
     {
         /// <summary>
@@ -234,22 +196,6 @@ namespace ReUse_Std.AppDataModels.Logging
         /// DateFound
         /// </summary>
         public DateTime D { get; set; } = _.d;
-        /// <summary>
-        /// ArrayItemSize
-        /// </summary>
-        public int? As { get; set; }
-        /// <summary>
-        /// LogIndex
-        /// </summary>
-        public int? I { get; set; }
-        /// <summary>
-        /// IsCritical
-        /// </summary>
-        public bool? Cr { get; set; }
-        /// <summary>
-        /// ParametersData
-        /// </summary>
-        public string P { get; set; }
         /// <summary>
         /// Comments
         /// </summary>
@@ -279,11 +225,21 @@ namespace ReUse_Std.AppDataModels.Logging
         /// </summary>
         public string Em { get; set; }
 
+        /// <summary>
+        /// method context data
+        /// </summary>
+        public Guid? M { get; set; }
+        /// <summary>
+        /// common code context
+        /// </summary>
+        public Guid? X { get; set; }
+
     }
 
     /// <summary>
     /// Simple Environment Details Data
     /// </summary>
+    [Serializable]
     public class Env
     {
         /// <summary>
@@ -360,6 +316,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple Info Log Data
     /// </summary>
+    [Serializable]
     public class Inf
     {
         /// <summary>
@@ -375,27 +332,25 @@ namespace ReUse_Std.AppDataModels.Logging
         /// </summary>
         public DateTime Df { get; set; } = _.d;
         /// <summary>
-        /// ArrayItemSize
-        /// </summary>
-        public int? As { get; set; }
-        /// <summary>
-        /// LogIndex
-        /// </summary>
-        public int? I { get; set; }
-        /// <summary>
-        /// ParametersData
-        /// </summary>
-        public string P { get; set; }
-        /// <summary>
         /// Comments
         /// </summary>
         public string C { get; set; }
 
+
+        /// <summary>
+        /// method context data
+        /// </summary>
+        public Guid? M { get; set; }
+        /// <summary>
+        /// common code context
+        /// </summary>
+        public Guid? X { get; set; }
     }
 
     /// <summary>
     /// Simple Performance Log Data
     /// </summary>
+    [Serializable]
     public class Prf
     {
         /// <summary>
@@ -415,22 +370,6 @@ namespace ReUse_Std.AppDataModels.Logging
         /// </summary>
         public DateTime? De { get; set; }
         /// <summary>
-        /// ArrayItemSize
-        /// </summary>
-        public int? As { get; set; }
-        /// <summary>
-        /// PerformanceIndex
-        /// </summary>
-        public int? I { get; set; }
-        /// <summary>
-        /// ParametersData
-        /// </summary>
-        public string P { get; set; }
-        /// <summary>
-        /// Details
-        /// </summary>
-        public string D { get; set; }
-        /// <summary>
         /// Comments
         /// </summary>
         public string C { get; set; }
@@ -449,13 +388,22 @@ namespace ReUse_Std.AppDataModels.Logging
         /// <summary>
         /// TotalMilliseconds
         /// </summary>
-        public double? M { get; set; }
+        public double? Ms { get; set; }
 
+        /// <summary>
+        /// method context data
+        /// </summary>
+        public Guid? M { get; set; }
+        /// <summary>
+        /// common code context
+        /// </summary>
+        public Guid? X { get; set; }
     }
 
     /// <summary>
     /// Simple Process Log Data
     /// </summary>
+    [Serializable]
     public class Prc
     {
         /// <summary>
@@ -488,6 +436,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple Process Details Log Data
     /// </summary>
+    [Serializable]
     public class Prd
     {
         /// <summary>
@@ -556,6 +505,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple Windows Identity Log Data
     /// </summary>
+    [Serializable]
     public class Wil
     {
         /// <summary>
@@ -608,6 +558,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple HttpRequest Log Data
     /// </summary>
+    [Serializable]
     public class Hrq
     {
         /// <summary>
@@ -692,6 +643,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple HttpSession Log Data
     /// </summary>
+    [Serializable]
     public class Hsl
     {
         /// <summary>
@@ -753,6 +705,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple HttpContext Log Data
     /// </summary>
+    [Serializable]
     public class Hcx
     {
         /// <summary>
@@ -794,6 +747,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple Web Page Log Data
     /// </summary>
+    [Serializable]
     public class Wpl
     {
         /// <summary>
@@ -935,6 +889,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple User WebProfile Log Data
     /// </summary>
+    [Serializable]
     public class Wpr
     {
         /// <summary>
@@ -976,6 +931,7 @@ namespace ReUse_Std.AppDataModels.Logging
     /// <summary>
     /// Simple Http Browser Capabilities Log Data
     /// </summary>
+    [Serializable]
     public class Hbc
     {
         /// <summary>

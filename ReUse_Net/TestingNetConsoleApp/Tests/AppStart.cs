@@ -52,17 +52,24 @@ namespace TestingNetConsoleApp.Tests
             var c20 = qs2.Gsl();
 
             var ct = Tcx();
-            var tc = true._Ls();
-            tc.T = "TestingNetConsoleApp";
-            var a = tc.G(e =>
+            var tc = true.Ns().N("TestingNetConsoleApp");
+            var a = tc.N(e =>
             {
                 return e.A().U(qs2);
             }, ct);
 
-            var rs1 = a.R(() => true, ct);
-            a.L.E("AppStart", "Ga", "Error message 1", new Exception("test exc 11"), ct);
-            a.L.I("AppStart", "Ga", "info message 1", "params data");
-            a.L.I("AppStart", "Ga", "info message 1", "params data");
+            var cx = 1.M("AppStart", "Ga uuuu");
+
+            var rs1 = a.R(x =>
+            {
+                a.L.E("Error message 1", new Exception("test exc 11"), x, cx);
+                a.L.I("info message 1", x, cx);
+                throw new Exception("Test Exception 444");
+                return 5;
+            }, 1, 0.M("AppStart", "Ga", "R"));
+
+
+
 
             a.L.Save();
             //var r2 = await Tl().Ua(qs2);
@@ -88,15 +95,9 @@ namespace TestingNetConsoleApp.Tests
         /// <summary>
         /// Test Logs Data
         /// </summary>
-        public static Cx Tcx()
+        public static IDictionary<int, Cx> Tcx()
         {
-            var ct = true.Te();
-            ct.Cp = true.Cc("CpCp", "et CpCpCpCp", 12, 231);
-            ct.Ce = true.Cc("CeCe", "et CeCeCeCe", 4534, 345);
-            ct.Ct = true.Cc("CtCt", "et CtCtCtCt", 75, 256431);
-            ct.Ca = true.Cc("CaCa", "et CaCaCaCa", 6786, 4564);
-
-            return ct;
+            return 1.D(true.Ns().X());
         }
 
         ///// <summary>
@@ -136,9 +137,12 @@ namespace TestingNetConsoleApp.Tests
         /// </summary>
         public static IEnumerable<Lst> Gsl(this string ConnectionName, bool Ensure = true)
         {            
-            return ConnectionName.Gd<Lst>(s => s.I(a => a.C, a => a.E, a => a.E, a => a.P, a => a.I)
+            return ConnectionName.Gd<Lst, Cx, Cm>(s => s.I(a => a.C, a => a.E, a => a.E, a => a.P, a => a.I)
+            .I(a => a.X, a => a.Hr, a => a.Hs, a => a.Hb, a => a.En)
             .I(a => a.Hc, a => a.Hr, a => a.Hs, a => a.Hb, a => a.En)
-            .I(a => a.Pd, a => a.Pr, a => a.Wi, a => a.Wp, a => a.Wpr), null, Ensure);
+            .I(a => a.Pd, a => a.Pr, a => a.Wi, a => a.Wp, a => a.Wpr), 
+                s => s.I(a => a.S), 
+                s => s.I(a => a.A), null, Ensure);
         } 
         #endregion
     }

@@ -11,6 +11,7 @@ using System.Diagnostics;
 using ReUse_Std.Common;
 using ReUse_Std.Base.Performance;
 using ReUse_Std.AppDataModels.Logging;
+using System.Reflection;
 
 namespace ReUse_Std.Base
 {
@@ -32,18 +33,21 @@ namespace ReUse_Std.Base
         /// <summary>
         /// Run Common Try FuncToRun With Errors And Performance Logging based on CurrContext and optional CustomCodeType.
         /// </summary>        
-        public static T R<T>(this Ax CurrContext, f<T> FuncToRun, Cx CustomCodeType = null, T ReturnOnError = default(T))
+        public static T R<T, Tx>(this Ax<Tx> CurrContext, f<Cx, T> FuncToRun, Tx CustomCodeType = default, Cm CustomMethodContext = null, T ReturnOnError = default)
         {
-            if (FuncToRun == null)
+            if (CurrContext == null || FuncToRun == null)
                 return ReturnOnError;
-            return CurrContext.L.R(FuncToRun, CustomCodeType ?? CurrContext.T, ReturnOnError);
+            Cx x = null;
+            if (CustomCodeType != null && CurrContext.T != null)
+                x = CurrContext.T.v(CustomCodeType);
+            return CurrContext.L.R(() => FuncToRun(x), x, CustomMethodContext, ReturnOnError);
         }
 
         /// <summary>
         /// Run Common Try FuncToRun With Errors And Performance Logging based on CurrCodeType.
         /// Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
         /// </summary>        
-        public static T R<T>(this Lg CurrLog, f<T> FuncToRun, Cx CustomCodeType = null, T ReturnOnError = default(T))
+        public static T R<T>(this Lg CurrLog, f<T> FuncToRun, Cx CustomCodeType = null, Cm CustomMethodContext = null, T ReturnOnError = default)
         {
             if (FuncToRun == null)
                 return ReturnOnError;
@@ -51,10 +55,10 @@ namespace ReUse_Std.Base
             var t = CustomCodeType;
             Prf PerfLog = null;
 
-            if (t.Cp != null && t.Cp.L)
-                PerfLog = CurrLog.P(t);
+            if (t.S != null && t.S.Cp == true)
+                PerfLog = CurrLog.P(t, CustomMethodContext);
 
-            T Result = ReturnOnError;
+            T Result;
 
             if (CustomCodeType.T)
             {
@@ -64,124 +68,105 @@ namespace ReUse_Std.Base
                 }
                 catch (Exception exc)
                 {
-                    if (t.Ce != null && t.Ce.L)
-                        CurrLog.E(null, exc, t);
+                    if (t.S != null && t.S.Cl == true)
+                        CurrLog.E(null, exc, t, CustomMethodContext);
                     return ReturnOnError;
                 }
             }
             else
                 Result = FuncToRun();
 
-            if (t.Cp != null && t.Cp.L)
-                CurrLog.P(PerfLog, null, t);
+            if (t.S != null && t.S.Cp == true)
+                CurrLog.Pa(PerfLog, null, t);
 
             return Result;
         }
 
-        /// <summary>
-        /// Run Common Try FuncToRun With Performance only Logging based on CurrCodeType for current MethodName.
-        /// Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
-        /// </summary>        
-        public static T Rp<T>(this Lg CurrLog, string MethodName, f<T> FuncToRun, string ClassName = null, Cx CustomCodeType = null, T ReturnOnError = default(T), string PerformanceComments = null, bool GetPerformanceStats = true)
-        {
-            if (FuncToRun == null)
-                return ReturnOnError;
-            return CurrLog.R(MethodName, FuncToRun, ClassName, CustomCodeType, ReturnOnError, null, PerformanceComments, false, GetPerformanceStats);
-        }
+        ///// <summary>
+        ///// Run Common Try Code Schema Block for ProcessToRun With Errors And Performance Logging based on CurrCodeType.
+        ///// Schema : Init --> Pre --> Validate --> 
+        ///// try[CustomUseTryCatch or CurrCodeType] 
+        ///// ((Process or ValidFalse or ValidNull) or Fail) with Error OnErrorCatch
+        ///// --> Post --> End.
+        ///// Check meyhods Init and End methods return bool? results and run CheckTrue/CheckFalse/CheckNull methods if available
+        ///// or return default on not true. 
+        ///// Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
+        ///// </summary>        
+        //public static ResT R<ParamT, ResT>(this Lg CurrLog, Pr<ParamT, ResT> ProcessToRun, Cx CustomCodeType = null)
+        //{
+        //    var t = CustomCodeType;
+        //    bool UseTryCatch = t != null && t.T;
+        //    Prf PerfLog = null;
 
-        /// <summary>
-        /// Run Common Try FuncToRun With Errors only Logging based on CurrCodeType.
-        /// Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
-        /// </summary>        
-        public static T Re<T>(this Lg CurrLog, string MethodName, f<T> FuncToRun, string ClassName = null, Cx CustomCodeType = null, T ReturnOnError = default(T), string CustomErrorMessage = null)
-        {
-            if (FuncToRun == null)
-                return ReturnOnError;
-            return CurrLog.R(MethodName, FuncToRun, ClassName, CustomCodeType, ReturnOnError, CustomErrorMessage, null, true, false);
-        }
+        //    bool UsePerformanceLog = t != null && t.S != null && t.S.Cp == true,
+        //        UseErrorLog = t != null && t.S != null && t.S.Cl == true;
 
-        /// <summary>
-        /// Run Common Try FuncToRun With Errors And Performance Logging based on CurrCodeType.
-        /// Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
-        /// </summary>        
-        public static T R<T>(this Lg CurrLog, string MethodName, f<T> FuncToRun, string ClassName = null, Cx CustomCodeType = null, T ReturnOnError = default(T), string CustomErrorMessage = null, string PerformanceComments = null, bool SendLogOnError = true, bool GetPerformanceStats = true)
-        {
-            if (FuncToRun == null)
-                return ReturnOnError;
+        //    if (UsePerformanceLog)
+        //        PerfLog = CurrLog.P(t);
 
-            var t = CustomCodeType; 
-            Prf PerfLog = null;
+        //    Pr<ParamT, ResT> Res = ProcessToRun;
 
-            bool UsePerformanceLog = GetPerformanceStats && CustomCodeType != null && t.Cp.L;
+        //    Res.Er = (param, result, exc, code) =>
+        //    {
+        //        if (UseErrorLog)
+        //            CurrLog.E(null, exc, t);
+        //        return (ProcessToRun.Er == null) ? result : ProcessToRun.Er(param, result, exc, t);
+        //    };
 
-            if (UsePerformanceLog)
-                PerfLog = CurrLog.P(t);
+        //    var ResultData = Ti(Res, t);
 
-            T Result = ReturnOnError;
-
-            if (t != null && t.T)
-            {
-                try
-                {
-                    Result = FuncToRun();
-                }
-                catch (Exception exc)
-                {
-                    if (SendLogOnError)
-                        CurrLog.E(ClassName, MethodName, CustomErrorMessage, exc, t);
-                    return ReturnOnError;
-                }
-            }
-            else
-                Result = FuncToRun();
-
-            if (UsePerformanceLog)
-                CurrLog.P(PerfLog, ClassName, MethodName, PerformanceComments, t);
-
-            return Result;
-        }
-
-        /// <summary>
-        /// Run Common Try Code Schema Block for ProcessToRun With Errors And Performance Logging based on CurrCodeType.
-        /// Schema : Init --> Pre --> Validate --> 
-        /// try[CustomUseTryCatch or CurrCodeType] 
-        /// ((Process or ValidFalse or ValidNull) or Fail) with Error OnErrorCatch
-        /// --> Post --> End.
-        /// Check meyhods Init and End methods return bool? results and run CheckTrue/CheckFalse/CheckNull methods if available
-        /// or return default on not true. 
-        /// Logging is saved to CustomLogToAddRecords or default static logs (_.D.L)
-        /// </summary>        
-        public static ResT R<ParamT, ResT>(this Lg CurrLog, Pr<ParamT, ResT> ProcessToRun, Cx CustomCodeType = null)
-        {
-            var t = CustomCodeType;
-            bool UseTryCatch = t != null && t.T;
-            Prf PerfLog = null;
-
-            bool UsePerformanceLog = t != null && t.Cp.L,
-                UseErrorLog = t != null && t.Ce.L;
-
-            if (UsePerformanceLog)
-                PerfLog = CurrLog.P(t);
-
-            Pr<ParamT, ResT> Res = ProcessToRun;
-
-            Res.Er = (param, result, exc, code) =>
-            {
-                if (UseErrorLog)
-                    CurrLog.E(null, exc, t);
-                return (ProcessToRun.Er == null) ? result : ProcessToRun.Er(param, result, exc, t);
-            };
-
-            var ResultData = Ti(Res, t);
-
-            if (UsePerformanceLog)
-                CurrLog.P(PerfLog, null, t);
-            return ResultData;
-        }
+        //    if (UsePerformanceLog)
+        //        CurrLog.P(PerfLog, null, t);
+        //    return ResultData;
+        //}
 
         #endregion
 
-        #region Start App
+        #region Start Apps Logs Utilities
+
+        /// <summary>
+        /// Get new Common App Context from current CurrSession with SaveLogsMethod and BaseContexts
+        /// </summary>
+        public static Ax<Tx> N<Tx>(this Sld CurrSession, f<Lst, bool> SaveLogsMethod, IDictionary<Tx, Cx> BaseContexts = null)
+        {
+            return new Ax<Tx>(CurrSession, SaveLogsMethod, BaseContexts);
+        }
+
+        /// <summary>
+        /// Get new Common SessionLog from current CurrentLogSettings to Log Init with MaxLogsLimit
+        /// </summary>
+        public static Sld N(this Sls CurrentLogSettings, string SolutionTitle = null, int? MaxLogsLimit = 10000)
+        {
+            var r = new Sld();
+
+            r.I = _.g;
+            r.A = Assembly.GetExecutingAssembly().ToString();
+
+            r.S = CurrentLogSettings;
+            r.M = MaxLogsLimit;
+            r.D = _.D;
+            r.Du = _.d;
+            r.T = SolutionTitle;
+
+            return r;
+        }
+
+        /// <summary>
+        /// Get new Common Session Log Settings for current CollectPerfLogs to Log Init with error logs enabled
+        /// </summary>
+        public static Sls Ns(this bool CollectPerfLogs, bool CollectErrorDetails = true, bool CollectPerfDetails = true, bool CollectUsers = true, bool CollectOSData = true)
+        {
+            var r = new Sls();
+
+            r.Cl = true;
+            r.Cp = CollectPerfLogs;
+            r.Ced = CollectErrorDetails;
+            r.Cpd = CollectPerfDetails;
+            r.Cu = CollectUsers;
+            r.Co = CollectOSData;
+
+            return r;
+        }
 
         #endregion
 
@@ -399,7 +384,6 @@ namespace ReUse_Std.Base
             return v / Kbv + " Kb";
         }
 
-
         /// <summary>
         /// Get Memory Usage value
         /// </summary>
@@ -506,7 +490,6 @@ namespace ReUse_Std.Base
         }
         #endregion
 
-
         #region SQL types
 
         public const SqlDbType qn = SqlDbType.NVarChar;
@@ -528,31 +511,8 @@ namespace ReUse_Std.Base
 
         #region App Exec Context utils
 
-        ///// <summary>
-        ///// Base default Application Execution Context (with default logs from static old format code)
-        ///// </summary>
-        //public static Ax C = Ge(null, null);
-        /// <summary>
-        /// Application logging
-        /// </summary>
-        //public _Log L;
-
-        /// <summary>
-        /// Get Common Context with errors and performance with CollectPerfProcessDetails
-        /// </summary>
-        public static Ax Ge(this Sld CurrSession, f<Lst, bool> SaveLogsMethod, bool LogPerformance = true, bool CollectPerfProcessDetails = true)
-        {
-            return new Ax(CurrSession, SaveLogsMethod, LogPerformance, CollectPerfProcessDetails);
-        }
-
-        /// <summary>
-        /// Get Common Context with CommonCodeType
-        /// </summary>
-        public static Ax G(this Sld CurrSession, f<Lst, bool> SaveLogsMethod, Cx CommonCodeType)
-        {
-            return new Ax(CurrSession, SaveLogsMethod, CommonCodeType);
-        }
-
+        
+                
         #endregion
     }
 
@@ -564,124 +524,19 @@ namespace ReUse_Std.Base
     public static class Code_Type_Utils
     {
         /// <summary>
-        /// Create new CodeType for App with current code UseTryCatch setting
+        /// Create new Code Context for current Settings with UseTryCatch, LogError and Elevated setting
         /// </summary>
-        public static Cx Tn(this bool UseTryCatch, bool LogError = true, bool LogPerformance = true, bool? ErrorIsCritical = null, bool? GetPerformanceProcessData = null, int? ArrayItemSize = null, int? CodeIndex = null, string ParametersData = null, string CustomDetails = null)
+        public static Cx X(this Sls Settings, bool UseTryCatch = true, bool LogError = true, bool Elevated = false)
         {
-            var Res = new Cx();
+            var Res = new Cx() { S = new Sls() };
 
             Res.T = UseTryCatch;
-            Res.P = GetPerformanceProcessData;
-            Res.Cr = ErrorIsCritical;
-
-            Res.Cp = LogError.Cc(ParametersData, CustomDetails, ArrayItemSize, CodeIndex);
-            Res.Ce = LogError.Cc(ParametersData, CustomDetails, ArrayItemSize, CodeIndex);
+            Res.S = Settings;
+            Res.L = LogError;
+            Res.E = Elevated;
 
             return Res;
         }
-
-        /// <summary>
-        /// Create new CodeType for Error with current code UseTryCatch setting
-        /// </summary>
-        public static Cx Te(this bool UseTryCatch, bool LogPerformance = true, bool? GetPerformanceProcessData = null, bool? ErrorIsCritical = null, int? ArrayItemSize = null, int? CodeIndex = null, string ParametersData = null, string CustomDetails = null)
-        {
-            var Res = new Cx();
-
-            Res.T = UseTryCatch;
-            Res.P = GetPerformanceProcessData;
-            Res.Cr = ErrorIsCritical;
-
-            Res.Cp = ParametersData.Ccl(CustomDetails, ArrayItemSize, CodeIndex);
-            Res.Ce = ParametersData.Ccl(CustomDetails, ArrayItemSize, CodeIndex);
-
-            return Res;
-        }
-
-        /// <summary>
-        /// Create new CodeType for Error Only with current code UseTryCatch setting
-        /// </summary>
-        public static Cx Teo(this bool UseTryCatch, bool? ErrorIsCritical = null, int? ArrayItemSize = null, int? CodeIndex = null, string ParametersData = null, string CustomDetails = null)
-        {
-            var Res = new Cx();
-
-            Res.T = UseTryCatch;
-            Res.P = null;
-            Res.Cr = ErrorIsCritical;
-
-            Res.Cp = false.Cc(ParametersData, CustomDetails, ArrayItemSize, CodeIndex);
-            Res.Ce = ParametersData.Ccl(CustomDetails, ArrayItemSize, CodeIndex);
-
-            return Res;
-        }
-
-        /// <summary>
-        /// Create new CodeType for Perf with current code UseTryCatch setting
-        /// </summary>
-        public static Cx Tp(this bool UseTryCatch, bool LogError = true, bool? ErrorIsCritical = null, bool? GetPerformanceProcessData = true, int? ArrayItemSize = null, int? CodeIndex = null, string ParametersData = null, string CustomDetails = null)
-        {
-            var Res = new Cx();
-
-            Res.T = UseTryCatch;
-            Res.P = GetPerformanceProcessData;
-            Res.Cr = ErrorIsCritical;
-
-            Res.Cp = ParametersData.Ccl(CustomDetails, ArrayItemSize, CodeIndex);
-            Res.Ce = LogError.Cc(ParametersData, CustomDetails, ArrayItemSize, CodeIndex);
-
-            return Res;
-        }
-
-        /// <summary>
-        /// Create new CodeType for Common Perf with current code UseTryCatch setting
-        /// </summary>
-        public static Cx Tpc(this bool UseTryCatch, bool LogError = true, bool? ErrorIsCritical = null, int? ArrayItemSize = null, int? CodeIndex = null, string ParametersData = null, string CustomDetails = null)
-        {
-            var Res = new Cx();
-
-            Res.T = UseTryCatch;
-            Res.P = null;
-            Res.Cr = ErrorIsCritical;
-
-            Res.Cp = ParametersData.Ccl(CustomDetails, ArrayItemSize, CodeIndex);
-            Res.Ce = LogError.Cc(ParametersData, CustomDetails, ArrayItemSize, CodeIndex);
-
-            return Res;
-        }
-
-        /// <summary>
-        /// Create new CodeType for Perf with Details with current code UseTryCatch setting
-        /// </summary>
-        public static Cx Tpd(this bool UseTryCatch, bool LogError = true, bool? ErrorIsCritical = null, int? ArrayItemSize = null, int? CodeIndex = null, string ParametersData = null, string CustomDetails = null)
-        {
-            var Res = new Cx();
-
-            Res.T = UseTryCatch;
-            Res.P = true;
-            Res.Cr = ErrorIsCritical;
-
-            Res.Cp = ParametersData.Ccl(CustomDetails, ArrayItemSize, CodeIndex);
-            Res.Ce = LogError.Cc(ParametersData, CustomDetails, ArrayItemSize, CodeIndex);
-
-            return Res;
-        }
-
-        /// <summary>
-        /// Create new CodeType for Tests with current code UseTryCatch setting
-        /// </summary>
-        public static Cx Tt(this bool UseTryCatch, int? ArrayItemSize = null, bool? GetPerformanceProcessData = true, bool LogError = true, string ParametersData = null, string CustomDetails = null, int? CodeIndex = null)
-        {
-            var Res = new Cx();
-
-            Res.T = UseTryCatch;
-            Res.P = GetPerformanceProcessData;
-            Res.Cr = null;
-
-            Res.Cp = ParametersData.Ccl(CustomDetails, ArrayItemSize, CodeIndex);
-            Res.Ce = LogError.Cc(ParametersData, CustomDetails, ArrayItemSize, CodeIndex);
-
-            return Res;
-        }
-
     }
 
     /// <summary>
@@ -690,67 +545,53 @@ namespace ReUse_Std.Base
     public static class Code_CommonUtils
     {
         /// <summary>
-        /// Create new CodeCommon details with Logs for current ParametersData setting
+        /// Create new Common method execution details for common code with current LogIndex setting
         /// </summary>
-        public static Cm Ccl(this string ParametersData, string CustomDetails = null, int? ArraySize = null, int? CodeIndex = null, Ab Block = null)
+        public static Cm M(this int LogIndex, string ClassNane = null, string MethodName = null, string CustomDetails = null, string ParametersData = null, int? ArraySize = null, Ab Block = null, bool LogError = true)
         {
             Cm Res = new Cm();
 
-            Res.L = true;
-            Res.P = ParametersData;
-            Res.D = CustomDetails;
-            Res.As = ArraySize;
-            Res.Li = CodeIndex;
-            Res.B = Block;
-
-            return Res;
-        }
-
-        /// <summary>
-        /// Create new CodeCommon details for common code for current LogError setting
-        /// </summary>
-        public static Cm Cc(this bool LogError, string ParametersData = null, string CustomDetails = null, int? ArraySize = null, int? CodeIndex = null, Ab Block = null)
-        {
-            Cm Res = new Cm();
-
+            Res.C = ClassNane;
+            Res.M = MethodName;
             Res.L = LogError;
             Res.P = ParametersData;
             Res.D = CustomDetails;
             Res.As = ArraySize;
-            Res.Li = CodeIndex;
+            Res.Li = LogIndex;
             Res.B = Block;
 
             return Res;
         }
 
         /// <summary>
-        /// Create new CodeArrayBlock details for Logs for current ArrayBlockSize setting
+        /// Create new Common method execution details for common code with current LogError setting
         /// </summary>
-        public static Ab Cc(this int? ArrayBlockSize, string CustomArrayBlockMessage = null)
-        {
-            Ab Res = new Ab();
-
-            Res.S = ArrayBlockSize;
-            Res.M = CustomArrayBlockMessage;
-
-            return Res;
-        }
-
-        /// <summary>
-        /// Create new CodeCommon details for Tests for current LogError setting
-        /// </summary>
-        public static Cm Cct(this bool LogError, string LogSQL_ConnString = null, string LogXML_DirPath = null, Ab Block = null, int? ArraySize = null, string ParametersData = null, string CustomDetails = null, int? CodeIndex = null)
+        public static Cm M(this bool LogError, string ClassNane = null, string MethodName = null, string CustomDetails = null, string ParametersData = null, int? ArraySize = null, Ab Block = null, int? LogIndex = null)
         {
             Cm Res = new Cm();
 
+            Res.C = ClassNane;
+            Res.M = MethodName;
             Res.L = LogError;
             Res.P = ParametersData;
             Res.D = CustomDetails;
             Res.As = ArraySize;
-            Res.Li = CodeIndex;
+            Res.Li = LogIndex;
             Res.B = Block;
-            Res.Lq = LogSQL_ConnString;
-            Res.Lx = LogXML_DirPath;
+
+            return Res;
+        }
+       
+        /// <summary>
+        /// Sets method context Arrays data for current CurrCode - ArraySize, ArrayBlockSize, CustomArrayBlockMessage
+        /// </summary>
+        public static Cm S(this Cm CurrCode, int? ArraySize = null, int? ArrayBlockSize = null, string CustomArrayBlockMessage = null)
+        {
+            Cm Res = new Cm();
+
+            if (ArrayBlockSize != null || CustomArrayBlockMessage != null)
+                CurrCode.B = new Ab() { S = ArrayBlockSize, M = CustomArrayBlockMessage };
+            CurrCode.As = ArraySize;
 
             return Res;
         }
@@ -767,28 +608,6 @@ namespace ReUse_Std.Base
 
             return Res;
         }
-    }
-
-    /// <summary>
-    /// CodeEntry Utils
-    /// </summary>
-    public static class Code_EntryUtils
-    {
-        /// <summary>
-        /// Create new CodeEntryData for current ClassName
-        /// </summary>
-        public static Ed Ce(this string ClassName, string MethodName = null, string CustomErrorMessage = null, string PerformanceComments = null)
-        {
-            Ed Res = new Ed();
-
-            Res.C = ClassName;
-            Res.M = MethodName;
-            Res.Me = CustomErrorMessage;
-            Res.Cp = PerformanceComments;
-
-            return Res;
-        }
-
     }
 
     /// <summary>
@@ -915,43 +734,26 @@ namespace ReUse_Std.Base
     #region Code Data Structs
 
     /// <summary>
-    /// Global Applications Common Execution Context
+    /// Global Applications Common Execution Context with Typed Contexts collection
     /// </summary>
-    public class Ax : D<bool>
+    public class Ax<Tx> : D<bool>
     {
         /// <summary>
-        /// Base default app Code Type
+        /// Base default app Code Contexts Typed collection
         /// </summary>
-        public Cx T;
+        public IDictionary<Tx,Cx> T;
         /// <summary>
         /// Application logging
         /// </summary>
         public Lg L;
-
+                
         /// <summary>
         /// Get Common Context with errors and performance with process details
         /// </summary>
-        public Ax(Sld CurrSession, f<Lst, bool> SaveLogsMethod, bool LogPerformance = true, bool CollectPerfProcessDetails = true)
+        public Ax(Sld CurrSession, f<Lst, bool> SaveLogsMethod, IDictionary<Tx, Cx> BaseContexts = null)
             : base(null, true)
         {
-            T = true.Te(LogPerformance, CollectPerfProcessDetails);
-            L = CurrSession.N(SaveLogsMethod);
-            this.M = () =>
-            {
-                if(L != null)
-                    L.Save();
-                return true; 
-            };            
-        }
-
-
-        /// <summary>
-        /// Get Common Context with errors and performance with process details
-        /// </summary>
-        public Ax(Sld CurrSession, f<Lst, bool> SaveLogsMethod, Cx BaseType = null)
-            : base(null, true)
-        {
-            T = BaseType;
+            T = BaseContexts;
             L = CurrSession.N(SaveLogsMethod);
             this.M = () =>
             {
@@ -961,145 +763,7 @@ namespace ReUse_Std.Base
             };
         }
     }
-
-    /// <summary>
-    /// Code Type Execution Context
-    /// </summary>
-    public class Cx
-    {
-        /// <summary>
-        /// Use Try Catch
-        /// </summary>
-        public bool T;
-        /// <summary>
-        /// Get Performance Process Data
-        /// </summary>
-        public bool? P;
-        /// <summary>
-        /// Error Is Critical
-        /// </summary>
-        public bool? Cr;
-        /// <summary>
-        /// Re Throw On Error
-        /// </summary>
-        public bool? R;
-
-        /// <summary>
-        /// Code Common Performance
-        /// </summary>
-        public Cm Cp;
-        /// <summary>
-        /// Code Common Error Data
-        /// </summary>
-        public Cm Ce;
-        /// <summary>
-        /// Code Common Asp
-        /// </summary>
-        public Cm Ca;
-        /// <summary>
-        /// Code Common Threads
-        /// </summary>
-        public Cm Ctr;
-        /// <summary>
-        /// Code Common Test
-        /// </summary>
-        public Cm Ct;
-
-        /// <summary>
-        /// Code Entry
-        /// </summary>
-        public Ed C;
-    }
-
-    /// <summary>
-    /// Code Common details  - ParametersData, Details, ArrayItemSize, LogIndex etc
-    /// </summary>
-    public class Cm
-    {
-        /// <summary>
-        /// Log 
-        /// </summary>
-        public bool L;
-        /// <summary>
-        /// Parameters Data
-        /// </summary>
-        public string P;
-        /// <summary>
-        /// Details
-        /// </summary>
-        public string D;
-        /// <summary>
-        /// Array Size
-        /// </summary>
-        public int? As;
-        /// <summary>
-        /// Log Index
-        /// </summary>
-        public int? Li;
-        /// <summary>
-        /// Array Block Details 
-        /// </summary>
-        public Ab B;
-        /// <summary>
-        /// Log SQL Conn String
-        /// </summary>
-        public string Lq;
-        /// <summary>
-        /// Log XML Dir Path
-        /// </summary>
-        public string Lx;
-    }
-
-    /// <summary>
-    /// Common Code Entry Data -  class/method details with comments
-    /// </summary>
-    public class Ed
-    {
-        /// <summary>
-        /// Class Name
-        /// </summary>
-        public string C;
-        /// <summary>
-        /// Method Name
-        /// </summary>
-        public string M;
-        /// <summary>
-        /// Custom Error Message
-        /// </summary>
-        public string Me;
-        /// <summary>
-        /// Custom Info Message
-        /// </summary>
-        public string Mi;
-        /// <summary>
-        /// Performance Comments
-        /// </summary>
-        public string Cp;
-        /// <summary>
-        /// Testing Comments
-        /// </summary>
-        public string Ct;
-        /// <summary>
-        /// Threading Comments
-        /// </summary>
-        public string Ctr;
-    }
-
-    /// <summary>
-    /// Code Array Block Details for block / buffer / paged methods
-    /// </summary>
-    public class Ab
-    {
-        /// <summary>
-        /// Array Block Size
-        /// </summary>
-        public int? S;
-        /// <summary>
-        /// Custom Array Block Message
-        /// </summary>
-        public string M;
-    }
-
+        
     /// <summary>
     /// Common Process Data Functions
     /// </summary>    
@@ -1174,11 +838,6 @@ namespace ReUse_Std.Base
         /// </summary>
         public bool? Re;
     }
-
-    //public struct CodeError
-    //{
-
-    //} 
 
     /// <summary>
     /// Memory value Type - Kb, Mb, Gb
