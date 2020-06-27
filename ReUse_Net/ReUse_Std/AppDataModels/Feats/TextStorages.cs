@@ -34,7 +34,7 @@ namespace ReUse_Std.AppDataModels.Feats
 		/// <summary>
 		/// Checked
 		/// </summary>
-		public bool U { get; set; }
+		public bool? U { get; set; }
 		///// <summary>
 		///// Checked
 		///// </summary>
@@ -70,11 +70,11 @@ namespace ReUse_Std.AppDataModels.Feats
 		/// <summary>
 		/// Used
 		/// </summary>
-		public bool U { get; set; }
+		public bool? U { get; set; }
 		/// <summary>
 		/// New line as delimiter
 		/// </summary>
-		public bool N { get; set; }
+		public bool? N { get; set; }
 
 		/// <summary>
 		/// Values Lists

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReUse_Std.Language.Base
+namespace ReUse_Std.Base
 {
     public static class AsyncUtils
     {
@@ -22,5 +22,22 @@ namespace ReUse_Std.Language.Base
         {
             await Task.WhenAll(TasksToRun);
         }
+
+        /// <summary>
+        /// Run current async TaskToRun synchronously using Wait 
+        /// </summary>
+        public static void r(this Task TaskToRun)
+        {
+            TaskToRun.Wait();
+        }
+
+        /// <summary>
+        /// Run current async TaskToRun synchronously using Result
+        /// </summary>
+        public static T r<T>(this Task<T> TaskToRun)
+        {
+            return TaskToRun.Result;
+        }
+
     }
 }

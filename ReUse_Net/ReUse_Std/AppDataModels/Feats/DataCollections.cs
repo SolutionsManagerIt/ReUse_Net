@@ -49,6 +49,6 @@ namespace ReUse_Std.AppDataModels.Feats
 		/// <summary>
 		/// Checked
 		/// </summary>
-		public bool Ch { get; set; }
+		public bool? Ch { get; set; }
 	}
 }
