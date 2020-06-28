@@ -34,6 +34,8 @@ namespace ReUse_Std.Common
         /// </summary>
         public static IEnumerable<string> Pc(this string DataRowContent, string ColumnsDelimiter = ";")
         {
+            if (DataRowContent == null)
+                return null;
             return DataRowContent.Split(new string[] { ColumnsDelimiter }, StringSplitOptions.None).ToList();
         }
 

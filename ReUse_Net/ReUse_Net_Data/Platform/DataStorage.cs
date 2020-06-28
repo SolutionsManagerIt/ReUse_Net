@@ -25,6 +25,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static T N<T>(this T CurrContext) where T : DbContext
         {
+            if (CurrContext == null)
+                return CurrContext;
             CurrContext.Database.CreateIfNotExists();
             return CurrContext;
         }
@@ -34,6 +36,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static T D<T>(this T CurrContext) where T : DbContext
         {
+            if (CurrContext == null)
+                return CurrContext;
             CurrContext.Database.Delete();
             return CurrContext;
         }
@@ -48,6 +52,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static T U<T>(this T CurrContext, v<T> MethodToUpdateData) where T : DbContext
         {
+            if (CurrContext == null || MethodToUpdateData == null)
+                return CurrContext;
             using (var c = CurrContext)
             {
                 MethodToUpdateData(c);
@@ -61,6 +67,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static T R<T>(this T CurrContext, v<T> MethodToReadData) where T : DbContext
         {
+            if (CurrContext == null || MethodToReadData == null)
+                return CurrContext;
             using (var c = CurrContext)
             {
                 MethodToReadData(c);
@@ -73,6 +81,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static async Task Ua<T>(this T CurrContext, v<T> MethodToUpdateData) where T : DbContext
         {
+            if (CurrContext == null || MethodToUpdateData == null)
+                return;
             using (var c = CurrContext)
             {
                 MethodToUpdateData(c);
@@ -85,6 +95,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static async Task Ra<T, F>(this T CurrContext, f<T, Task<F>> MethodToReadData) where T : DbContext
         {
+            if (CurrContext == null || MethodToReadData == null)
+                return;
             using (var c = CurrContext)
             {
                 await MethodToReadData(c);
@@ -100,6 +112,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static async Task<bool> Ua<T>(this T[] ElementsToUpdate, string ConnectionName) where T : class
         {
+            if (ElementsToUpdate == null || ConnectionName == null)
+                return false;
             var cs = new DCx<T>(ConnectionName);
             await cs.Ua(c =>
             {
@@ -113,6 +127,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static bool U<T>(this T[] ElementsToUpdate, string ConnectionName) where T : class
         {
+            if (ElementsToUpdate == null || ConnectionName == null)
+                return false;
             var cs = new DCx<T>(ConnectionName);
             cs.U(c =>
             {
@@ -127,6 +143,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static async Task<bool> ua<T>(this T ElementToUpdate, string ConnectionName) where T : class
         {
+            if (ElementToUpdate == null || ConnectionName == null)
+                return false;
             var cs = new DCx<T>(ConnectionName);
             await cs.Ua(c =>
             {
@@ -140,6 +158,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static bool u<T>(this T ElementToUpdate, string ConnectionName) where T : class
         {
+            if (ElementToUpdate == null || ConnectionName == null)
+                return false;
             var cs = new DCx<T>(ConnectionName);
             cs.U(c =>
             {
@@ -160,6 +180,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static IQueryable<T> I<T, TProperty>(this IQueryable<T> Storage, Expression<Func<T, TProperty>> IncludePath, params Expression<Func<T, TProperty>>[] MorePathes)
         {
+            if (Storage == null || IncludePath == null)
+                return null;
             var r = Storage.Include(IncludePath);
             foreach (Expression<Func<T, TProperty>> cn in MorePathes)
                 r = r.Include(cn);
@@ -171,6 +193,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static IQueryable<T> I<T, TPr, TPr1>(this IQueryable<T> Storage, Expression<Func<T, TPr>> IncludePath, Expression<Func<T, TPr1>> IncludePath1)
         {
+            if (Storage == null || IncludePath == null)
+                return null;
             var r = Storage.Include(IncludePath);
             if (IncludePath1 != null)
                 r = r.Include(IncludePath1);
@@ -182,6 +206,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static IQueryable<T> I<T, TPr, TPr1, TPr2>(this IQueryable<T> Storage, Expression<Func<T, TPr>> IncludePath, Expression<Func<T, TPr1>> IncludePath1, Expression<Func<T, TPr2>> IncludePath2)
         {
+            if (Storage == null || IncludePath == null)
+                return null;
             var r = Storage.Include(IncludePath);
             if(IncludePath1 != null)
                 r = r.Include(IncludePath1);
@@ -195,6 +221,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static IQueryable<T> I<T, TPr, TPr1, TPr2, TPr3>(this IQueryable<T> Storage, Expression<Func<T, TPr>> IncludePath, Expression<Func<T, TPr1>> IncludePath1, Expression<Func<T, TPr2>> IncludePath2, Expression<Func<T, TPr3>> IncludePath3)
         {
+            if (Storage == null || IncludePath == null)
+                return null;
             var r = Storage.Include(IncludePath);
             if (IncludePath1 != null)
                 r = r.Include(IncludePath1);
@@ -210,6 +238,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static IQueryable<T> I<T, TPr, TPr1, TPr2, TPr3, TPr4>(this IQueryable<T> Storage, Expression<Func<T, TPr>> IncludePath, Expression<Func<T, TPr1>> IncludePath1, Expression<Func<T, TPr2>> IncludePath2, Expression<Func<T, TPr3>> IncludePath3, Expression<Func<T, TPr4>> IncludePath4)
         {
+            if (Storage == null || IncludePath == null)
+                return null;
             var r = Storage.Include(IncludePath);
             if (IncludePath1 != null)
                 r = r.Include(IncludePath1);
@@ -227,6 +257,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static IQueryable<T> I<T, TPr, TPr1, TPr2, TPr3, TPr4, TPr5>(this IQueryable<T> Storage, Expression<Func<T, TPr>> IncludePath, Expression<Func<T, TPr1>> IncludePath1, Expression<Func<T, TPr2>> IncludePath2, Expression<Func<T, TPr3>> IncludePath3, Expression<Func<T, TPr4>> IncludePath4, Expression<Func<T, TPr5>> IncludePath5)
         {
+            if (Storage == null || IncludePath == null)
+                return null;
             var r = Storage.Include(IncludePath);
             if (IncludePath1 != null)
                 r = r.Include(IncludePath1);
@@ -249,6 +281,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static IEnumerable<T1> Gd<T1>(this string ConnectionName, f<IQueryable<T1>, IQueryable<T1>> MethodToInclude = null, f<T1, bool> MethodToSelect = null, bool EnsureStructure = true) where T1 : class
         {
+            if (ConnectionName == null)
+                return null;
             var cs = new DCx<T1>(ConnectionName);
             if (EnsureStructure)
                 cs.N();
@@ -275,6 +309,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static IEnumerable<T1> Gd<T1, T2>(this string ConnectionName, f<IQueryable<T1>, IQueryable<T1>> MethodToInclude, f<IQueryable<T2>, IQueryable<T2>> MethodToInclude2 = null, f<T1, bool> MethodToSelect = null, bool EnsureStructure = true) where T1 : class where T2 : class
         {
+            if (ConnectionName == null)
+                return null;
             var cs = new DCx<T1, T2>(ConnectionName);
             if (EnsureStructure)
                 cs.N();
@@ -304,6 +340,8 @@ namespace ReUse_Net_Data.Platform
         /// </summary>
         public static IEnumerable<T1> Gd<T1, T2, T3>(this string ConnectionName, f<IQueryable<T1>, IQueryable<T1>> MethodToInclude, f<IQueryable<T2>, IQueryable<T2>> MethodToInclude2, f<IQueryable<T3>, IQueryable<T3>> MethodToInclude3 = null, f<T1, bool> MethodToSelect = null, bool EnsureStructure = true) where T1 : class where T2 : class where T3 : class
         {
+            if (ConnectionName == null)
+                return null;
             var cs = new DCx<T1, T2, T3>(ConnectionName);
             if (EnsureStructure)
                 cs.N();

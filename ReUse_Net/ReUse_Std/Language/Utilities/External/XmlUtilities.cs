@@ -21,6 +21,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static XmlDocument Xl(this string FilePath, bool AddCurrentDirectory = true)
         {
+            if (FilePath == null)
+                return null;
             XmlDocument xml = new XmlDocument();
             var dir = AddCurrentDirectory ? Environment.CurrentDirectory + "\\" : "";
             xml.Load(dir + FilePath);
@@ -32,6 +34,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static XDocument Xq(this string FilePath, bool AddCurrentDirectory = true)
         {
+            if (FilePath == null)
+                return null;
             var dir = AddCurrentDirectory ? Environment.CurrentDirectory + "\\" : "";
             return XDocument.Load(dir + FilePath);
         }
@@ -41,6 +45,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static XDocument Xn(this string RootElementTitle)
         {
+            if (RootElementTitle == null)
+                return null;
             var x = new XDocument(new XElement(RootElementTitle));
             //x.Add(new XElement(RootElementTitle));
             return x;
@@ -51,6 +57,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static XDocument S(this XDocument XmlData, string FilePath, bool AddCurrentDirectory = true)
         {
+            if (FilePath == null || XmlData == null)
+                return null;
             var dir = AddCurrentDirectory ? Environment.CurrentDirectory + "\\" : "";
             XmlData.Save(dir + FilePath);
             return XmlData;
@@ -65,6 +73,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static XDocument Gx(this string TextData)
         {
+            if (TextData == null)
+                return null;
             if (TextData.C())
                 return XDocument.Parse(TextData);
             return null;
@@ -75,6 +85,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static IEnumerable<XElement> E(this XElement Curr, string Title = null, string SubTitle = null, string SubSubTitle = null)
         {
+            if (Curr == null)
+                return null;
             IEnumerable<XElement> rs = null;
             if (Title.C())
                 rs = Curr.Elements(Title);
@@ -92,6 +104,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static IEnumerable<XElement> E(this IEnumerable<XElement> Curr, string Title = null, string SubTitle = null, string SubSubTitle = null)
         {
+            if (Curr == null)
+                return null;
             IEnumerable<XElement> rs;
             if (Title.C())
                 rs = Curr.Elements(Title);
@@ -109,6 +123,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static string v(this XElement[] Curr, int ItemNo = 0)
         {
+            if (Curr == null)
+                return null;
             int i = ItemNo;
             if(i < 0)
                 i = 0;
@@ -123,6 +139,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static XElement e(this XElement Curr, string Title = null, string SubTitle = null, string SubSubTitle = null)
         {
+            if (Curr == null)
+                return null;
             XElement rs;
             if (Title.C())
                 rs = Curr.Element(Title);
@@ -140,6 +158,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static string a(this XElement Curr, string Title, string SubElementTitle = null, string SubSubElementTitle = null)
         {
+            if (Curr == null)
+                return null;
             if (SubElementTitle.C())
                 return Curr.e(SubElementTitle, SubSubElementTitle).Attribute(Title).Value;
             return Curr.Attribute(Title).Value;
@@ -154,6 +174,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static T[] X<T>(this string FilePath, f<XElement, T[]> MethodToProcessRootElement, bool AddCurrentDirectory = true, bool SaveDocumentAfterProcess = false, string SaveFilePath = null, bool SaveAddCurrentDirectory = true)
         {
+            if (FilePath == null)
+                return null;
             var r = FilePath.Xq(AddCurrentDirectory);
             var res = MethodToProcessRootElement(r.Root);
             if (SaveDocumentAfterProcess)
@@ -170,6 +192,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static string G(this XmlDocument CurrDoc, string ElementPath, string AttributePath = null, Xv ValueType = Xv.V)
         {
+            if (CurrDoc == null)
+                return null;
             var r = CurrDoc.DocumentElement[ElementPath];
             if (r == null)
                 return null;
@@ -187,6 +211,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static IDictionary<string, string> G(this XmlDocument CurrDoc, string ElementPath, Xv ValueType = Xv.V, IEnumerable<string> TheseAttributesOnly = null)
         {
+            if (CurrDoc == null)
+                return null;
             var r = CurrDoc.DocumentElement[ElementPath];
             if (r == null || r.Attributes == null || r.Attributes.Count < 0)
                 return null;
@@ -205,6 +231,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static string G(this XmlElement CurrElement, Xv ValueType = Xv.V)
         {
+            if (CurrElement == null)
+                return null;
             return ValueType == Xv.T ? CurrElement.InnerText : ValueType == Xv.X ? CurrElement.InnerXml : ValueType == Xv.O ? CurrElement.OuterXml : CurrElement.Value;
         }
 
@@ -213,6 +241,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static string G(this XmlAttribute CurrElement, Xv ValueType = Xv.V)
         {
+            if (CurrElement == null)
+                return null;
             return ValueType == Xv.T ? CurrElement.InnerText : ValueType == Xv.X ? CurrElement.InnerXml : ValueType == Xv.O ? CurrElement.OuterXml : CurrElement.Value;
         }
 
@@ -225,6 +255,9 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static XElement G<T>(this XElement CurrRootElem, out T CurrentValue, f<XElement, T> MethodToProcess, string SubElementPath = null, string SelectElementsPath = null)
         {
+            CurrentValue = default;
+            if (CurrRootElem == null)
+                return null;
             CurrentValue = CurrRootElem._g(MethodToProcess, (ref XElement i) =>
             {
                 if (SubElementPath != null)
@@ -250,6 +283,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static IDictionary<string, string> G(this XElement CurrRootElem, IEnumerable<string> TheseAttributesOnly = null, string SubElementPath = null, string SelectElementsPath = null, bool AddElementValue = true)
         {
+            if (CurrRootElem == null)
+                return null;
             var rs = new Dictionary<string, string>();
             CurrRootElem.G(out rs, r =>
             {
@@ -274,6 +309,9 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static XElement Gd<T>(this XElement CurrRootElem, out T CurrentValue, f<IDictionary<string, string>, T> MethodToProcess, string SubElementPath = null, string SelectElementsPath = null, IEnumerable<string> TheseAttributesOnly = null, bool AddElementValue = true)
         {
+            CurrentValue = default;
+            if (CurrRootElem == null)
+                return null;
             return CurrRootElem.G(out CurrentValue, r =>
             {
                 return MethodToProcess(r.G(TheseAttributesOnly, SelectElementsPath, null, AddElementValue));
@@ -285,6 +323,9 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static XElement Ga<T>(this XElement CurrRootElem, out IEnumerable<T> CurrentValues, f<XElement, T> MethodToProcess, string SubElementsPath = null, string SelectElementsPath = null)
         {
+            CurrentValues = null;
+            if (CurrRootElem == null)
+                return null;
             if (SelectElementsPath != null)
             {
                 if (SubElementsPath != null)
@@ -308,6 +349,9 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static XElement Gd<T>(this XElement CurrRootElem, out IEnumerable<T> CurrentValues, f<IDictionary<string, string>, T> MethodToProcess, string SubElementsPath = null, string SelectElementsPath = null, IEnumerable<string> TheseAttributesOnly = null, bool AddElementValue = true)
         {
+            CurrentValues = null;
+            if (CurrRootElem == null)
+                return null;
             return CurrRootElem.Ga(out CurrentValues, r =>
             {
                 return MethodToProcess(r.G(TheseAttributesOnly, SelectElementsPath, null, AddElementValue));
@@ -324,6 +368,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static XElement S(this XElement CurrRootElem, string ElementName, f<IEnumerable<object>> MethodToProcess, string SubElementPath = null, fr<XElement> MethodToPostProcessElement = null)
         {
+            if (CurrRootElem == null)
+                return null;
             var s = SubElementPath.C();
             return CurrRootElem._gc(r =>
             {
@@ -357,6 +403,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static XElement S(this XElement CurrRootElem, string ElementName, string SubElementPath = null, IDictionary<string, object> Attributes = null, fr<XElement> MethodToPostProcessElement = null)
         {
+            if (CurrRootElem == null)
+                return null;
             return CurrRootElem.S(ElementName, () =>
             {
                 return Attributes.Select(e => (object)(new XAttribute(e.Key, e.Value)));
@@ -368,6 +416,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static XElement Sd(this XElement CurrRootElem, string ElementName, f<IDictionary<string, object>> MethodToProcess, string SubElementPath = null, fr<XElement> MethodToPostProcessElement = null)
         {
+            if (CurrRootElem == null)
+                return null;
             return CurrRootElem.S(ElementName, () =>
             {
                 var x = MethodToProcess();
@@ -382,7 +432,7 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static XElement Sa<T>(this XElement CurrRootElem, string ElementName, IEnumerable<T> Data, f<T, IEnumerable<object>> MethodToProcess, string SubElementPath = null, frv<XElement, T> MethodToPostProcessElement = null, string SubElementCounter = null)
         {
-            if (Data == null)
+            if (CurrRootElem == null || Data == null)
                 return CurrRootElem;
             var s = SubElementPath.C();
             var c = Data.Count();
@@ -426,6 +476,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static XElement Sda<T>(this XElement CurrRootElem, string ElementName, IEnumerable<T> Data, f<T, IDictionary<string, object>> MethodToProcess, string SubElementPath = null, frv<XElement, T> MethodToPostProcessElement = null)
         {
+            if (CurrRootElem == null || Data == null)
+                return null;
             return CurrRootElem.Sa(ElementName, Data, (i) =>
             {
                 var x = MethodToProcess(i);
@@ -441,7 +493,7 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         public static XElement S(this XElement CurrRootElem, IEnumerable<object> ElementsToAdd, string ElementName = "m", string ElementAttr = "x", string SubElementPath = null, string SubElementCounter = null)
         {
-            if (ElementsToAdd == null)
+            if (CurrRootElem == null || ElementsToAdd == null)
                 return CurrRootElem;
 
             var s = SubElementPath.C();
@@ -479,6 +531,8 @@ namespace ReUse_Std.Utilities.External.Xml
         /// </summary>
         private static fr<XElement> Sc(this XElement CurrRootElem, string SubElementPath)
         {
+            if (CurrRootElem == null)
+                return null;
             return (ref XElement i) =>
             {
                 if (SubElementPath.C())

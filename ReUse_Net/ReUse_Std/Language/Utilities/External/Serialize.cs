@@ -19,6 +19,8 @@ namespace ReUse_Std.Utilities.External.Serialize
         /// <remarks><para>The Value object is saved using .NET serialization (binary formatter is used).</para></remarks>
         public static void _Fs<T>(this string CurrFilePath, T Value)
         {
+            if (CurrFilePath == null)
+                return;
             using (var str = new FileStream(CurrFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 _S(str, Value);
@@ -32,6 +34,8 @@ namespace ReUse_Std.Utilities.External.Serialize
         /// <remarks><para>The Value object is saved using .NET serialization (binary formatter is used).</para></remarks>
         public static void _S<T>(this Stream CurrStream, T Value)
         {
+            if (CurrStream == null)
+                return;
             IFormatter f = new BinaryFormatter();
             f.Serialize(CurrStream, Value);
         }
@@ -44,6 +48,8 @@ namespace ReUse_Std.Utilities.External.Serialize
         /// <remarks><para>Data object is loaded from file using .NET serialization (binary formater is used).</para></remarks>
         public static T _Fd<T>(this string CurrFilePath, T DefaultValue = default(T))
         {
+            if (CurrFilePath == null)
+                return DefaultValue;
             T Data = DefaultValue;
             using (var str = new FileStream(CurrFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
@@ -60,6 +66,8 @@ namespace ReUse_Std.Utilities.External.Serialize
         /// <remarks><para>Data object is loaded from file using .NET serialization (binary formater is used).</para></remarks>
         public static T _L<T>(this Stream CurrStream, T DefaultValue = default(T))
         {
+            if (CurrStream == null)
+                return DefaultValue;
             IFormatter f = new BinaryFormatter();
             var v = f.Deserialize(CurrStream);
             if (v != null)

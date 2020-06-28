@@ -21,6 +21,8 @@ namespace ReUse_Std_Data.Platform
         /// </summary>
         public static T N<T>(this T CurrContext) where T : DbContext
         {
+            if (CurrContext == null)
+                return CurrContext;
             CurrContext.Database.EnsureCreated();
             return CurrContext;
         }
@@ -30,6 +32,8 @@ namespace ReUse_Std_Data.Platform
         /// </summary>
         public static T D<T>(this T CurrContext) where T : DbContext
         {
+            if (CurrContext == null)
+                return CurrContext;
             CurrContext.Database.EnsureDeleted();
             return CurrContext;
         }
@@ -39,6 +43,8 @@ namespace ReUse_Std_Data.Platform
         /// </summary>
         public static string Q<T>(this T CurrContext) where T : DbContext
         {
+            if (CurrContext == null)
+                return null;
             return CurrContext.Database.GenerateCreateScript();
         }
 
@@ -52,6 +58,8 @@ namespace ReUse_Std_Data.Platform
         /// </summary>
         public static T U<T>(this T CurrContext, v<T> MethodToUpdateData) where T : DbContext
         {
+            if (CurrContext == null || MethodToUpdateData == null)
+                return CurrContext;
             using (var c = CurrContext)
             {
                 MethodToUpdateData(c);
@@ -65,6 +73,8 @@ namespace ReUse_Std_Data.Platform
         /// </summary>
         public static T R<T>(this T CurrContext, v<T> MethodToReadData) where T : DbContext
         {
+            if (CurrContext == null || MethodToReadData == null)
+                return CurrContext;
             using (var c = CurrContext)
             {
                 MethodToReadData(c);
@@ -77,6 +87,8 @@ namespace ReUse_Std_Data.Platform
         /// </summary>
         public static async Task Ua<T>(this T CurrContext, v<T> MethodToUpdateData) where T : DbContext
         {
+            if (CurrContext == null || MethodToUpdateData == null)
+                return;
             using (var c = CurrContext)
             {
                 MethodToUpdateData(c);
@@ -97,6 +109,8 @@ namespace ReUse_Std_Data.Platform
         /// </summary>
         public static async Task Ra<T, F>(this T CurrContext, f<T, Task<F>> MethodToReadData) where T : DbContext
         {
+            if (CurrContext == null || MethodToReadData == null)
+                return;
             using (var c = CurrContext)
             {
                 await MethodToReadData(c);
@@ -112,6 +126,8 @@ namespace ReUse_Std_Data.Platform
         /// </summary>
         public static void I<T>(this T CurrContext, object entity) where T : DbContext
         {
+            if (CurrContext == null || entity == null)
+                return;
             CurrContext.Add(entity);
             CurrContext.SaveChanges();
         }
@@ -122,6 +138,8 @@ namespace ReUse_Std_Data.Platform
         /// </summary>
         public static void U<T>(this T CurrContext, object entity) where T : DbContext
         {
+            if (CurrContext == null || entity == null)
+                return;
             CurrContext.Update(entity);
             CurrContext.SaveChanges();
         }
@@ -132,6 +150,8 @@ namespace ReUse_Std_Data.Platform
         /// </summary>
         public static void Iu<T>(this T CurrContext, object entity) where T : DbContext
         {
+            if (CurrContext == null || entity == null)
+                return;
             CurrContext.Update(entity);
             CurrContext.SaveChanges();
         }
@@ -146,6 +166,8 @@ namespace ReUse_Std_Data.Platform
         /// </summary>
         public static void C(this DbContextOptionsBuilder optionsBuilder, Dcs ConnectionSettings)
         {
+            if (ConnectionSettings == null || optionsBuilder == null)
+                return;
             if (ConnectionSettings.P == Dp.Q)
                 optionsBuilder.UseSqlServer(ConnectionSettings.C ?? _m.dq);
             else
